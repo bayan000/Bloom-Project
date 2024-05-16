@@ -18,9 +18,6 @@ class MyApp extends StatelessWidget {
       title: 'Bloom Admin',
       theme: ThemeData.light().copyWith(
         scaffoldBackgroundColor: bgColor,
-        /*textTheme: GoogleFonts.poppinsTextTheme(Theme.of(context).textTheme)
-            .apply(bodyColor: Colors.white),
-        canvasColor: secondaryColor,*/
       ),
       home: MultiProvider(
         providers: [
