@@ -1,15 +1,22 @@
 import 'package:admin/constants.dart';
+import 'package:admin/controllers/MenuAppController.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
 
 class SideMenu extends StatelessWidget {
-  const SideMenu({
+  MenuAppController menuAppController=MenuAppController();
+
+   SideMenu({
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Drawer(
+
+    return Consumer<MenuAppController>(
+        builder: (context,mAC,child) {
+      return Drawer(
 
       child: ListView(
 
@@ -21,41 +28,54 @@ class SideMenu extends StatelessWidget {
           DrawerListTile(
             title: "المشاريع",
             svgSrc: "assets/icons/menu_tran.svg",
-            press: () {},
+            press: () {mAC.UpdateScreenIndex(0);
+            print(mAC.screenIndex);},
           ),
           DrawerListTile(
             title: "المقالات",
             svgSrc: "assets/icons/menu_doc.svg",
-            press: () {},
-          ),
-          DrawerListTile(
-            title: "الشكاوى",
-            svgSrc: "assets/icons/menu_doc.svg",
-            press: () {},
+            press: () {mAC.UpdateScreenIndex(1);
+            print(mAC.screenIndex);},
           ),
           DrawerListTile(
             title: "المستثمرين",
             svgSrc: "assets/icons/menu_store.svg",
-            press: () {},
+            press: () {mAC.UpdateScreenIndex(2);
+            print(mAC.screenIndex);},
           ),
           DrawerListTile(
             title: "الإشعارات",
             svgSrc: "assets/icons/menu_notification.svg",
-            press: () {},
+            press: () {mAC.UpdateScreenIndex(3);
+            print(mAC.screenIndex);},
           ),
           DrawerListTile(
             title: "المعاملات",
             svgSrc: "assets/icons/menu_profile.svg",
-            press: () {},
+            press: () {mAC.UpdateScreenIndex(4);
+            print(mAC.screenIndex);},
           ),
           DrawerListTile(
             title: "التقارير",
             svgSrc: "assets/icons/menu_doc.svg",
-            press: () {},
+            press: () {mAC.UpdateScreenIndex(5);
+            print(mAC.screenIndex);},
+          ),
+          DrawerListTile(
+            title: "طلبات التواصل",
+            svgSrc: "assets/icons/menu_doc.svg",
+            press: () {mAC.UpdateScreenIndex(6);
+            print(mAC.screenIndex);},
+          ),
+          DrawerListTile(
+            title: "الشكاوى",
+            svgSrc: "assets/icons/menu_doc.svg",
+            press: () {mAC.UpdateScreenIndex(7);
+            print(mAC.screenIndex);},
           ),
         ],
       ),
-    );
+    );});
   }
 }
 

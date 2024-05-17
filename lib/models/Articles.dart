@@ -1,8 +1,6 @@
-//for articles
-/*"id": 16,
-            "name": "المشاريع الصغيرة وفوائدها للاقتصاد",
-            "description": "تعد من المشريع الصغيرة من أهم البوابات لمساعدة الأشخاص للاكتفاء الاقتصادي, الذي بدوره يصب في اقتصاد البلد ككل....",
-            "image": "http://grad2222.000webhostapp.com/images/article/1715436636.jpg",
-            "created_at": "2024-05-11T14:10:36.000000Z",
-            "updated_at": "2024-05-11T14:10:36.000000Z"*/
-//for user
+class Article{
+  final String? description,image,updated_at,created_at;
+  int id;
+Article({this.description,this.image,this.updated_at,this.created_at,required this.id}) ;
+}
+
