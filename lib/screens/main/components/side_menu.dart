@@ -38,41 +38,42 @@ class SideMenu extends StatelessWidget {
             print(mAC.screenIndex);},
           ),
           DrawerListTile(
+            title: "الشكاوى",
+            svgSrc: "assets/icons/menu_doc.svg",
+            press: () {mAC.UpdateScreenIndex(2);
+            print(mAC.screenIndex);},
+          ),
+          DrawerListTile(
             title: "المستثمرين",
             svgSrc: "assets/icons/menu_store.svg",
-            press: () {mAC.UpdateScreenIndex(2);
+            press: () {mAC.UpdateScreenIndex(3);
             print(mAC.screenIndex);},
           ),
           DrawerListTile(
             title: "الإشعارات",
             svgSrc: "assets/icons/menu_notification.svg",
-            press: () {mAC.UpdateScreenIndex(3);
+            press: () {mAC.UpdateScreenIndex(4);
             print(mAC.screenIndex);},
           ),
           DrawerListTile(
             title: "المعاملات",
             svgSrc: "assets/icons/menu_profile.svg",
-            press: () {mAC.UpdateScreenIndex(4);
+            press: () {mAC.UpdateScreenIndex(5);
             print(mAC.screenIndex);},
           ),
           DrawerListTile(
             title: "التقارير",
             svgSrc: "assets/icons/menu_doc.svg",
-            press: () {mAC.UpdateScreenIndex(5);
+            press: () {mAC.UpdateScreenIndex(6);
             print(mAC.screenIndex);},
           ),
           DrawerListTile(
             title: "طلبات التواصل",
             svgSrc: "assets/icons/menu_doc.svg",
-            press: () {mAC.UpdateScreenIndex(6);
-            print(mAC.screenIndex);},
-          ),
-          DrawerListTile(
-            title: "الشكاوى",
-            svgSrc: "assets/icons/menu_doc.svg",
             press: () {mAC.UpdateScreenIndex(7);
             print(mAC.screenIndex);},
           ),
+
         ],
       ),
     );});

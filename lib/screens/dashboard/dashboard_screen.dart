@@ -1,4 +1,6 @@
 import 'package:admin/responsive.dart';
+import 'package:admin/screens/dashboard/components/Articles/article_details.dart';
+import 'package:admin/screens/dashboard/components/Articles/articles_list.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -51,7 +53,37 @@ class DashboardScreen extends StatelessWidget {
                   ),
               ],
             );
-            else
+            else  if (mAC.screenIndex==1)
+              {
+                return Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(
+                        flex: 5,
+                        child:  Column(
+                          children: [
+                            SizedBox(height: defaultPadding),
+                            ArticlesList(),
+                            if (Responsive.isMobile(context))
+                              SizedBox(height: defaultPadding),
+                            if (Responsive.isMobile(context))
+                              ArticleDetails(),
+                          ],
+                        )
+                    ),
+                    if (!Responsive.isMobile(context))
+                      SizedBox(width: defaultPadding),
+                    // On Mobile means if the screen is less than 850 we don't want to show it
+                    if (!Responsive.isMobile(context))
+                      Expanded(
+                        flex: 2,
+                        child: ArticleDetails(),
+                      ),
+                  ],
+                );
+              }
+
+              else
               {
                 return Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
