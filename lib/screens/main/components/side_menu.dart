@@ -50,11 +50,18 @@ class SideMenu extends StatelessWidget {
             print(mAC.screenIndex);},
           ),
           DrawerListTile(
+            title: "أصحاب العمل",
+            svgSrc: "assets/icons/menu_store.svg",
+            press: () {mAC.UpdateScreenIndex(4);
+            print(mAC.screenIndex);},
+          ),
+
+          /*DrawerListTile(
             title: "الإشعارات",
             svgSrc: "assets/icons/menu_notification.svg",
             press: () {mAC.UpdateScreenIndex(4);
             print(mAC.screenIndex);},
-          ),
+          ),*/
           DrawerListTile(
             title: "المعاملات",
             svgSrc: "assets/icons/menu_profile.svg",

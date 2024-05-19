@@ -1,11 +1,14 @@
+import 'package:admin/models/project.dart';
+import 'package:admin/models/report.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 import '../../../../constants.dart';
-import '../../../../models/Articles.dart';
 
-class ArticlesList extends StatelessWidget {
-  const ArticlesList({
+
+class ReportsList extends StatelessWidget {
+  const ReportsList({
     Key? key,
   }) : super(key: key);
 
@@ -21,7 +24,7 @@ class ArticlesList extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "المقالات",
+            "التقارير الخاصة بالمشاريع",
             style: TextStyle(color: textColor,
               fontFamily: 'font1',
               fontSize: 28,
@@ -35,14 +38,17 @@ class ArticlesList extends StatelessWidget {
               // minWidth: 600,
               columns: [
                 DataColumn(
-                  label: Text("عنوان المقالة", style: communTextStyle24textColor,),
+                  label: Text("عنوان التقرير", style: communTextStyle24textColor,),
 
+                ),
+                DataColumn(
+                  label: Text("اسم المشروع", style: communTextStyle24textColor,),
                 ),
 
               ],
               rows: List.generate(
                   20,
-                      (index) => ArticleDataRow(Artiles_list_Item[0]) //   (index) => projectDataRow(project_list_item[index]),
+                      (index) => reportDataRow(report_list_item[0]) //   (index) => projectDataRow(project_list_item[index]),
               ),
             ),
           ),
@@ -52,7 +58,7 @@ class ArticlesList extends StatelessWidget {
   }
 }
 
-DataRow ArticleDataRow(Article article) {
+DataRow reportDataRow(report r) {
   return DataRow(
     cells: [
       DataCell(
@@ -61,11 +67,12 @@ DataRow ArticleDataRow(Article article) {
 
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
-              child: Text(article.name!,style: communTextStyle24black,),
+              child: Text(r.title!,style: communTextStyle24black,),
             ),
           ],
         ),
       ),
+      DataCell(Text(r.project_id!.toString(),style: communTextStyle24black,)),//I have to change this to get the project name right
     ],
   );
 }

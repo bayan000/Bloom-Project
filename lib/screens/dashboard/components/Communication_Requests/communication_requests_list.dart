@@ -1,11 +1,14 @@
+import 'package:admin/models/project.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 import '../../../../constants.dart';
-import '../../../../models/Articles.dart';
+import '../../../../models/communication_request.dart';
 
-class ArticlesList extends StatelessWidget {
-  const ArticlesList({
+
+class communicationRequestsList extends StatelessWidget {
+  const communicationRequestsList({
     Key? key,
   }) : super(key: key);
 
@@ -21,7 +24,7 @@ class ArticlesList extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "المقالات",
+            "طلبات التواصل",
             style: TextStyle(color: textColor,
               fontFamily: 'font1',
               fontSize: 28,
@@ -35,14 +38,17 @@ class ArticlesList extends StatelessWidget {
               // minWidth: 600,
               columns: [
                 DataColumn(
-                  label: Text("عنوان المقالة", style: communTextStyle24textColor,),
+
+                  label: Text("اسم المستثمر", style: communTextStyle24textColor,),
 
                 ),
-
+                DataColumn(
+                  label: Text("اسم المشروع", style: communTextStyle24textColor,),
+                ),
               ],
               rows: List.generate(
-                  20,
-                      (index) => ArticleDataRow(Artiles_list_Item[0]) //   (index) => projectDataRow(project_list_item[index]),
+                  20,//project_list_item.length,
+                      (index) => communicationRequestDataRow(communicationRequest_list_item[0]) //   (index) => projectDataRow(project_list_item[index]),
               ),
             ),
           ),
@@ -52,7 +58,7 @@ class ArticlesList extends StatelessWidget {
   }
 }
 
-DataRow ArticleDataRow(Article article) {
+DataRow communicationRequestDataRow(communicationRequest cr) {
   return DataRow(
     cells: [
       DataCell(
@@ -61,11 +67,12 @@ DataRow ArticleDataRow(Article article) {
 
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
-              child: Text(article.name!,style: communTextStyle24black,),
+              child: Text(cr.investor_id!.toString(),style: communTextStyle24black,),//I'll convert this to get the investor's name
             ),
           ],
         ),
       ),
+      DataCell(Text(cr.project_id!.toString(),style: communTextStyle24black,)),//I'll convert this to get the project's name
     ],
   );
 }

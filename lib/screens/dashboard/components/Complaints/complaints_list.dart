@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 
 import '../../../../constants.dart';
 import '../../../../models/Articles.dart';
+import '../../../../models/complaints.dart';
 
-class ArticlesList extends StatelessWidget {
-  const ArticlesList({
+class ComplaintsList extends StatelessWidget {
+  const ComplaintsList({
     Key? key,
   }) : super(key: key);
 
@@ -21,7 +22,7 @@ class ArticlesList extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "المقالات",
+            "الشكاوى",
             style: TextStyle(color: textColor,
               fontFamily: 'font1',
               fontSize: 28,
@@ -35,14 +36,14 @@ class ArticlesList extends StatelessWidget {
               // minWidth: 600,
               columns: [
                 DataColumn(
-                  label: Text("عنوان المقالة", style: communTextStyle24textColor,),
+                  label: Text("توصيف الشكوى", style: communTextStyle24textColor,),
 
                 ),
 
               ],
               rows: List.generate(
                   20,
-                      (index) => ArticleDataRow(Artiles_list_Item[0]) //   (index) => projectDataRow(project_list_item[index]),
+                      (index) => ComplaintDataRow(complaint_list_item[0]) //   (index) => projectDataRow(project_list_item[index]),
               ),
             ),
           ),
@@ -52,7 +53,7 @@ class ArticlesList extends StatelessWidget {
   }
 }
 
-DataRow ArticleDataRow(Article article) {
+DataRow ComplaintDataRow(Complaint complaint ) {
   return DataRow(
     cells: [
       DataCell(
@@ -61,7 +62,7 @@ DataRow ArticleDataRow(Article article) {
 
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
-              child: Text(article.name!,style: communTextStyle24black,),
+              child: Text(complaint.description!,style: communTextStyle24black,overflow: TextOverflow.ellipsis,),
             ),
           ],
         ),

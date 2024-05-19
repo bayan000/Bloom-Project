@@ -1,11 +1,15 @@
+import 'package:admin/models/investor.dart';
+import 'package:admin/models/project.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 import '../../../../constants.dart';
-import '../../../../models/Articles.dart';
+import '../../../../models/workers.dart';
 
-class ArticlesList extends StatelessWidget {
-  const ArticlesList({
+
+class WorkersList extends StatelessWidget {
+  const WorkersList({
     Key? key,
   }) : super(key: key);
 
@@ -21,7 +25,7 @@ class ArticlesList extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "المقالات",
+            "قائمة المستخدمين",
             style: TextStyle(color: textColor,
               fontFamily: 'font1',
               fontSize: 28,
@@ -35,14 +39,19 @@ class ArticlesList extends StatelessWidget {
               // minWidth: 600,
               columns: [
                 DataColumn(
-                  label: Text("عنوان المقالة", style: communTextStyle24textColor,),
+                  label: Text("اسم المستخدم", style: communTextStyle24textColor,),
 
                 ),
-
+                DataColumn(
+                  label: Text("الموقع", style: communTextStyle24textColor,),
+                ),
+                DataColumn(
+                  label: Text("الإيميل", style: communTextStyle24textColor,),
+                ),
               ],
               rows: List.generate(
                   20,
-                      (index) => ArticleDataRow(Artiles_list_Item[0]) //   (index) => projectDataRow(project_list_item[index]),
+                      (index) => workerDataRow(user2_list_item[0]) //   (index) => projectDataRow(project_list_item[index]),
               ),
             ),
           ),
@@ -52,8 +61,10 @@ class ArticlesList extends StatelessWidget {
   }
 }
 
-DataRow ArticleDataRow(Article article) {
+DataRow workerDataRow(user2 user) {
+  String? fullname=user.first_name! +" "+ user.last_name!;
   return DataRow(
+
     cells: [
       DataCell(
         Row(
@@ -61,11 +72,13 @@ DataRow ArticleDataRow(Article article) {
 
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
-              child: Text(article.name!,style: communTextStyle24black,),
+              child: Text(fullname,style: communTextStyle24black,),
             ),
           ],
         ),
       ),
+      DataCell(Text(user.location!,style: communTextStyle24black,)),
+      DataCell(Text(user.email!,style: communTextStyle24black,)),
     ],
   );
 }
