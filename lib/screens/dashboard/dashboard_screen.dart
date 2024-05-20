@@ -13,6 +13,7 @@ import 'package:admin/screens/dashboard/components/Transactions/transaction_deta
 import 'package:admin/screens/dashboard/components/Transactions/transactions_list.dart';
 import 'package:admin/screens/dashboard/components/Workers/worker_details.dart';
 import 'package:admin/screens/dashboard/components/Workers/workers_list.dart';
+import 'package:admin/screens/dashboard/components/test_widget.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -23,6 +24,7 @@ import 'components/header.dart';
 
 import 'components/projects_list.dart';
 import 'components/project_details.dart';
+import 'package:admin/controllers/ProjectsController.dart';
 
 class DashboardScreen extends StatelessWidget {
   @override

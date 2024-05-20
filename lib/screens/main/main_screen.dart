@@ -5,11 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'components/side_menu.dart';
+import 'package:admin/controllers/ProjectsController.dart';
 
 class MainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return Directionality(textDirection: TextDirection.rtl,
+        child: Scaffold(
       key: context.read<MenuAppController>().scaffoldKey,
       drawer: SideMenu(),
       body: SafeArea(
@@ -31,6 +33,6 @@ class MainScreen extends StatelessWidget {
           ],
         ),
       ),
-    );
+    ));
   }
 }

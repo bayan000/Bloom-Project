@@ -26,7 +26,7 @@ class WorkerDetails extends StatelessWidget {
             borderRadius: BorderRadius.circular(20), // Image border
             child: SizedBox.fromSize(
               size: Size.fromRadius(140), // Image radius
-              child: Image.network('https://news.crunchbase.com/wp-content/uploads/2020/10/Bank_Rebundle.png',
+              child: Image.network('https://www.eurofiscalis.com/wp-content/uploads/2023/11/Posting-Workers-Norway-.png',
                   fit: BoxFit.cover),
             ),
           ),
