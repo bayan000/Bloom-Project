@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 
 const defaultPadding = 16.0;
@@ -61,3 +62,7 @@ TextStyle communTextStyle24black=TextStyle(color: black,
   fontSize: 24,
   fontWeight: FontWeight.bold,
 );
+String formatDateString(String dateTimeString) {
+  final DateTime dateTime = DateTime.parse(dateTimeString);
+  return DateFormat('yyyy-MM-dd').format(dateTime);
+}

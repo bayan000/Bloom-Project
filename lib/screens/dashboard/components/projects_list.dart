@@ -23,9 +23,6 @@ class ProjectsList extends StatelessWidget {
         ),
         child:  Consumer<ProjectsController>(
             builder: (context,pc,child) {
-              /*return FutureBuilder<List<MeetingModel>>(
-                                                future: meetingsController.fetchMeetings(),
-                builder: (context,snapshot){*/
               return FutureBuilder<List<Project>>(
                   future: pc.fetchProjects(),
                   builder: (context,snapshot){
@@ -103,7 +100,7 @@ DataRow projectDataRow(Project project) {
                 padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
                 child: Container(
                     width: 250,
-                    child: Text(project.description!,style: communTextStyle24black,overflow: TextOverflow.ellipsis,textDirection: TextDirection.rtl,)),
+                    child: Text(project.name!,style: communTextStyle24black,overflow: TextOverflow.ellipsis,textDirection: TextDirection.rtl,)),
               ),
             ],
           ),

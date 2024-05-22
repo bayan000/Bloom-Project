@@ -14,7 +14,7 @@ class ArticleInfoCard extends StatelessWidget {
   }) : super(key: key);
 
   final String? description,name,updated_at;
-  final int id;
+  final int? id;
 
 
   @override
@@ -68,7 +68,7 @@ class ArticleInfoCard extends StatelessWidget {
                   Row(
                     children: [
                       Text(
-                        "آخر تحديث للمقالة",
+                        "آخر تحديث",
                         style:TextStyle(color: white,
                           fontFamily: 'font1',
                           fontSize: 24,
@@ -83,6 +83,8 @@ class ArticleInfoCard extends StatelessWidget {
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
                         ),
+                        overflow: TextOverflow.visible,
+
                       ),
 
                     ],
