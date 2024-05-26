@@ -11,13 +11,12 @@ import '../models/loginModel.dart';
 
 class ArticlesService {
   static var status ;
-// Fetching All Articles
+// Fetching All Articles------------------------------------------
   static Future<List<Article>?> fetchArticles(String url) async {
     final response = await http.get(Uri.parse(url),headers: {
       'Authorization':'Bearer  ${GetStorage().read('token')}',
       'Accept':'application/json',
     });
-print('hello world');
     if (response.statusCode == 200) {
       final Map<String, dynamic> jsonResponse = jsonDecode(response.body);
 
@@ -30,7 +29,7 @@ print('hello world');
       return null;
     }
   }
-// Fetching An Articles
+// Fetching An Articles-------------------------------------------
   static Future<Article?> fetchArticle(String url) async {
     final response = await http.get(Uri.parse(url),headers: {
       'Authorization':'Bearer  ${GetStorage().read('token')}',
@@ -52,7 +51,4 @@ print(response.body);
       return null;
     }
   }
-
-
-
 }

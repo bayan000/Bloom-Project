@@ -17,9 +17,7 @@ class SideMenu extends StatelessWidget {
     return Consumer<MenuAppController>(
         builder: (context,mAC,child) {
       return Drawer(
-
       child: ListView(
-
         children: [
           DrawerHeader(
             child: Image.asset("assets/images/Bloom Logo.png"),
@@ -55,13 +53,6 @@ class SideMenu extends StatelessWidget {
             press: () {mAC.UpdateScreenIndex(4);
             print(mAC.screenIndex);},
           ),
-
-          /*DrawerListTile(
-            title: "الإشعارات",
-            svgSrc: "assets/icons/menu_notification.svg",
-            press: () {mAC.UpdateScreenIndex(4);
-            print(mAC.screenIndex);},
-          ),*/
           DrawerListTile(
             title: "المعاملات",
             svgSrc: "assets/icons/menu_profile.svg",
@@ -80,7 +71,12 @@ class SideMenu extends StatelessWidget {
             press: () {mAC.UpdateScreenIndex(7);
             print(mAC.screenIndex);},
           ),
-
+          DrawerListTile(
+            title: "المشاريع المعلقة",
+            svgSrc: "assets/icons/menu_tran.svg",
+            press: () {mAC.UpdateScreenIndex(8);
+            print(mAC.screenIndex);},
+          ),
         ],
       ),
     );});

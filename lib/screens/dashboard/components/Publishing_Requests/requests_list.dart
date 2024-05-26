@@ -1,14 +1,17 @@
 
+import 'package:admin/controllers/MenuAppController.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 
-import '../../../constants.dart';
-import '../../../controllers/ProjectsController.dart';
-import '../../../models/project_list.dart';
+import '../../../../constants.dart';
+import '../../../../controllers/ProjectsController.dart';
+import '../../../../models/project_list.dart';
 
-class ProjectsList extends StatelessWidget {
-  const ProjectsList({
+
+class RequestsList extends StatelessWidget {
+   RequestsList({
     Key? key,
   }) : super(key: key);
 
@@ -24,7 +27,7 @@ class ProjectsList extends StatelessWidget {
         child:  Consumer<ProjectsController>(
             builder: (context,pc,child) {
               return FutureBuilder<List<Project>>(
-                  future: pc.fetchProjects(),
+                  future: pc.fetchAllUnacceptedProjects(),
                   builder: (context,snapshot){
                     if(snapshot.connectionState==ConnectionState.waiting)
                     {return Column(
@@ -49,7 +52,7 @@ class ProjectsList extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "قائمة المشاريع",
+                            "قائمة المشاريع المعلقة",
                             style: TextStyle(color: textColor,
                               fontFamily: 'font1',
                               fontSize: 28,
@@ -73,7 +76,7 @@ class ProjectsList extends StatelessWidget {
                                   label: Text("التكلفة", style: communTextStyle24textColor,),
                                 ),
                                 DataColumn(
-                                  label: Text("", style: communTextStyle24textColor,),
+                                  label: Text("قبول الطلب", style: communTextStyle24textColor,),
                                 ),
                               ],
                               rows: List.generate(
@@ -92,6 +95,7 @@ class ProjectsList extends StatelessWidget {
 }
 
 DataRow projectDataRow(Project project) {
+  ProjectsController projectsController=ProjectsController();
   return DataRow(
     cells: [
       DataCell(
@@ -112,12 +116,22 @@ DataRow projectDataRow(Project project) {
       DataCell(Text(project.location!,style: communTextStyle24black,overflow: TextOverflow.ellipsis,)),
       DataCell(Text(project.amount!.toString(),style: communTextStyle24black,overflow: TextOverflow.ellipsis,)),
       DataCell(
-      IconButton(
-      icon: Icon(Icons.delete, color: white), // Adjust icon and color as needed
-      onPressed: () {
-
-      }//=> onAccept(project), // Call the provided onAccept function with project
-      ),)
-    ],
+      Consumer<MenuAppController>(
+        builder: (context,mc,child) {
+          return IconButton(
+          icon: Icon(Icons.check, color: white), // Adjust icon and color as needed
+          onPressed: () async{
+            EasyLoading.show(status: 'Loading....');
+            final r=await projectsController.acceptProject(project.id);
+            if(r==200)
+              EasyLoading.showSuccess("Done");
+            else
+              EasyLoading.showError('Something must have gone wrong');
+            mc.UpdateScreenIndex(8);
+          }
+          );
+        }
+      ),
+      )],
   );
 }

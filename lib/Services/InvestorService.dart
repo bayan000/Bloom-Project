@@ -1,32 +1,31 @@
 import 'dart:convert' as convert;
+import 'dart:convert';
+import 'package:admin/models/project_list.dart';
 import 'package:get_storage/get_storage.dart';
 
 import '../models/investor.dart';
 import 'package:http/http.dart' as http;
 
-class InvestorsService{
+import '../screens/dashboard/components/Investors/one_investor.dart';
 
-  static Future<List<Investor>> fetchInvestors(String url) async {
+class InvestorService{
+
+//fetchingAnInvestor--------------------------------------------------
+  static Future<AnInvestor> fetchInvestor(String url) async {
     final response = await http.get(Uri.parse(url),headers: {
       'Authorization':'Bearer  ${GetStorage().read('token')}',
-      'Application':'application/json',
+      'Accept':'application/json',
     });
-    print(response.body);
-    print(response.statusCode+200!);
+    final statusCode = response.statusCode;
+    final body = await response.body;
 
+    if (statusCode == 200) {
+      final json = jsonDecode(body) as Map<String, dynamic>;
+      AnInvestor inv =AnInvestor.fromJson(json);
+      return inv;
+    } else {      print(response.body);
 
-      final data = convert.jsonDecode(response.body) as Map<String, dynamic>;
-    if (data['message'] == "ok") {
-      final status = data['status']; // Store the status
-      final investorList = <Investor>[];
-
-      if (data['data'] != null) {
-        data['data'].forEach((v) => investorList.add(Investor.fromJson(v)));
-      }
-
-      return investorList;
-    } else {
-      throw Exception('Failed to fetch investors. Status code: ${response.statusCode}');
+    throw Exception('Failed to fetch investor: $statusCode');
     }
   }
 

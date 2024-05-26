@@ -7,6 +7,8 @@ import 'package:admin/screens/dashboard/components/Complaints/complaint_details.
 import 'package:admin/screens/dashboard/components/Complaints/complaints_list.dart';
 import 'package:admin/screens/dashboard/components/Investors/investor_details.dart';
 import 'package:admin/screens/dashboard/components/Investors/investors_list.dart';
+import 'package:admin/screens/dashboard/components/Publishing_Requests/requests_details.dart';
+import 'package:admin/screens/dashboard/components/Publishing_Requests/requests_list.dart';
 import 'package:admin/screens/dashboard/components/Reports/report_details.dart';
 import 'package:admin/screens/dashboard/components/Reports/reports_list.dart';
 import 'package:admin/screens/dashboard/components/Transactions/transaction_details.dart';
@@ -168,7 +170,7 @@ class DashboardScreen extends StatelessWidget {
                             if (Responsive.isMobile(context))
                               SizedBox(height: defaultPadding),
                             if (Responsive.isMobile(context))
-                              WorkerDetails(),
+                              WorkerDetails1(),
                           ],
                         )
                     ),
@@ -178,7 +180,7 @@ class DashboardScreen extends StatelessWidget {
                     if (!Responsive.isMobile(context))
                       Expanded(
                         flex: 2,
-                        child:WorkerDetails(),
+                        child:WorkerDetails1(),
 
                       ),
                   ],
@@ -244,7 +246,7 @@ class DashboardScreen extends StatelessWidget {
                   ],
                 );
               }
-              else
+              else if (mAC.screenIndex==7)
               {
                 return Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -269,6 +271,35 @@ class DashboardScreen extends StatelessWidget {
                       Expanded(
                         flex: 2,
                         child:communicationRequestDetails(),
+
+                      ),
+                  ],
+                );
+              }
+              else{
+                return Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(
+                        flex: 5,
+                        child:  Column(
+                          children: [
+                            SizedBox(height: defaultPadding),
+                            RequestsList(),
+                            if (Responsive.isMobile(context))
+                              SizedBox(height: defaultPadding),
+                            if (Responsive.isMobile(context))
+                              RequestsDetails(),
+                          ],
+                        )
+                    ),
+                    if (!Responsive.isMobile(context))
+                      SizedBox(width: defaultPadding),
+                    // On Mobile means if the screen is less than 850 we don't want to show it
+                    if (!Responsive.isMobile(context))
+                      Expanded(
+                        flex: 2,
+                        child:RequestsDetails(),
 
                       ),
                   ],

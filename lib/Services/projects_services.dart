@@ -48,12 +48,36 @@ class ProjectsService{
 
 
     }
+//********************* Accept Project *********************************//
+
+  static Future<int> AcceptProject(String url) async {
+
+    final response = await http.get(Uri.parse(url),headers: {
+      'Authorization':'Bearer  ${GetStorage().read('token')}',
+//'content-Type':'application/json',
+      'Accept':'application/json',
+    });
+    print(response.body);
+
+    if (response.statusCode == 200) {
+
+      return response.statusCode;
+
+    } else {
+      print("Unknown error");
+      return 0;
+    }
+
 
 
   }
+  }
 
 //********************* Deleting Project *********************************//
-//********************* Accept Project *********************************//
+
+
+
+
 
 
 

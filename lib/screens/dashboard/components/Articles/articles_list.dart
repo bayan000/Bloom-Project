@@ -13,6 +13,7 @@ class ArticlesList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ArticlesController ac=ArticlesController();
     Size size =MediaQuery.of(context).size;
     return Container(
         padding: EdgeInsets.all(defaultPadding),
@@ -21,65 +22,61 @@ class ArticlesList extends StatelessWidget {
           borderRadius: const BorderRadius.all(Radius.circular(10)),
         ),
         /**/
-        child:Consumer<ArticlesController>(
-            builder: (context,ac,child) {
-              return FutureBuilder<List<Article>>(
-                  future: ac.fetchArticles(),
-                  builder: (context,snapshot){
-                    if(snapshot.connectionState==ConnectionState.waiting)
-                    {return Column(
-                      children: [
-                        SizedBox(height: size.height*0.37,),
-                        Container(
-                          height: size.height*0.5,
-                          alignment: AlignmentDirectional.bottomCenter,
-                          child: Center(child: Column(children: [
-                            CircularProgressIndicator(),
-                            SizedBox(height: size.height*0.01,),
-                            Text('loading...',style: TextStyle(fontSize: 15),),],)),),
-                      ],
+        child:FutureBuilder<List<Article>>(
+            future: ac.fetchArticles(),
+            builder: (context,snapshot){
+              if(snapshot.connectionState==ConnectionState.waiting)
+              {return Column(
+                children: [
+                  SizedBox(height: size.height*0.37,),
+                  Container(
+                    height: size.height*0.5,
+                    alignment: AlignmentDirectional.bottomCenter,
+                    child: Center(child: Column(children: [
+                      CircularProgressIndicator(),
+                      SizedBox(height: size.height*0.01,),
+                      Text('loading...',style: TextStyle(fontSize: 15),),],)),),
+                ],
 
-                    );}
-                    if(snapshot.hasError)
-                    {
-                      return Center(child: Text('Error !',style: TextStyle(fontSize: 20),),);
-                    }
-                    else{
+              );}
+              if(snapshot.hasError)
+              {
+                return Center(child: Text('Error !',style: TextStyle(fontSize: 20),),);
+              }
+              else{
 
-                      return Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "المقالات",
-                            style: TextStyle(color: textColor,
-                              fontFamily: 'font1',
-                              fontSize: 28,
-                              fontWeight: FontWeight.bold,
-                            ),
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "المقالات",
+                      style: TextStyle(color: textColor,
+                        fontFamily: 'font1',
+                        fontSize: 28,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    SizedBox(
+                      width: double.infinity,
+                      child: DataTable(
+                        columnSpacing: defaultPadding,
+                        // minWidth: 600,
+                        columns: [
+                          DataColumn(
+                            label: Text("عنوان المقالة", style: communTextStyle24textColor,),
+
                           ),
-                          SizedBox(
-                            width: double.infinity,
-                            child: DataTable(
-                              columnSpacing: defaultPadding,
-                              // minWidth: 600,
-                              columns: [
-                                DataColumn(
-                                  label: Text("عنوان المقالة", style: communTextStyle24textColor,),
 
-                                ),
-
-                              ],
-                              rows: List.generate(
-                                  snapshot.data?.length ??0,
-                                      (index) =>ArticleDataRow(snapshot.data![index])
-                              ),
-                            ),
-                          ),
                         ],
-                      );
-                    }
-                  }
-              );
+                        rows: List.generate(
+                            snapshot.data?.length ??0,
+                                (index) =>ArticleDataRow(snapshot.data![index])
+                        ),
+                      ),
+                    ),
+                  ],
+                );
+              }
             }
         )
     );

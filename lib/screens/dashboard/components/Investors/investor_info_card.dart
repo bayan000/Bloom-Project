@@ -1,3 +1,6 @@
+import 'package:admin/models/project_list.dart';
+import 'package:admin/screens/dashboard/components/Investors/one_investor.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -8,19 +11,19 @@ class InvestorInfoCard extends StatelessWidget {
   const InvestorInfoCard({
     Key? key,
     required this.email,
-    required this.verified,
-    required this.location, this.firstName, this.lastName, this.personal_photo, this.user_type,
+    //required this.verified,
+    required this.location, this.firstName, this.lastName, this.personal_photo, this.user_type, this.projects,
 
   }) : super(key: key);
 
   final String? email;
-  final String? verified;
+  //final String? verified;
   final String? firstName;
   final String? lastName;
   final String? location;
   final String? personal_photo;
   final String? user_type;
-
+  final List<Projects>? projects;
 
   @override
   Widget build(BuildContext context) {
@@ -35,8 +38,6 @@ class InvestorInfoCard extends StatelessWidget {
       ),
       child: Row(
         children: [
-
-
           Expanded(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
@@ -49,10 +50,9 @@ class InvestorInfoCard extends StatelessWidget {
                 child: CircleAvatar(
                   radius: 30.0, // Adjust radius as needed
                   backgroundColor: Colors.white, // Background for the avatar
-                  backgroundImage: personal_photo != null
-                      ? NetworkImage(personal_photo!) // Set image from URL
-                      :NetworkImage('https://cdn.pixabay.com/photo/2022/10/19/01/02/woman-7531315_1280.png'), // Handle case where no photo is available
-
+                  backgroundImage: personal_photo == null
+                      ? NetworkImage('https://cdn.pixabay.com/photo/2022/10/19/01/02/woman-7531315_1280.png')// Handling case where no photo is available
+                      : NetworkImage(personal_photo!)
                             ),
                             decoration: BoxDecoration(
                 shape: BoxShape.circle,
@@ -74,7 +74,7 @@ class InvestorInfoCard extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(height: defaultPadding),
+                  /*SizedBox(height: defaultPadding),
                   Center(
                     child: Text(
                       "$verified",
@@ -84,11 +84,11 @@ class InvestorInfoCard extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                  ),
+                  ),*/
                   SizedBox(height: defaultPadding),
                   Center(
                     child: Text(
-                      email!,
+                      email!=null?"$email":"لا يتوفر إيميل",
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style:TextStyle(color: white,
@@ -101,12 +101,24 @@ class InvestorInfoCard extends StatelessWidget {
                   SizedBox(height: defaultPadding),
                   Center(
                     child: Text(
-                      "$location",
+                      location!=null?"$location":"لم يُحدد الموقع",
                       style:TextStyle(color: white,
                         fontFamily: 'font1',
                         fontSize: 24,
                         fontWeight: FontWeight.bold,
                       ),
+                    ),
+                  ),
+                  projects!=null?Center(child: RowsOfProjects(projects)):Center(
+                    child: Text(
+                      "لا توجد مشاريع", // Handle missing name
+                      style: TextStyle(
+                        color: white,
+                        fontFamily: 'font1',
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      overflow: TextOverflow.ellipsis,
                     ),
                   ),
                 ],
@@ -118,4 +130,33 @@ class InvestorInfoCard extends StatelessWidget {
       ),
     );
   }
+}
+
+Column RowsOfProjects(List<Projects>? projects) {
+  return Column(
+    mainAxisAlignment: MainAxisAlignment.center,
+    crossAxisAlignment: CrossAxisAlignment.center,
+    children: [
+      Text(
+        "المشاريع",
+        style: communTextStyle24textColor
+      ),
+      // Loop with error handling
+      for (final project in projects!) ...[
+        Center(
+          child: Text(
+            project.name.toString(), // Handle missing name
+            style: TextStyle(
+              color: white,
+              fontFamily: 'font1',
+              fontSize: 20,
+              fontWeight: FontWeight.bold,
+            ),
+            overflow: TextOverflow.ellipsis,
+          ),
+        ),
+        SizedBox(width: defaultPadding * 2.5),
+      ],
+    ],
+  );
 }
