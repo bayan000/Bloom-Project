@@ -1,9 +1,11 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 
 import '../../../constants.dart';
+import '../../../controllers/MenuAppController.dart';
 import '../../../controllers/ProjectsController.dart';
 import '../../../models/project_list.dart';
 
@@ -92,6 +94,7 @@ class ProjectsList extends StatelessWidget {
 }
 
 DataRow projectDataRow(Project project) {
+  ProjectsController projectsController=ProjectsController();
   return DataRow(
     cells: [
       DataCell(
@@ -112,11 +115,21 @@ DataRow projectDataRow(Project project) {
       DataCell(Text(project.location!,style: communTextStyle24black,overflow: TextOverflow.ellipsis,)),
       DataCell(Text(project.amount!.toString(),style: communTextStyle24black,overflow: TextOverflow.ellipsis,)),
       DataCell(
-      IconButton(
-      icon: Icon(Icons.delete, color: white), // Adjust icon and color as needed
-      onPressed: () {
-
-      }//=> onAccept(project), // Call the provided onAccept function with project
+        Consumer<MenuAppController>(
+            builder: (context,mc,child) {
+          return IconButton(
+          icon: Icon(Icons.delete, color: white),
+          onPressed: () async {
+            print(project.id);
+            EasyLoading.show(status: 'Loading....');
+            final r = await projectsController.deleteProject(project.id);
+            if (r == 200)
+              EasyLoading.showSuccess("Done");
+            else
+              EasyLoading.showError('Something must have gone wrong');
+            mc.UpdateScreenIndex(0);
+          });
+        }
       ),)
     ],
   );

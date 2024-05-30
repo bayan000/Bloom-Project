@@ -9,6 +9,9 @@ import '../screens/dashboard/components/Investors/one_investor.dart';
 class InvestorController extends ChangeNotifier {
   AnInvestor? selectedInvestor;// To store the fetched investor
   AnInvestor currInvestor=AnInvestor();
+
+//fetchAnInvestor--------------------------------
+
   Future<AnInvestor> fetchInvestorById(var investorId) async {
     print(investorId.toString()+"ididididiidididiididiid");
     if (investorId==null)investorId=1;
@@ -18,6 +21,13 @@ class InvestorController extends ChangeNotifier {
     notifyListeners(); // Notify UI about the change
     return response;
 
+  }
+
+//fetchInvestorName--------------------------------
+  Future<String> fetchInvestorName(var id) async{
+    final name=await InvestorService.fetchInvestorName(ServerConfig.url+ServerConfig.getAnInvestor+id.toString());
+
+    return name;
   }
 //currInvestor----------------------------------
   curr_Investor(AnInvestor investor){

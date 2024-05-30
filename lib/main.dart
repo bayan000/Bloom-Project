@@ -7,6 +7,7 @@ import 'package:admin/controllers/login_controller.dart';
 import 'package:admin/controllers/workerInfoController.dart';
 import 'package:admin/controllers/workersController.dart';
 import 'package:admin/screens/Login/login_screen.dart';
+import 'package:admin/screens/dashboard/components/test_widget.dart';
 import 'package:admin/screens/main/main_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -14,6 +15,8 @@ import 'package:get_storage/get_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
+import 'controllers/CommunicationRequestsController.dart';
+import 'controllers/ComplaintsController.dart';
 import 'controllers/aninvestorController.dart';
 
 void main() async{
@@ -28,6 +31,8 @@ void main() async{
         ChangeNotifierProvider(create: (_) =>InvestorController()),
         ChangeNotifierProvider(create: (_) =>WorkersController()),
         ChangeNotifierProvider(create: (_) =>WorkerInfoController()),
+        ChangeNotifierProvider(create: (_) =>CommunicationRequestsController()),
+        ChangeNotifierProvider(create: (_) =>ComplaintsController()),
       ],
         child: MyApp(),)
   );
@@ -51,7 +56,8 @@ class MyApp extends StatelessWidget {
 
           ],
           child: new Directionality(textDirection: TextDirection.rtl,
-              child:GetStorage().hasData('token') ? MainScreen() :
+              child:GetStorage().hasData('token') ? //TestWidget():
+              MainScreen() :
               LoginPage()// MainScreen()
           )//MainScreen(),
       ),

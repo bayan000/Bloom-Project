@@ -15,7 +15,7 @@ class ComplaintInfoCard extends StatelessWidget {
   }) : super(key: key);
 
   final String? description,nameOfProject,created_at,investor;
-  final int id;
+  final int? id;
 
 
   @override
@@ -41,7 +41,7 @@ class ComplaintInfoCard extends StatelessWidget {
                 children: [
                     Center(
                       child: Text(
-                        "$nameOfProject!",
+                        "$nameOfProject",
                         style:TextStyle(color: white,
                           fontFamily: 'font1',
                           fontSize: 24,
@@ -63,7 +63,7 @@ class ComplaintInfoCard extends StatelessWidget {
                         ),
                         SizedBox(width: defaultPadding*0.5),
                         Text(
-                          "$investor!",
+                          "$investor",
                           style:TextStyle(color: white,
                             fontFamily: 'font1',
                             fontSize: 24,
@@ -90,27 +90,26 @@ class ComplaintInfoCard extends StatelessWidget {
                   ),
 
                   SizedBox(height: defaultPadding),
-                  Row(
-                    children: [
-                      Text(
-                        "تاريخ الإضافة",
-                        style:TextStyle(color: white,
-                          fontFamily: 'font1',
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
-                        ),
+                  Center(
+                    child: Text(
+                      "تاريخ الإضافة",
+                      style:TextStyle(color: textColor,
+                        fontFamily: 'font1',
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
                       ),
-                      SizedBox(width: defaultPadding*0.5),
-                      Text(
-                        "$created_at",
-                        style:TextStyle(color: white,
-                          fontFamily: 'font1',
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
-                        ),
+                    ),
+                  ),
+                  SizedBox(width: defaultPadding*0.5),
+                  Center(
+                    child: Text(
+                      "$created_at",
+                      style:TextStyle(color: white,
+                        fontFamily: 'font1',
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
                       ),
-
-                    ],
+                    ),
                   ),
 
                 ],

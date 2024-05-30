@@ -25,10 +25,14 @@ class ProjectsController extends ChangeNotifier{
     status= await ProjectsService.AddProjectType(ServerConfig.url+ServerConfig.AddNewProjectType, name);
     return status;
   }
-//acceptProjects------------------------------------------
+//acceptProject------------------------------------------
   Future<int> acceptProject(var id) async{
     status= await ProjectsService.AcceptProject(ServerConfig.url+ServerConfig.AcceptAProject+id.toString());
     return status;
   }
-
+//DeleteProject------------------------------------------
+  Future<int> deleteProject(var id) async{
+    status= await ProjectsService.DeleteProject(ServerConfig.url+ServerConfig.DeleteAProject+id.toString());
+    return status;
+  }
 }

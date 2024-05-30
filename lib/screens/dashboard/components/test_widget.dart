@@ -1,12 +1,45 @@
-
-import 'package:admin/controllers/ProjectsController.dart';
-import 'package:admin/controllers/articles_controller.dart';
+import 'package:admin/controllers/CommunicationRequestsController.dart';
+import 'package:admin/controllers/ComplaintsController.dart';
+import 'package:admin/controllers/aninvestorController.dart';
+import 'package:admin/models/CommunicationRequests.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:provider/provider.dart';
 
-import '../../../constants.dart';
-import '../../../models/Articles.dart';
-import '../../../models/project_list.dart';
+class TestWidget extends StatefulWidget {
+  @override
+  _TestWidgetState createState() => _TestWidgetState();
+}
 
-class TestWidget {}
+class _TestWidgetState extends State<TestWidget> {
+  CommunicationRequestsController communicationRequestsController=CommunicationRequestsController();
+  InvestorController investorController=InvestorController();
+  ComplaintsController complaintsController=ComplaintsController();
+  // Define your functions here
+  void function1() async{
+    print("Function 1 executed!");
+    await complaintsController.fetchComplaints();
+    //await communicationRequestsController.fetchCommunicationRequests();
+
+  }
+
+  void function2() async{
+    print("Function 2 executed!");
+    await communicationRequestsController.getProjectName(10);
+    await investorController.fetchInvestorName(8);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column( // You can replace Column with any other layout widget
+      children: [
+        ElevatedButton(
+          onPressed: function1,
+          child: Text("Run Function 1"),
+        ),
+        ElevatedButton(
+          onPressed: function2,
+          child: Text("Run Function 2"),
+        ),
+      ],
+    );
+  }
+}

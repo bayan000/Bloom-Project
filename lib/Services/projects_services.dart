@@ -26,7 +26,6 @@ class ProjectsService{
     }
   }
 //********************* Adding Project Type *********************************//
-
   static Future<int> AddProjectType(String url, String name) async {
     final Map<String, dynamic> body = {'name': name};
 
@@ -38,16 +37,14 @@ class ProjectsService{
 
     if (response.statusCode == 201) {
 
-        return response.statusCode;
+      return response.statusCode;
 
-      } else {
-        print("Unknown error");
-        return 0;
-      }
-
-
-
+    } else {
+      print("Unknown error");
+      return 0;
     }
+
+  }
 //********************* Accept Project *********************************//
 
   static Future<int> AcceptProject(String url) async {
@@ -71,9 +68,34 @@ class ProjectsService{
 
 
   }
-  }
 
 //********************* Deleting Project *********************************//
+
+  static Future<int> DeleteProject(String url) async {
+
+    final response = await http.post(Uri.parse(url),headers: {
+      'Authorization':'Bearer  ${GetStorage().read('token')}',
+      'Accept':'application/json',
+    });
+    print(response.body);
+
+    if (response.statusCode == 200) {
+
+      return response.statusCode;
+
+    } else {
+      print("Unknown error");
+      return 0;
+    }
+
+
+
+  }
+
+
+
+}
+
 
 
 

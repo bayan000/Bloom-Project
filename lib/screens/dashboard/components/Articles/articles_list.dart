@@ -1,8 +1,16 @@
 
+
+import 'dart:convert';
+import 'dart:io';
+
+import 'package:admin/models/report.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../constants.dart';
+import '../../../../controllers/MenuAppController.dart';
 import '../../../../controllers/articles_controller.dart';
 import '../../../../models/Articles.dart';
 
@@ -45,35 +53,64 @@ class ArticlesList extends StatelessWidget {
               }
               else{
 
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                return Stack(
                   children: [
-                    Text(
-                      "المقالات",
-                      style: TextStyle(color: textColor,
-                        fontFamily: 'font1',
-                        fontSize: 28,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    SizedBox(
-                      width: double.infinity,
-                      child: DataTable(
-                        columnSpacing: defaultPadding,
-                        // minWidth: 600,
-                        columns: [
-                          DataColumn(
-                            label: Text("عنوان المقالة", style: communTextStyle24textColor,),
-
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "المقالات",
+                          style: TextStyle(color: textColor,
+                            fontFamily: 'font1',
+                            fontSize: 28,
+                            fontWeight: FontWeight.bold,
                           ),
-
-                        ],
-                        rows: List.generate(
-                            snapshot.data?.length ??0,
-                                (index) =>ArticleDataRow(snapshot.data![index])
                         ),
-                      ),
+                        SizedBox(
+                          width: double.infinity,
+                          child: DataTable(
+                            columnSpacing: defaultPadding,
+                            // minWidth: 600,
+                            columns: [
+                              DataColumn(
+                                label: Text("عنوان المقالة", style: communTextStyle24textColor,),
+
+                              ),
+                              DataColumn(
+                                label: Text("",),
+
+                              ),DataColumn(
+                                label: Text("",),
+
+                              ),
+
+                            ],
+                            rows: List.generate(
+                                snapshot.data?.length ??0,
+                                    (index) =>ArticleDataRow(snapshot.data![index],context)
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
+                    //
+                    Padding(
+                        padding:  EdgeInsets.only(right:size.width*0.48
+                        ),
+                        child: ElevatedButton(
+                            onPressed: () {
+                              _showTextInputDialog(context);
+                            },
+                            child: const Icon(Icons.add),
+                            style: ButtonStyle(
+                              //elevation: MaterialStateProperty.all(40),
+                              shape: MaterialStateProperty.all(const CircleBorder()),
+                              padding: MaterialStateProperty.all(const EdgeInsets.all(20)),
+                              foregroundColor: MaterialStateProperty.all(white),
+                              backgroundColor: MaterialStateProperty.all(textColor), // <-- Button color
+                              overlayColor: MaterialStateProperty.resolveWith<Color?>((states) {
+                                if (states.contains(MaterialState.pressed)) return white; // <-- Splash color
+                              }),)))
                   ],
                 );
               }
@@ -82,7 +119,10 @@ class ArticlesList extends StatelessWidget {
     );
   }
 }
-DataRow ArticleDataRow(Article article) {
+//ArticleDataRow-------------------------
+DataRow ArticleDataRow(Article article,BuildContext context) {
+  Size size =MediaQuery.of(context).size;
+  ArticlesController articlesController=ArticlesController();
   return DataRow(
     cells: [
       DataCell(
@@ -106,6 +146,127 @@ DataRow ArticleDataRow(Article article) {
           );
         }
       ),
-      )],
+      ),
+      DataCell(SizedBox(width: size.width*0.34,)
+      ),
+      DataCell(
+        Consumer<MenuAppController>(
+            builder: (context,mc,child) {
+              return IconButton(
+                  icon: Icon(Icons.delete, color: white),
+                  onPressed: () async {
+                    //print(project.id);
+                    EasyLoading.show(status: 'Loading....');
+                    final r = await articlesController.deleteArticle(article.id);
+                    if (r == 200)
+                      EasyLoading.showSuccess("Done");
+                    else
+                      EasyLoading.showError('Something must have gone wrong');
+                    mc.UpdateScreenIndex(1);
+                  });
+            }
+        ),)
+
+    ],
   );
+}
+//_showTextInputDialog-----------------------------------------
+void _showTextInputDialog(BuildContext context) {
+  final _titleController = TextEditingController(); // Title input
+  final _longTextController = TextEditingController();
+  var picPath;
+
+  // Function to handle image selection (replace with your implementation)
+  Future<String?> _pickImage() async {
+    final picker = ImagePicker();
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      print(pickedFile.path);
+      picPath=pickedFile;
+      return pickedFile.path;
+    }
+    return null;
+  }
+
+  showDialog(
+    context: context,
+    builder: (context) {
+      return AlertDialog(
+        title: Text(
+          'عنوان المقالة الجديدة',
+          style: communTextStyle20textColor,
+          textDirection: TextDirection.rtl,
+        ),
+        content: Column(
+          mainAxisSize: MainAxisSize.min, // Avoid excessive scrolling
+          children: [
+            TextField(
+              textAlign: TextAlign.end,
+              controller: _titleController, // Title input
+              decoration: InputDecoration(hintText: 'أدخل عنوان المقالة'),
+            ),
+            TextField(
+              textAlign: TextAlign.end,
+              controller: _longTextController, // Long text input
+              maxLines: null, // Allow for multiple lines
+              decoration: InputDecoration(hintText: 'أدخل نص المقالة كاملاً'),
+            ),
+            Row(
+              children: [
+                TextButton(
+                  onPressed: () async {
+                    final image = await _pickImage();
+                    if (image != null) {
+                      // Handle image upload here (replace with your logic)
+                    }
+                  },
+                  child: Text(
+                    'إضافة صورة',
+                    style: communTextStyle20textColor,
+                    textDirection: TextDirection.rtl,
+                  ),
+                ),
+                Spacer(), // Add space between buttons
+                TextButton(
+                  onPressed: () => Navigator.pop(context),
+                  child: Text(
+                    'إلغاء',
+                    style: communTextStyle20textColor,
+                    textDirection: TextDirection.rtl,
+                  ),
+                ),
+                TextButton(
+                  onPressed: () async{
+                    if(_titleController.text==null||_longTextController.text==null||picPath==null){
+                      EasyLoading.showError("Please Fill all Required Field");
+                    }
+                    else{
+                      ArticlesController ac=ArticlesController();
+                      EasyLoading.show(status: 'Loading....');
+                      final imageFile = File(picPath.path);
+                      final bytes = await imageFile.readAsBytes();
+                      final encodedImageData = base64Encode(bytes);
+                      await ac.addArticle(_titleController.text, _longTextController.text, encodedImageData);
+                      if(ac.status==201)
+                        EasyLoading.showSuccess('تم حفظ نوع المقالة الجديدة');
+                      else
+                        EasyLoading.showError('Something went wrong');
+                      Navigator.pop(context);
+
+                    }
+                  },
+                  child: Text(
+                    'تأكيد',
+                    style: communTextStyle20textColor,
+                    textDirection: TextDirection.rtl,
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      );
+    },
+  );
+
 }

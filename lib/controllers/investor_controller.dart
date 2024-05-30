@@ -18,6 +18,7 @@ class InvestorsController extends ChangeNotifier {
     return investors;
   }
 
+//CurrInvestor--------------------------------
   curr_Investor(Investor investor){
     this.currInvestor=investor;
     notifyListeners();

@@ -132,6 +132,7 @@ DataRow projectDataRow(Project project) {
           );
         }
       ),
-      )],
+      )
+    ],
   );
 }

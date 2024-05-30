@@ -6,13 +6,13 @@ import '../../../../constants.dart';
 
 class communicationRequestInfoCard extends StatelessWidget {
   const communicationRequestInfoCard({
-    Key? key, required this.created_at, required this.investor_name, required this.project_name, required this.project_id, required this.investor_id, required this.status,
+    Key? key, required this.created_at, required this.investor_name, required this.project_name, required this.status, this.id,
 
 
   }) : super(key: key);
 
-  final String created_at,investor_name,project_name;
-  final int project_id,investor_id,status;
+  final String? created_at,investor_name,project_name;
+  final int? status,id;
 
 
   @override
@@ -36,19 +36,28 @@ class communicationRequestInfoCard extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-
-                  Center(
-                    child: Text(
-                      investor_name,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style:TextStyle(color: white,
-                        fontFamily: 'font1',
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
+                  Column(
+                    children: [
+                      Text(
+                        "اسم المستثمر ",
+                        style:TextStyle(color: white,
+                          fontFamily: 'font1',
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
-                    ),
+                      SizedBox(width: defaultPadding),
+                      Text(
+                        investor_name!,
+                        style:TextStyle(color: textColor,
+                          fontFamily: 'font1',
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
                   ),
+
                   SizedBox(height: defaultPadding),
                   Column(
                     children: [
@@ -63,7 +72,7 @@ class communicationRequestInfoCard extends StatelessWidget {
                       SizedBox(width: defaultPadding),
                       Text(
                         "$project_name",
-                        style:TextStyle(color: white,
+                        style:TextStyle(color: textColor,
                           fontFamily: 'font1',
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
@@ -86,7 +95,7 @@ class communicationRequestInfoCard extends StatelessWidget {
                       SizedBox(width: defaultPadding),
                       Text(
                         "$created_at",
-                        style:TextStyle(color: white,
+                        style:TextStyle(color: textColor,
                           fontFamily: 'font1',
                           fontSize: 24,
                           fontWeight: FontWeight.bold,

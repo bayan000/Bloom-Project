@@ -189,44 +189,6 @@ void _showTextInputDialog(BuildContext context) {
   );
 }
 
-/*
-void _showTextInputDialog(BuildContext context) {
-
-  showDialog(
-    context: context,
-    builder: (context) {
-      return AlertDialog(
-        title: Text('أدخل النوع',
-          style: communTextStyle20textColor,
-          textDirection: TextDirection.rtl,),
-        content: TextField(
-
-          decoration: InputDecoration(hintText: 'أدخل النص هنا'),
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: Text('إلغاء',
-              style: communTextStyle20textColor,
-              textDirection: TextDirection.rtl,),
-          ),
-          TextButton(
-            onPressed: () async{
-              ProjectsController p=ProjectsController();
-              await p.addProjectType();
-              // Handle text input submission here
-              Navigator.pop(context);
-            },
-            child: Text('تأكيد',
-              style: communTextStyle20textColor,
-              textDirection: TextDirection.rtl,),
-          ),
-        ],
-      );
-    },
-  );
-}
-*/
 class SearchField extends StatelessWidget {
   const SearchField({
     Key? key,

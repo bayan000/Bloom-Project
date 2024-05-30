@@ -1,15 +1,15 @@
-class Complaints {
-  List<Complaint>? complaint;
+class CommunicationRequests {
+  List<CommunicationRequest>? communicationRequest;
   String? message;
   int? status;
 
-  Complaints({this.complaint, this.message, this.status});
+  CommunicationRequests({this.communicationRequest, this.message, this.status});
 
-  Complaints.fromJson(Map<String, dynamic> json) {
+  CommunicationRequests.fromJson(Map<String, dynamic> json) {
     if (json['data'] != null) {
-      complaint = <Complaint>[];
+      communicationRequest = <CommunicationRequest>[];
       json['data'].forEach((v) {
-        complaint!.add(new Complaint.fromJson(v));
+        communicationRequest!.add(new CommunicationRequest.fromJson(v));
       });
     }
     message = json['message'];
@@ -18,8 +18,8 @@ class Complaints {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.complaint != null) {
-      data['data'] = this.complaint!.map((v) => v.toJson()).toList();
+    if (this.communicationRequest != null) {
+      data['data'] = this.communicationRequest!.map((v) => v.toJson()).toList();
     }
     data['message'] = this.message;
     data['status'] = this.status;
@@ -27,27 +27,27 @@ class Complaints {
   }
 }
 
-class Complaint {
+class CommunicationRequest {
   int? id;
-  String? description;
   int? projectId;
   int? investorId;
+  int? status;
   String? createdAt;
   String? updatedAt;
 
-  Complaint(
+  CommunicationRequest(
       {this.id,
-        this.description,
         this.projectId,
         this.investorId,
+        this.status,
         this.createdAt,
         this.updatedAt});
 
-  Complaint.fromJson(Map<String, dynamic> json) {
+  CommunicationRequest.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    description = json['description'];
     projectId = json['project_id'];
     investorId = json['investor_id'];
+    status = json['status'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
   }
@@ -55,24 +55,19 @@ class Complaint {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
-    data['description'] = this.description;
     data['project_id'] = this.projectId;
     data['investor_id'] = this.investorId;
+    data['status'] = this.status;
     data['created_at'] = this.createdAt;
     data['updated_at'] = this.updatedAt;
     return data;
   }
 }
-List complaint_list_item = [
-  Complaint(
-      id: 0, projectId: 0,investorId: 0, description: "يوجد مشكلة في البيانات المقدمة", createdAt: "7-9-2023",updatedAt: "19-5-2024"
-  ),
-];
-class complaintModelForFullInfo {
+class CommunicationRequestModelForFullInfo {
   String? projectName;
   String? investorName;
-  int? id;
-  String? updatedAt,createdAt,description;
+  int? id,status;
+  String? updatedAt,createdAt;
 
 
-  complaintModelForFullInfo({this.description,this.projectName,this.investorName,this.id,this.updatedAt,this.createdAt});}
+  CommunicationRequestModelForFullInfo({this.status,this.projectName,this.investorName,this.id,this.updatedAt,this.createdAt});}
