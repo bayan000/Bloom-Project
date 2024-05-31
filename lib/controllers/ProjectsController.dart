@@ -7,7 +7,9 @@ import '../models/project_list.dart';
 class ProjectsController extends ChangeNotifier{
   int? p_id;
   List<Project> projects=[];
+  List<Project> projectListSearched=[];
   int status=0;
+  var SearchValue,selectedFilter;
 
   //fetchProjects------------------------------------------
   Future<List<Project>> fetchProjects() async{
@@ -34,5 +36,26 @@ class ProjectsController extends ChangeNotifier{
   Future<int> deleteProject(var id) async{
     status= await ProjectsService.DeleteProject(ServerConfig.url+ServerConfig.DeleteAProject+id.toString());
     return status;
+  }
+  //SearchForProjectsByName------------------------------------
+  Future<List<Project>> SearchForProjectsByName(name) async{
+    projectListSearched=await ProjectsService.searchForProject(ServerConfig.url+ServerConfig.SearchForAProjectByName+name);
+    return projectListSearched;
+  }
+  //SearchForProjectsByAmount------------------------------------
+  Future<List<Project>> SearchForProjectsByAmount(amount) async{
+    projectListSearched=await ProjectsService.searchForProject(ServerConfig.url+ServerConfig.SearchForAProjectByAmount+amount.toString());
+    return projectListSearched;
+  }
+  //UpdateSearchValue------------------------------------
+  UpdateSearchValue(var value){
+    this.SearchValue=value;
+    notifyListeners();
+    return value;
+  }
+  Update_selectedFilter(var value){
+    this.selectedFilter=value;
+    notifyListeners();
+    return value;
   }
 }

@@ -1,9 +1,4 @@
-/*"id": 1,
-            "project_id": 7,
-            "investor_id": 2,
-            "status": 0,
-            "created_at": "2024-05-12T19:52:48.000000Z",
-            "updated_at": "2024-05-12T19:52:48.000000Z"*/
+
 class communicationRequest{
   final String? created_at,updated_at;
   int id,project_id,investor_id,status;

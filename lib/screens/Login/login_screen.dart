@@ -41,11 +41,11 @@ class _LoginPageState extends State<LoginPage> {
                 children: [
                   Center(
                     child: DrawerHeader(
-                      child: Image.asset("assets/images/Bloom Logo.png"),
+                      child: Image.asset("assets/images/Bloom Logoooooooooo.png"),
                     ),
                   ),
                   SizedBox(
-                    height: 50,
+                    height: 10,
                   ),
                   Center(
                     child: Text(

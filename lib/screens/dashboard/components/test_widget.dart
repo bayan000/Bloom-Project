@@ -4,6 +4,8 @@ import 'package:admin/controllers/aninvestorController.dart';
 import 'package:admin/models/CommunicationRequests.dart';
 import 'package:flutter/material.dart';
 
+import '../../../controllers/ProjectsController.dart';
+
 class TestWidget extends StatefulWidget {
   @override
   _TestWidgetState createState() => _TestWidgetState();
@@ -13,10 +15,12 @@ class _TestWidgetState extends State<TestWidget> {
   CommunicationRequestsController communicationRequestsController=CommunicationRequestsController();
   InvestorController investorController=InvestorController();
   ComplaintsController complaintsController=ComplaintsController();
+  ProjectsController projectsController=ProjectsController();
   // Define your functions here
   void function1() async{
     print("Function 1 executed!");
-    await complaintsController.fetchComplaints();
+    await projectsController.SearchForProjectsByName("نجار");
+    //await complaintsController.fetchComplaints();
     //await communicationRequestsController.fetchCommunicationRequests();
 
   }

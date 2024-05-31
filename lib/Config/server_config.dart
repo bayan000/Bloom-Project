@@ -12,6 +12,8 @@ class ServerConfig{
   static String AddNewProjectType = "admin/Type";
   static String AcceptAProject = "admin/projects/acceptProject/";
   static String DeleteAProject = "projects/delete/";
+  static String SearchForAProjectByName = "projects/Name/";
+  static String SearchForAProjectByAmount = "projects/Amount/";
 
   //Articles---------
   static String getAllArticles = "Article";

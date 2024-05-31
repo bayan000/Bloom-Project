@@ -22,6 +22,7 @@ import 'package:provider/provider.dart';
 
 import '../../constants.dart';
 import '../../controllers/MenuAppController.dart';
+import 'components/SearchList.dart';
 import 'components/header.dart';
 
 import 'components/projects_list.dart';
@@ -42,7 +43,7 @@ class DashboardScreen extends StatelessWidget {
             SizedBox(height: defaultPadding),
             Consumer<MenuAppController>(
             builder: (context,mAC,child) {
-              if (mAC.screenIndex==0)
+              if (mAC.screenIndex==0) {
                 return Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -69,7 +70,7 @@ class DashboardScreen extends StatelessWidget {
                   ),
               ],
             );
-            else  if (mAC.screenIndex==1)
+              } else  if (mAC.screenIndex==1)
               {
                 return Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -276,7 +277,7 @@ class DashboardScreen extends StatelessWidget {
                   ],
                 );
               }
-              else{
+              else if(mAC.screenIndex==8){
                 return Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -301,6 +302,35 @@ class DashboardScreen extends StatelessWidget {
                         flex: 2,
                         child:RequestsDetails(),
 
+                      ),
+                  ],
+                );
+              }
+              //if mAC.screenIndex==9 then we're searching'
+              else{
+                return Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(
+                        flex: 5,
+                        child:  Column(
+                          children: [
+                            SizedBox(height: defaultPadding),
+                            SearchProjectsList(),
+                            if (Responsive.isMobile(context))
+                              SizedBox(height: defaultPadding),
+                            if (Responsive.isMobile(context))
+                              ProjectDetails(),
+                          ],
+                        )
+                    ),
+                    if (!Responsive.isMobile(context))
+                      SizedBox(width: defaultPadding),
+                    // On Mobile means if the screen is less than 850 we don't want to show it
+                    if (!Responsive.isMobile(context))
+                      Expanded(
+                        flex: 2,
+                        child: ProjectDetails(),
                       ),
                   ],
                 );

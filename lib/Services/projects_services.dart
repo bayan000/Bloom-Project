@@ -92,7 +92,23 @@ class ProjectsService{
 
   }
 
+//********************* searchForProject *********************************//
 
+  static Future<List<Project>> searchForProject(String url) async {
+    final response = await http.get(Uri.parse(url),headers: {
+      'Authorization':'Bearer  ${GetStorage().read('token')}',
+      'content-Type':'application/json',
+    });
+
+    if (response.statusCode == 200) {
+      final jsonBody = json.decode(response.body) as Map<String, dynamic>;
+      final projectsData = jsonBody['data'] as List<dynamic>;
+      final projects = projectsData.map((projectData) => Project.fromJson(projectData)).toList();
+      return projects;
+    } else {
+      throw Exception('Failed to fetch projects: ${response.statusCode}');
+    }
+  }
 
 }
 

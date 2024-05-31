@@ -9,7 +9,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
-
 import '../../../constants.dart';
 
 class Header extends StatelessWidget {
@@ -88,6 +87,7 @@ class ProfileCard extends StatelessWidget {
 }
 Widget _buildDropdownMenu(BuildContext context) {
   return DropdownButton<String>(
+    dropdownColor: textColor,
     underline: Container(), // Remove default underline
     icon: Icon(
       Icons.keyboard_arrow_down,
@@ -99,7 +99,7 @@ Widget _buildDropdownMenu(BuildContext context) {
         value: 'logout',
         child: Text(
           'تسجيل خروج',
-          style: communTextStyle20textColor,
+          style: communTextStyle20white,
           textDirection: TextDirection.rtl,// Adjust color for RTL
         ),
 
@@ -110,7 +110,7 @@ Widget _buildDropdownMenu(BuildContext context) {
        value: 'textform',
         child: Text(
           'أضف نوع مشروع جديد',
-          style: communTextStyle20textColor,
+          style: communTextStyle20white,
           textDirection: TextDirection.rtl,// Adjust color for RTL
         ),
       ),
@@ -188,36 +188,92 @@ void _showTextInputDialog(BuildContext context) {
     },
   );
 }
+class SearchField extends StatefulWidget {
+  const SearchField({Key? key}) : super(key: key);
 
-class SearchField extends StatelessWidget {
-  const SearchField({
-    Key? key,
-  }) : super(key: key);
+  @override
+  _SearchFieldState createState() => _SearchFieldState();
+}
+
+class _SearchFieldState extends State<SearchField> {
+
+  String _selectedFilter = "عن طريق الاسم";
+
+  List<String> _filters = ["عن طريق الاسم", "عن طريق الكلفة"];
+
+  final TextEditingController _searchController = TextEditingController();
+
+
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
-      decoration: InputDecoration(
-        hintText: "ابحث",
-        fillColor: secondaryColor,
-        filled: true,
-        border: OutlineInputBorder(
-          borderSide: BorderSide.none,
-          borderRadius: const BorderRadius.all(Radius.circular(10)),
-        ),
-        suffixIcon: InkWell(
-          onTap: () {},
-          child: Container(
-            padding: EdgeInsets.all(defaultPadding * 0.75),
-            margin: EdgeInsets.symmetric(horizontal: defaultPadding / 2),
-            decoration: BoxDecoration(
-              color: primaryColor,
-              borderRadius: const BorderRadius.all(Radius.circular(10)),
-            ),
-            child: SvgPicture.asset("assets/icons/Search.svg"),
+    return Row(
+      children: [
+        Expanded(
+          child: Consumer<ProjectsController>(
+            builder: (context, pc, child) {
+              return TextField(
+                controller: _searchController, // Use TextEditingController
+                decoration: InputDecoration(
+                  hintText: "ابحث",
+                  fillColor: secondaryColor,
+                  filled: true,
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide.none,
+                    borderRadius: const BorderRadius.all(Radius.circular(10)),
+                  ),
+                  suffixIcon: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      DropdownButton<String>(
+                        value: _selectedFilter,
+                        icon: Icon(Icons.arrow_drop_down),
+                        iconSize: 24,
+                        elevation: 16,
+                        style: communTextStyle20white, // Assuming this is your text style
+                        underline: Container(
+                          height: 2,
+                          color: Colors.transparent,
+                        ),
+                        onChanged: (String? newValue) {
+                          setState(() {
+                            _selectedFilter = newValue!;
+                          });
+                          pc.Update_selectedFilter(_selectedFilter);
+                          pc.UpdateSearchValue(newValue); // Update search value in controller
+                        }, items: _filters.map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: Text(value),
+                        );
+                      }).toList(),
+                          dropdownColor: textColor,
+                      ),
+                      Consumer<MenuAppController>(
+                        builder: (context,mAC,child) {
+                          return IconButton(
+                            icon: Icon(Icons.search),
+                            onPressed: () {
+                              final searchTerm = _searchController.text;
+                              if(pc.selectedFilter==null)pc.Update_selectedFilter("عن طريق الاسم");
+                              print("Search: ${pc.selectedFilter} - $searchTerm");
+                              pc.Update_selectedFilter(_selectedFilter);
+                              pc.UpdateSearchValue(searchTerm);
+                              mAC.UpdateScreenIndex(9);
+                            }, // Call separate onSearch function
+                          );
+                        }
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            },
           ),
         ),
-      ),
+      ],
     );
   }
 }
+
+
