@@ -69,9 +69,17 @@ class ComplaintsList extends StatelessWidget {
                         DataColumn(
                           label: Text("توصيف الشكوى", style: communTextStyle24textColor,),
                         ),
-                        DataColumn(
-                          label: Text("",),
 
+                        DataColumn(
+                          label: Text("اسم المشروع", style: communTextStyle24textColor,),
+                        ),
+
+                        DataColumn(
+                          label: Text("", style: communTextStyle24textColor,),
+                        ),
+
+                        DataColumn(
+                          label: Text("اسم المستثمر", style: communTextStyle24textColor,),
                         ),
                         DataColumn(
                           label: Text("", style: communTextStyle24textColor,),
@@ -98,6 +106,7 @@ DataRow ComplaintDataRow(complaintModelForFullInfo complaint ) {
 ComplaintsController complaintsController=ComplaintsController();
   return DataRow(
     cells: [
+
       DataCell(
         Consumer<ComplaintsController>(
             builder: (context,comc,child) {
@@ -109,7 +118,9 @@ ComplaintsController complaintsController=ComplaintsController();
                 children: [
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
-                    child: Text(complaint.description!,style: communTextStyle24black,overflow: TextOverflow.ellipsis,),
+                    child: Text(complaint.description!,
+                      style: communTextStyle24black,
+                      overflow: TextOverflow.ellipsis,),
                   ),
                 ],
               ),
@@ -118,9 +129,33 @@ ComplaintsController complaintsController=ComplaintsController();
         ),
       ),
 
-
-      DataCell(SizedBox(width: 50,)
+      DataCell(
+        Row(
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
+              child: Text(complaint.projectName!,
+                style: communTextStyle24black,
+                overflow: TextOverflow.ellipsis,),
+            ),
+          ],
+        ),
       ),
+
+      DataCell(SizedBox(width: 50,)),
+      DataCell(
+        Row(
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
+              child: Text(complaint.investorName!,
+                style: communTextStyle24black,
+                overflow: TextOverflow.ellipsis,),
+            ),
+          ],
+        ),
+      ),
+
       DataCell(
         Consumer<MenuAppController>(
             builder: (context,mc,child) {

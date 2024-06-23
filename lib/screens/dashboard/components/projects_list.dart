@@ -75,7 +75,14 @@ class ProjectsList extends StatelessWidget {
                                   label: Text("التكلفة", style: communTextStyle24textColor,),
                                 ),
                                 DataColumn(
+                                  label: Text("حالة الاستثمار", style: communTextStyle24textColor,),
+                                ),
+                                DataColumn(
                                   label: Text("", style: communTextStyle24textColor,),
+                                ),
+                                DataColumn(
+                                  label: Text("",),
+
                                 ),
                               ],
                               rows: List.generate(
@@ -114,6 +121,12 @@ DataRow projectDataRow(Project project) {
       ),
       DataCell(Text(project.location!,style: communTextStyle24black,overflow: TextOverflow.ellipsis,)),
       DataCell(Text(project.amount!.toString(),style: communTextStyle24black,overflow: TextOverflow.ellipsis,)),
+      DataCell(project.investmentStatus==1?
+          Text("مُستَثمر",style: communTextStyle24black,overflow: TextOverflow.ellipsis,):
+      Text("غير مُستَثمر",style: communTextStyle24black,overflow: TextOverflow.ellipsis,)
+      ),
+
+
       DataCell(
         Consumer<MenuAppController>(
             builder: (context,mc,child) {
@@ -130,7 +143,11 @@ DataRow projectDataRow(Project project) {
             mc.UpdateScreenIndex(0);
           });
         }
-      ),)
+      ),),
+      DataCell(
+        IconButton(
+            icon: Icon(Icons.add, color: textColor,weight: 40,),
+            onPressed: (){}),)
     ],
   );
 }

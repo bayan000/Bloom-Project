@@ -28,9 +28,8 @@ class ArticlesController extends ChangeNotifier{
 
 
   //AddArticle------------------------------------------
-  Future<int> addArticle(name,description,image) async{
-    status= await ArticlesService.AddArticle(ServerConfig.url+ServerConfig.AddAnArticle, name,description,image);
-    return status;
+  Future<void> addArticle(name,description,image) async{
+    await ArticlesService.AddArticle(ServerConfig.url+ServerConfig.AddAnArticle, name,description,image);
   }
   //DeleteArticle------------------------------------------
   Future<int> deleteArticle(var id) async{

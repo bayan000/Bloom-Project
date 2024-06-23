@@ -1,5 +1,6 @@
 
 import 'package:admin/controllers/CommunicationRequestsController.dart';
+import 'package:admin/controllers/comreqController.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_svg/svg.dart';
@@ -99,11 +100,11 @@ DataRow communicationRequestDataRow(CommunicationRequestModelForFullInfo cr) {
   return DataRow(
     cells: [
       DataCell(
-        Consumer<CommunicationRequestsController>(
+        Consumer<ComReqController>(
           builder: (context,comreq,child) {
             return InkWell(
                 onTap: (){
-                  comreq.curr_requets(cr);
+                  comreq.curr_communicationRequestId(cr.id);
                 },
               child: Row(
                 children: [

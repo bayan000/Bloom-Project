@@ -7,7 +7,11 @@ import 'package:admin/models/CommunicationRequests.dart';
 import 'package:admin/screens/dashboard/components/Communication_Requests/communication_request_info_card.dart';
 import 'package:flutter/material.dart';
 
+import '../Services/comreqService.dart';
+
+
 class CommunicationRequestsController extends ChangeNotifier{
+
   CommunicationRequestModelForFullInfo requestInfoCard=CommunicationRequestModelForFullInfo(id:0,investorName: "Investor Name", projectName:"Project Name",status: 0,updatedAt: '2024-05-21T12:13:32.000000Z' ,createdAt: '2024-05-21T12:13:32.000000Z');
   int status=0;
 
@@ -16,6 +20,7 @@ class CommunicationRequestsController extends ChangeNotifier{
     final communicationRequests=await CommunicationRequestsService.fetchCommunicationRequests(ServerConfig.url+ServerConfig.getAllCommunicationRequests);
     return communicationRequests;
 }
+
   //ProjectsName------------------------------------------
   Future<String> getProjectName(var id) async{
     final name= await OneProjectServices.fetchProjectName(ServerConfig.url+ServerConfig.getAProject+id.toString());

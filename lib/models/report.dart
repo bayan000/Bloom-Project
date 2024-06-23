@@ -1,56 +1,127 @@
-/*"id": 1,
-            "عنوان_التقرير": "dcdddd",
-            "ملخص_الأهداف_المحققة": "kkkkkkk",
-            "ملخص_الأهداف_غير_المحققة": "iiiii",
-            "مبلغ_المستثمر": "99999.00",
-            "الإيرادات_الإجمالية": "9.00",
-            "التكاليف_الإجمالية": "9898.00",
-            "الأرباح_الصافية": "989.00",
-            "الصافي_الربح_لصاحب_العمل": "98989.00",
-            "الصافي_الربح_للمستثمر": "9090.00",
-            "المواد_المستلمة": "jhjhj",
-            "سعر_المواد": "656.00",
-            "إجمالي_المبيعات": "878.00",
-            "صافي_الربح_الكلي": "89.00",
-            "مبلغ_الصيانة": "545.00",
-            "مبلغ_الأجور_والمعاملات": "8989.00",
-            "التوصيات_الرئيسية": "jkjk",
-            "project_id": 3,
-            "user_id": 3,
-            "created_at": "2024-05-14T19:37:46.000000Z",
-            "updated_at": "2024-05-14T19:37:46.000000Z"*/
-class report{
-  final String? title,acheivedObjectives,unacheivedObjectives,investmentPayment,
-      Revenues, suppliedMaterials, MaterialsPrice, SumOfSails, SumOfProfits,maintainancePayement,
-      Amount_of_wages_and_transactions,essintialRecommendations,created_at,updated_at;
-  int project_id,user_id;
-  report( {this.title, this.acheivedObjectives, this.unacheivedObjectives,
-    this.investmentPayment, this.Revenues, this.suppliedMaterials, this.MaterialsPrice,
-    this.SumOfSails, this.SumOfProfits, this.maintainancePayement, this.Amount_of_wages_and_transactions,
-    this.essintialRecommendations, this.created_at, this.updated_at,
-    required this.project_id,
-    required this.user_id,
+class Reports {
+  List<Report>? report;
+  String? message;
+  int? status;
 
-});
+  Reports({this.report, this.message, this.status});
+
+  Reports.fromJson(Map<String, dynamic> json) {
+    if (json['data'] != null) {
+      report = <Report>[];
+      json['data'].forEach((v) {
+        report!.add(new Report.fromJson(v));
+      });
+    }
+    message = json['message'];
+    status = json['status'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    if (this.report != null) {
+      data['data'] = this.report!.map((v) => v.toJson()).toList();
+    }
+    data['message'] = this.message;
+    data['status'] = this.status;
+    return data;
+  }
 }
-List report_list_item = [
-  report(
-    title: "تقرير التنفيذ",
-    acheivedObjectives: "ملخص_الأهداف_المحققة",
-    unacheivedObjectives: "ملخص_الأهداف_غير_المحققة",
-    investmentPayment: "مبلغ_المستثمر",Revenues:"الأرباح_الصافية",
-    suppliedMaterials: "المواد_المستلمة",
-    MaterialsPrice: "سعر_المواد",
-    SumOfSails: "إجمالي_المبيعات",
-    SumOfProfits: "صافي_الربح_الكلي",
-    maintainancePayement: "مبلغ_الصيانة",
-    Amount_of_wages_and_transactions: "مبلغ_الأجور_والمعاملات",
-    essintialRecommendations: "التوصيات_الرئيسية",
-    created_at:"2024-05-14T19:37:46.000000Z",
-    updated_at: "2024-05-14T19:37:46.000000Z",
-    project_id: 3,
-    user_id:3
-  ),
-];
 
+class Report {
+  int? id;
+  String? reportTitle;
+  String? achievedGoalsSummary;
+  String? unachievedGoalsSummary;
+  String? investorAmount;
+  String? totalRevenue;
+  String? totalCosts;
+  String? netProfit;
+  String? netProfitEmployer;
+  String? netProfitInvestor;
+  String? receivedMaterials;
+  String? materialPrice;
+  String? totalSales;
+  String? overallNetProfit;
+  String? maintenanceAmount;
+  String? wagesAndTransactionsAmount;
+  String? mainRecommendations;
+  int? projectId;
+  int? userId;
+  String? createdAt;
+  String? updatedAt;
+  String? projectName;
 
+  Report(
+      {this.projectName,
+        this.id,
+        this.reportTitle,
+        this.achievedGoalsSummary,
+        this.unachievedGoalsSummary,
+        this.investorAmount,
+        this.totalRevenue,
+        this.totalCosts,
+        this.netProfit,
+        this.netProfitEmployer,
+        this.netProfitInvestor,
+        this.receivedMaterials,
+        this.materialPrice,
+        this.totalSales,
+        this.overallNetProfit,
+        this.maintenanceAmount,
+        this.wagesAndTransactionsAmount,
+        this.mainRecommendations,
+        this.projectId,
+        this.userId,
+        this.createdAt,
+        this.updatedAt});
+
+  Report.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    reportTitle = json['report_title'];
+    achievedGoalsSummary = json['achieved_goals_summary'];
+    unachievedGoalsSummary = json['unachieved_goals_summary'];
+    investorAmount = json['investor_amount'];
+    totalRevenue = json['total_revenue'];
+    totalCosts = json['total_costs'];
+    netProfit = json['net_profit'];
+    netProfitEmployer = json['net_profit_employer'];
+    netProfitInvestor = json['net_profit_investor'];
+    receivedMaterials = json['received_materials'];
+    materialPrice = json['material_price'];
+    totalSales = json['total_sales'];
+    overallNetProfit = json['overall_net_profit'];
+    maintenanceAmount = json['maintenance_amount'];
+    wagesAndTransactionsAmount = json['wages_and_transactions_amount'];
+    mainRecommendations = json['main_recommendations'];
+    projectId = json['project_id'];
+    userId = json['user_id'];
+    createdAt = json['created_at'];
+    updatedAt = json['updated_at'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['report_title'] = this.reportTitle;
+    data['achieved_goals_summary'] = this.achievedGoalsSummary;
+    data['unachieved_goals_summary'] = this.unachievedGoalsSummary;
+    data['investor_amount'] = this.investorAmount;
+    data['total_revenue'] = this.totalRevenue;
+    data['total_costs'] = this.totalCosts;
+    data['net_profit'] = this.netProfit;
+    data['net_profit_employer'] = this.netProfitEmployer;
+    data['net_profit_investor'] = this.netProfitInvestor;
+    data['received_materials'] = this.receivedMaterials;
+    data['material_price'] = this.materialPrice;
+    data['total_sales'] = this.totalSales;
+    data['overall_net_profit'] = this.overallNetProfit;
+    data['maintenance_amount'] = this.maintenanceAmount;
+    data['wages_and_transactions_amount'] = this.wagesAndTransactionsAmount;
+    data['main_recommendations'] = this.mainRecommendations;
+    data['project_id'] = this.projectId;
+    data['user_id'] = this.userId;
+    data['created_at'] = this.createdAt;
+    data['updated_at'] = this.updatedAt;
+    return data;
+  }
+}

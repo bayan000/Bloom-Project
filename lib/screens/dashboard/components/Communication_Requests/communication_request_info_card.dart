@@ -6,12 +6,12 @@ import '../../../../constants.dart';
 
 class communicationRequestInfoCard extends StatelessWidget {
   const communicationRequestInfoCard({
-    Key? key, required this.created_at, required this.investor_name, required this.project_name, required this.status, this.id,
+    Key? key, required this.created_at, required this.investor_name, required this.project_name, required this.status, this.id, this.inv_email, this.inv_phone,
 
 
   }) : super(key: key);
 
-  final String? created_at,investor_name,project_name;
+  final String? created_at,investor_name,project_name,inv_email,inv_phone;
   final int? status,id;
 
 
@@ -40,7 +40,7 @@ class communicationRequestInfoCard extends StatelessWidget {
                     children: [
                       Text(
                         "اسم المستثمر ",
-                        style:TextStyle(color: white,
+                        style:TextStyle(color: textColor,
                           fontFamily: 'font1',
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
@@ -49,7 +49,51 @@ class communicationRequestInfoCard extends StatelessWidget {
                       SizedBox(width: defaultPadding),
                       Text(
                         investor_name!,
+                        style:TextStyle(color: white,
+                          fontFamily: 'font1',
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+
+                  SizedBox(height: defaultPadding),
+                  Column(
+                    children: [
+                      Text(
+                        "الإيميل ",
                         style:TextStyle(color: textColor,
+                          fontFamily: 'font1',
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      SizedBox(width: defaultPadding),
+                      Text(
+                        inv_email!,
+                        style:TextStyle(color: white,
+                          fontFamily: 'font1',
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      Text(
+                        "رقم الهاتف ",
+                        style:TextStyle(color: textColor,
+                          fontFamily: 'font1',
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      SizedBox(width: defaultPadding),
+                      Text(
+                        inv_phone!,
+                        style:TextStyle(color: white,
                           fontFamily: 'font1',
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
@@ -63,7 +107,7 @@ class communicationRequestInfoCard extends StatelessWidget {
                     children: [
                       Text(
                         "اسم المشروع ",
-                        style:TextStyle(color: white,
+                        style:TextStyle(color: textColor,
                           fontFamily: 'font1',
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
@@ -72,7 +116,7 @@ class communicationRequestInfoCard extends StatelessWidget {
                       SizedBox(width: defaultPadding),
                       Text(
                         "$project_name",
-                        style:TextStyle(color: textColor,
+                        style:TextStyle(color: white,
                           fontFamily: 'font1',
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
@@ -86,7 +130,7 @@ class communicationRequestInfoCard extends StatelessWidget {
                     children: [
                       Text(
                         "تاريخ الطلب ",
-                        style:TextStyle(color: white,
+                        style:TextStyle(color: textColor,
                           fontFamily: 'font1',
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
@@ -95,7 +139,7 @@ class communicationRequestInfoCard extends StatelessWidget {
                       SizedBox(width: defaultPadding),
                       Text(
                         "$created_at",
-                        style:TextStyle(color: textColor,
+                        style:TextStyle(color: white,
                           fontFamily: 'font1',
                           fontSize: 24,
                           fontWeight: FontWeight.bold,

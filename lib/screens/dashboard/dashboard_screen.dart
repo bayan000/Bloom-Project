@@ -55,19 +55,19 @@ class DashboardScreen extends StatelessWidget {
                           ProjectsList(),
                           if (Responsive.isMobile(context))
                             SizedBox(height: defaultPadding),
-                          if (Responsive.isMobile(context))
-                            ProjectDetails(),
+                         // if (Responsive.isMobile(context))
+                          //  ProjectDetails(),
                         ],
                       )
                 ),
                 if (!Responsive.isMobile(context))
                   SizedBox(width: defaultPadding),
                 // On Mobile means if the screen is less than 850 we don't want to show it
-                if (!Responsive.isMobile(context))
+                /*if (!Responsive.isMobile(context))
                   Expanded(
                     flex: 2,
                     child: ProjectDetails(),
-                  ),
+                  ),*/
               ],
             );
               } else  if (mAC.screenIndex==1)
@@ -289,20 +289,20 @@ class DashboardScreen extends StatelessWidget {
                             RequestsList(),
                             if (Responsive.isMobile(context))
                               SizedBox(height: defaultPadding),
-                            if (Responsive.isMobile(context))
-                              RequestsDetails(),
+                          //  if (Responsive.isMobile(context))
+                             // RequestsDetails(),
                           ],
                         )
                     ),
                     if (!Responsive.isMobile(context))
                       SizedBox(width: defaultPadding),
                     // On Mobile means if the screen is less than 850 we don't want to show it
-                    if (!Responsive.isMobile(context))
+                    /*if (!Responsive.isMobile(context))
                       Expanded(
                         flex: 2,
                         child:RequestsDetails(),
 
-                      ),
+                      ),*/
                   ],
                 );
               }

@@ -22,7 +22,7 @@ class ArticleDetails extends StatelessWidget {
             future: ac.fetchArticle(ac.article0.id),
             builder: (context,snapshot){
 
-              if(snapshot.connectionState==ConnectionState.waiting)
+              if(snapshot.connectionState==ConnectionState.waiting||snapshot.hasError)
               {
                 return Container(
 
@@ -66,7 +66,7 @@ class ArticleDetails extends StatelessWidget {
                   ),
                 );
               }
-              else if(snapshot.hasError){
+            /*  else if(snapshot.hasError){
                 return Container(
 
                   padding: EdgeInsets.all(defaultPadding),
@@ -121,7 +121,7 @@ class ArticleDetails extends StatelessWidget {
                   ),
                 );
               }
-
+*/
               else{
 
                 return Container(

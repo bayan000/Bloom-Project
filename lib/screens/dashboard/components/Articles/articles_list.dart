@@ -4,6 +4,8 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:admin/models/report.dart';
+import 'package:file_picker/file_picker.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:image_picker/image_picker.dart';
@@ -47,7 +49,7 @@ class ArticlesList extends StatelessWidget {
                 ],
 
               );}
-              if(snapshot.hasError)
+             if(snapshot.hasError)
               {
                 return Center(child: Text('Error !',style: TextStyle(fontSize: 20),),);
               }
@@ -136,10 +138,9 @@ DataRow ArticleDataRow(Article article,BuildContext context) {
           },
             child: Row(
               children: [
-
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
-                  child: Text(article.name!,style: communTextStyle24black,),
+                  child: Text(article.name!,style: communTextStyle24black,overflow: TextOverflow.ellipsis,),
                 ),
               ],
             ),
@@ -147,7 +148,7 @@ DataRow ArticleDataRow(Article article,BuildContext context) {
         }
       ),
       ),
-      DataCell(SizedBox(width: size.width*0.34,)
+      DataCell(SizedBox(width: size.width*0.27,)
       ),
       DataCell(
         Consumer<MenuAppController>(
@@ -165,24 +166,32 @@ DataRow ArticleDataRow(Article article,BuildContext context) {
                     mc.UpdateScreenIndex(1);
                   });
             }
-        ),)
+        ),),
+
 
     ],
   );
 }
 //_showTextInputDialog-----------------------------------------
 void _showTextInputDialog(BuildContext context) {
+  Uint8List selectedImageInBytes;
   final _titleController = TextEditingController(); // Title input
   final _longTextController = TextEditingController();
   var picPath;
+  var selectFile;
 
   // Function to handle image selection (replace with your implementation)
   Future<String?> _pickImage() async {
     final picker = ImagePicker();
+    List<XFile> pickedImages=[];
     final pickedFile = await picker.pickImage(source: ImageSource.gallery);
     if (pickedFile != null) {
+      pickedImages.add(pickedFile);
+      print("hello world1");
       print(pickedFile.path);
+      print("hello world2");
       picPath=pickedFile;
+      print("hello world3");
       return pickedFile.path;
     }
     return null;
@@ -215,8 +224,10 @@ void _showTextInputDialog(BuildContext context) {
               children: [
                 TextButton(
                   onPressed: () async {
-                    final image = await _pickImage();
+                    FilePickerResult image =(await FilePicker.platform.pickFiles())!;
+                   // final image = await _pickImage();
                     if (image != null) {
+                      selectFile=image.files.first.name;
                       // Handle image upload here (replace with your logic)
                     }
                   },
@@ -246,11 +257,15 @@ void _showTextInputDialog(BuildContext context) {
                       final imageFile = File(picPath.path);
                       final bytes = await imageFile.readAsBytes();
                       final encodedImageData = base64Encode(bytes);
-                      await ac.addArticle(_titleController.text, _longTextController.text, encodedImageData);
-                      if(ac.status==201)
-                        EasyLoading.showSuccess('تم حفظ نوع المقالة الجديدة');
-                      else
-                        EasyLoading.showError('Something went wrong');
+
+                        print(imageFile.path+ " File path");
+                        List<String> images=[];
+                        images.add(imageFile.path);
+                        await ac.addArticle(_titleController.text, _longTextController.text, selectFile);
+                        if(ac.status==201)
+                          EasyLoading.showSuccess('تم حفظ نوع المقالة الجديدة');
+                        else
+                          EasyLoading.showError('Something went wrong');
                       Navigator.pop(context);
 
                     }

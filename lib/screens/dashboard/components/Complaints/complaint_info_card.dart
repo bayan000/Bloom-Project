@@ -40,13 +40,26 @@ class ComplaintInfoCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                     Center(
-                      child: Text(
-                        "$nameOfProject",
-                        style:TextStyle(color: white,
-                          fontFamily: 'font1',
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
-                        ),
+                      child: Column(
+                        children: [
+                          Text(
+                            "اسم المشروع",
+                            style:TextStyle(color: textColor,
+                              fontFamily: 'font1',
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          SizedBox(width: defaultPadding*0.5),
+                          Text(
+                            "$nameOfProject",
+                            style:TextStyle(color: white,
+                              fontFamily: 'font1',
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   SizedBox(height: defaultPadding),
@@ -77,14 +90,28 @@ class ComplaintInfoCard extends StatelessWidget {
                   SizedBox(height: defaultPadding),
                   Center(
                     child:
-                    Text(
-                      "$description",
-                      style:TextStyle(color: white,
-                        fontFamily: 'font1',
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                      ),
-                      overflow: TextOverflow.visible,
+                    Column(
+
+                      children: [
+                        Text(
+                          "الوصف",
+                          style:TextStyle(color: textColor,
+                            fontFamily: 'font1',
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                        SizedBox(width: defaultPadding*0.5),
+                        Text(
+                          "$description",
+                          style:TextStyle(color: white,
+                            fontFamily: 'font1',
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          overflow: TextOverflow.visible,
+                        ),
+                      ],
                     ),
 
                   ),

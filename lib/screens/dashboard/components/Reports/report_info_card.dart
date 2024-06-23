@@ -6,30 +6,17 @@ import '../../../../constants.dart';
 
 class ReportInfoCard extends StatelessWidget {
   const ReportInfoCard({
-    Key? key, this.acheivedObjectives, this.unacheivedObjectives, this.investmentPayment, this.suppliedMaterials, this.MaterialsPrice, this.SumOfSails, this.SumOfProfits, this.maintainancePayement, this.Amount_of_wages_and_transactions, this.essintialRecommendations, this.created_at, required this.project_id, required this.user_id, this.title, this.Revenues,
+    Key? key,this.projectName, this.achievedGoalsSummary, this.unachievedGoalsSummary, this.investorAmount, this.receivedMaterials, this.materialPrice, this.totalCosts, this.overallNetProfit, this.maintenanceAmount, this.wagesAndTransactionsAmount, this.mainRecommendations, this.createdAt, required this.projectId, required this.userId, this.reportTitle, this.totalRevenue,
 
 
   }) : super(key: key);
 
-  final String? title,acheivedObjectives,unacheivedObjectives,investmentPayment,suppliedMaterials,MaterialsPrice,SumOfSails
-  ,SumOfProfits,maintainancePayement,Amount_of_wages_and_transactions,essintialRecommendations,created_at,Revenues;
-  final int project_id,user_id;
+  final String? reportTitle,achievedGoalsSummary,unachievedGoalsSummary,investorAmount,
+      receivedMaterials,materialPrice,totalCosts
+  ,overallNetProfit,maintenanceAmount,wagesAndTransactionsAmount,projectName,
+      mainRecommendations,createdAt,totalRevenue;
+  final int projectId,userId;
 
-/*title: "تقرير التنفيذ",
-    acheivedObjectives: "ملخص_الأهداف_المحققة",
-    unacheivedObjectives: "ملخص_الأهداف_غير_المحققة",
-    investmentPayment: "مبلغ_المستثمر",Revenues:"الأرباح_الصافية",
-    suppliedMaterials: "المواد_المستلمة",
-    MaterialsPrice: "سعر_المواد",
-    SumOfSails: "إجمالي_المبيعات",
-    SumOfProfits: "صافي_الربح_الكلي",
-    maintainancePayement: "مبلغ_الصيانة",
-    Amount_of_wages_and_transactions: "مبلغ_الأجور_والمعاملات",
-    essintialRecommendations: "التوصيات_الرئيسية",
-    created_at:"2024-05-14T19:37:46.000000Z",
-    updated_at: "2024-05-14T19:37:46.000000Z",
-    project_id: 3,
-    user_id:3*/
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -52,39 +39,11 @@ class ReportInfoCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
 
-                  Center(
-                    child: Text(
-                      title!,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style:TextStyle(color: white,
-                        fontFamily: 'font1',
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                      ),
-                      softWrap: true,
-                    ),
-                  ),
-                  SizedBox(height: defaultPadding),
-                  Center(
-                    child: Text(
-                      project_id!.toString(),//I'll get the project
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style:TextStyle(color: white,
-                        fontFamily: 'font1',
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                      ),
-                      softWrap: true,
-                    ),
-                  ),
-                  SizedBox(height: defaultPadding),
                   Column(
                     children: [
                       Text(
-                        "ملخص الأهداف المحققة",
-                        style:TextStyle(color: white,
+                        "عنوان التقرير",
+                        style:TextStyle(color: textColor,
                           fontFamily: 'font1',
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
@@ -93,7 +52,57 @@ class ReportInfoCard extends StatelessWidget {
                       ),
                       SizedBox(width: defaultPadding),
                       Text(
-                        "$acheivedObjectives",
+                        "$reportTitle",
+                        style:TextStyle(color: white,
+                          fontFamily: 'font1',
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        softWrap: true,
+                      ),
+
+                    ],
+                  ),
+                  SizedBox(height: defaultPadding),
+                  Column(
+                    children: [
+                      Text(
+                        "اسم المشروع",
+                        style:TextStyle(color: textColor,
+                          fontFamily: 'font1',
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        softWrap: true,
+                      ),
+                      SizedBox(width: defaultPadding),
+                      Text(
+                        "$projectName",
+                        style:TextStyle(color: white,
+                          fontFamily: 'font1',
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        softWrap: true,
+                      ),
+
+                    ],
+                  ),
+                  SizedBox(height: defaultPadding),
+                  Column(
+                    children: [
+                      Text(
+                        "ملخص الأهداف المحققة",
+                        style:TextStyle(color: textColor,
+                          fontFamily: 'font1',
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        softWrap: true,
+                      ),
+                      SizedBox(width: defaultPadding),
+                      Text(
+                        "$achievedGoalsSummary",
                         style:TextStyle(color: white,
                           fontFamily: 'font1',
                           fontSize: 24,
@@ -110,7 +119,7 @@ class ReportInfoCard extends StatelessWidget {
                     children: [
                       Text(
                         "ملخص الأهداف غير المحققة",
-                        style:TextStyle(color: white,
+                        style:TextStyle(color: textColor,
                           fontFamily: 'font1',
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
@@ -119,7 +128,7 @@ class ReportInfoCard extends StatelessWidget {
                       ),
                       SizedBox(width: defaultPadding),
                       Text(
-                        "$unacheivedObjectives",
+                        "$unachievedGoalsSummary",
                         style:TextStyle(color: white,
                           fontFamily: 'font1',
                           fontSize: 24,
@@ -135,7 +144,7 @@ class ReportInfoCard extends StatelessWidget {
                     children: [
                       Text(
                         "المبلغ المستثمر",
-                        style:TextStyle(color: white,
+                        style:TextStyle(color: textColor,
                           fontFamily: 'font1',
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
@@ -144,7 +153,7 @@ class ReportInfoCard extends StatelessWidget {
                       ),
                       SizedBox(width: defaultPadding),
                       Text(
-                        "$investmentPayment",
+                        "$investorAmount",
                         style:TextStyle(color: white,
                           fontFamily: 'font1',
                           fontSize: 24,
@@ -160,7 +169,7 @@ class ReportInfoCard extends StatelessWidget {
                     children: [
                       Text(
                         "المواد المستلمة",
-                        style:TextStyle(color: white,
+                        style:TextStyle(color: textColor,
                           fontFamily: 'font1',
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
@@ -169,7 +178,7 @@ class ReportInfoCard extends StatelessWidget {
                       ),
                       SizedBox(width: defaultPadding),
                       Text(
-                        "$suppliedMaterials",
+                        "$receivedMaterials",
                         style:TextStyle(color: white,
                           fontFamily: 'font1',
                           fontSize: 24,
@@ -185,7 +194,7 @@ class ReportInfoCard extends StatelessWidget {
                     children: [
                       Text(
                         "سعر المواد",
-                        style:TextStyle(color: white,
+                        style:TextStyle(color: textColor,
                           fontFamily: 'font1',
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
@@ -194,7 +203,7 @@ class ReportInfoCard extends StatelessWidget {
                       ),
                       SizedBox(width: defaultPadding),
                       Text(
-                        "$MaterialsPrice",
+                        "$materialPrice",
                         style:TextStyle(color: white,
                           fontFamily: 'font1',
                           fontSize: 24,
@@ -209,8 +218,8 @@ class ReportInfoCard extends StatelessWidget {
                   Column(
                     children: [
                       Text(
-                        "إجمالي المبيعات",
-                        style:TextStyle(color: white,
+                        "إجمالي الكلف",
+                        style:TextStyle(color: textColor,
                           fontFamily: 'font1',
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
@@ -219,7 +228,7 @@ class ReportInfoCard extends StatelessWidget {
                       ),
                       SizedBox(width: defaultPadding),
                       Text(
-                        "$SumOfSails",
+                        "$totalCosts",
                         style:TextStyle(color: white,
                           fontFamily: 'font1',
                           fontSize: 24,
@@ -235,7 +244,7 @@ class ReportInfoCard extends StatelessWidget {
                     children: [
                       Text(
                         "صافي الربح الكلي",
-                        style:TextStyle(color: white,
+                        style:TextStyle(color: textColor,
                           fontFamily: 'font1',
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
@@ -244,7 +253,7 @@ class ReportInfoCard extends StatelessWidget {
                       ),
                       SizedBox(width: defaultPadding),
                       Text(
-                        "$SumOfProfits",
+                        "$overallNetProfit",
                         style:TextStyle(color: white,
                           fontFamily: 'font1',
                           fontSize: 24,
@@ -260,7 +269,7 @@ class ReportInfoCard extends StatelessWidget {
                     children: [
                       Text(
                         "مقدار الصيانة",
-                        style:TextStyle(color: white,
+                        style:TextStyle(color: textColor,
                           fontFamily: 'font1',
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
@@ -269,7 +278,7 @@ class ReportInfoCard extends StatelessWidget {
                       ),
                       SizedBox(width: defaultPadding),
                       Text(
-                        "$maintainancePayement",
+                        "$maintenanceAmount",
                         style:TextStyle(color: white,
                           fontFamily: 'font1',
                           fontSize: 24,
@@ -285,7 +294,7 @@ class ReportInfoCard extends StatelessWidget {
                     children: [
                       Text(
                         "مبلغ الأجور والمعاملات",
-                        style:TextStyle(color: white,
+                        style:TextStyle(color: textColor,
                           fontFamily: 'font1',
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
@@ -294,7 +303,7 @@ class ReportInfoCard extends StatelessWidget {
                       ),
                       SizedBox(width: defaultPadding),
                       Text(
-                        "$Amount_of_wages_and_transactions",
+                        "$wagesAndTransactionsAmount",
                         style:TextStyle(color: white,
                           fontFamily: 'font1',
                           fontSize: 24,
@@ -310,7 +319,7 @@ class ReportInfoCard extends StatelessWidget {
                     children: [
                       Text(
                         "التوصيات الرئيسية",
-                        style:TextStyle(color: white,
+                        style:TextStyle(color: textColor,
                           fontFamily: 'font1',
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
@@ -319,32 +328,7 @@ class ReportInfoCard extends StatelessWidget {
                       ),
                       SizedBox(width: defaultPadding),
                       Text(
-                        "$essintialRecommendations",
-                        style:TextStyle(color: white,
-                          fontFamily: 'font1',
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
-                        ),
-                        softWrap: true,
-                      ),
-
-                    ],
-                  ),
-                  SizedBox(height: defaultPadding),
-                  Column(
-                    children: [
-                      Text(
-                        "التوصيات الرئيسية",
-                        style:TextStyle(color: white,
-                          fontFamily: 'font1',
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
-                        ),
-                        softWrap: true,
-                      ),
-                      SizedBox(width: defaultPadding),
-                      Text(
-                        "$essintialRecommendations",
+                        "$mainRecommendations",
                         style:TextStyle(color: white,
                           fontFamily: 'font1',
                           fontSize: 24,
@@ -360,7 +344,7 @@ class ReportInfoCard extends StatelessWidget {
                     children: [
                       Text(
                         "العائد",
-                        style:TextStyle(color: white,
+                        style:TextStyle(color: textColor,
                           fontFamily: 'font1',
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
@@ -369,7 +353,7 @@ class ReportInfoCard extends StatelessWidget {
                       ),
                       SizedBox(width: defaultPadding),
                       Text(
-                        "$Revenues",
+                        "$totalRevenue",
                         style:TextStyle(color: white,
                           fontFamily: 'font1',
                           fontSize: 24,
@@ -381,30 +365,6 @@ class ReportInfoCard extends StatelessWidget {
                     ],
                   ),
                   SizedBox(height: defaultPadding),
-                  Column(
-                    children: [
-                      Text(
-                        "قام بإنشائه",
-                        style:TextStyle(color: white,
-                          fontFamily: 'font1',
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
-                        ),
-                        softWrap: true,
-                      ),
-                      SizedBox(width: defaultPadding),
-                      Text(
-                        "$user_id",//I'll get the user
-                        style:TextStyle(color: white,
-                          fontFamily: 'font1',
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
-                        ),
-                        softWrap: true,
-                      ),
-
-                    ],
-                  ),
 
                 ],
               ),
