@@ -25,7 +25,7 @@ class SideMenu extends StatelessWidget {
 
           DrawerListTile(
             title: "المشاريع",
-            svgSrc: "assets/icons/menu_tran.svg",
+            svgSrc: "assets/icons/menu_store.svg",
             press: () {mAC.UpdateScreenIndex(0);
             print(mAC.screenIndex);},
           ),
@@ -43,19 +43,19 @@ class SideMenu extends StatelessWidget {
           ),
           DrawerListTile(
             title: "المستثمرين",
-            svgSrc: "assets/icons/menu_store.svg",
+            svgSrc: "assets/icons/menu_profile.svg",
             press: () {mAC.UpdateScreenIndex(3);
             print(mAC.screenIndex);},
           ),
           DrawerListTile(
             title: "أصحاب العمل",
-            svgSrc: "assets/icons/menu_store.svg",
+            svgSrc: "assets/icons/menu_profile.svg",
             press: () {mAC.UpdateScreenIndex(4);
             print(mAC.screenIndex);},
           ),
           DrawerListTile(
             title: "المعاملات",
-            svgSrc: "assets/icons/menu_profile.svg",
+            svgSrc: "assets/icons/menu_doc.svg",
             press: () {mAC.UpdateScreenIndex(5);
             print(mAC.screenIndex);},
           ),
@@ -81,6 +81,12 @@ class SideMenu extends StatelessWidget {
             title: "طلبات المعاملات",
             svgSrc: "assets/icons/menu_tran.svg",
             press: () {mAC.UpdateScreenIndex(10);
+            print(mAC.screenIndex);},
+          ),
+          DrawerListTile(
+            title: "المعاملات المقبولة",
+            svgSrc: "assets/icons/menu_tran.svg",
+            press: () {mAC.UpdateScreenIndex(11);
             print(mAC.screenIndex);},
           ),
         ],

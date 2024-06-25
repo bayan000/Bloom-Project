@@ -1,25 +1,20 @@
-class Transactions {
-  List<Transaction>? transaction;
+class ViewTranRequest {
+  Data? data;
   String? message;
   int? status;
 
-  Transactions({this.transaction, this.message, this.status});
+  ViewTranRequest({this.data, this.message, this.status});
 
-  Transactions.fromJson(Map<String, dynamic> json) {
-    if (json['data'] != null) {
-      transaction = <Transaction>[];
-      json['data'].forEach((v) {
-        transaction!.add(new Transaction.fromJson(v));
-      });
-    }
+  ViewTranRequest.fromJson(Map<String, dynamic> json) {
+    data = json['data'] != null ? new Data.fromJson(json['data']) : null;
     message = json['message'];
     status = json['status'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.transaction != null) {
-      data['data'] = this.transaction!.map((v) => v.toJson()).toList();
+    if (this.data != null) {
+      data['data'] = this.data!.toJson();
     }
     data['message'] = this.message;
     data['status'] = this.status;
@@ -27,9 +22,33 @@ class Transactions {
   }
 }
 
+class Data {
+  Transaction? transaction;
+  String? receipt;
+
+  Data({this.transaction, this.receipt});
+
+  Data.fromJson(Map<String, dynamic> json) {
+    transaction = json['transaction'] != null
+        ? new Transaction.fromJson(json['transaction'])
+        : null;
+    receipt = json['receipt'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    if (this.transaction != null) {
+      data['transaction'] = this.transaction!.toJson();
+    }
+    data['receipt'] = this.receipt;
+    return data;
+  }
+}
+
 class Transaction {
   int? id;
   String? name;
+  String? ProjectName;
   String? description;
   String? price;
   String? discount;
@@ -42,6 +61,7 @@ class Transaction {
   Transaction(
       {this.id,
         this.name,
+        this.ProjectName,
         this.description,
         this.price,
         this.discount,

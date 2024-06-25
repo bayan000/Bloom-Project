@@ -69,32 +69,23 @@ class InvestorInfoCard extends StatelessWidget {
                       "$firstName"+ " "+ "$lastName",
                       style:TextStyle(color: white,
                         fontFamily: 'font1',
-                        fontSize: 24,
+                        fontSize: 22,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                   ),
-                  /*SizedBox(height: defaultPadding),
-                  Center(
-                    child: Text(
-                      "$verified",
-                      style:TextStyle(color: white,
-                        fontFamily: 'font1',
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ),*/
+
                   SizedBox(height: defaultPadding),
                   Center(
                     child: Text(
                       email!=null?"$email":"لا يتوفر إيميل",
-                      maxLines: 1,
+                      maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                       style:TextStyle(color: white,
                         fontFamily: 'font1',
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
+                        fontSize: 22,
+                        overflow: TextOverflow.visible
+
                       ),
                     ),
                   ),
@@ -104,8 +95,7 @@ class InvestorInfoCard extends StatelessWidget {
                       location!=null?"$location":"لم يُحدد الموقع",
                       style:TextStyle(color: white,
                         fontFamily: 'font1',
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
+                        fontSize: 22,
                       ),
                     ),
                   ),
@@ -115,8 +105,7 @@ class InvestorInfoCard extends StatelessWidget {
                       style: TextStyle(
                         color: white,
                         fontFamily: 'font1',
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
+                        fontSize: 22,
                       ),
                       overflow: TextOverflow.ellipsis,
                     ),
@@ -149,7 +138,7 @@ Column RowsOfProjects(List<Projects>? projects) {
             style: TextStyle(
               color: white,
               fontFamily: 'font1',
-              fontSize: 20,
+              fontSize: 22,
               fontWeight: FontWeight.bold,
             ),
             overflow: TextOverflow.ellipsis,

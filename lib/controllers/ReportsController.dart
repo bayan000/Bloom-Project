@@ -30,14 +30,5 @@ class ReportsController extends ChangeNotifier{
     report=(await ReportsService.getReportInformation(ServerConfig.url+ServerConfig.getARreport+Pid.toString()+"/"+Rid.toString()))!;
     return report;
   }
-/*
-  //AddArticle------------------------------------------
-  Future<void> addArticle(name,description,image) async{
-    await ArticlesService.AddArticle(ServerConfig.url+ServerConfig.AddAnArticle, name,description,image);
-  }
-  //DeleteArticle------------------------------------------
-  Future<int> deleteArticle(var id) async{
-    status= await ArticlesService.DeleteAnArticle(ServerConfig.url+ServerConfig.DeleteAnArticle+id.toString());
-    return status;
-  }*/
+
 }

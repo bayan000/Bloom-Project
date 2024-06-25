@@ -119,37 +119,34 @@ DataRow communicationRequestDataRow(CommunicationRequestModelForFullInfo cr) {
         ),
       ),
       DataCell(Text(cr.projectName.toString(),style: communTextStyle24black,)),
-cr.status==0?      DataCell(
-  Consumer<MenuAppController>(
-      builder: (context,mc,child) {
-        return IconButton(
-            icon: Icon(Icons.check, color: white), // Adjust icon and color as needed
-            onPressed: () async{
-              EasyLoading.show(status: 'Loading....');
-              final r=await communicationRequestsController.acceptCommunicationRequest(cr.id);
-              if(r==200)
-              {
-                EasyLoading.showSuccess("Done");}
-              else
-                EasyLoading.showError('Something must have gone wrong');
-              mc.UpdateScreenIndex(7);
+      cr.status==0?      DataCell(
+        Consumer<MenuAppController>(
+            builder: (context,mc,child) {
+              return IconButton(
+                  icon: Icon(Icons.check, color: white), // Adjust icon and color as needed
+                  onPressed: () async{
+                    EasyLoading.show(status: 'Loading....');
+                    final r=await communicationRequestsController.acceptCommunicationRequest(cr.id);
+                    if(r==200)
+                    {
+                      EasyLoading.showSuccess("Done");}
+                    else
+                      EasyLoading.showError('Something must have gone wrong');
+                    mc.UpdateScreenIndex(7);
+                  }
+              );
             }
-        );
-      }
-  ),
-)
-:      DataCell(
-  Consumer<MenuAppController>(
-      builder: (context,mc,child) {
-        return IconButton(
-            icon: Icon(Icons.check, color: textColor), // Adjust icon and color as needed
-            onPressed: () {
-              EasyLoading.showSuccess("Request Has been already accepted",duration: Duration(seconds: 2));}
+        ),
+      )
+      :      DataCell(
+              IconButton(
+                  icon: Icon(Icons.check, color: textColor), // Adjust icon and color as needed
+                  onPressed: () {
+                    EasyLoading.showSuccess("Request Has been already accepted",duration: Duration(seconds: 2));}
 
-        );
-      }
-  ),
-)
+              )
+
+      )
 
     ],
   );

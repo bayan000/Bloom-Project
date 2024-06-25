@@ -54,11 +54,7 @@ class ComplaintsList extends StatelessWidget {
                 children: [
                   Text(
                     "الشكاوى",
-                    style: TextStyle(color: textColor,
-                      fontFamily: 'font1',
-                      fontSize: 28,
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: communTextStyle28textColor
                   ),
                   SizedBox(
                     width: double.infinity,

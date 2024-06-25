@@ -1,11 +1,12 @@
 class ServerConfig{
+  //flutter run -d chrome --web-browser-flag "--disable-web-security"
   static String url = "https://grad2222.000webhostapp.com/api/";
   /***********************************************************/
   //Authorization----
   static String logIn = "admin/login";
   static String logOut = "admin/logout";
 
-  //Projects---------
+  //Projects---------'
   static String getAllUnacceptedProjects = "admin/projects";
   static String getAllProjects = "projects/";
   static String getAProject = "projects/";
@@ -33,9 +34,26 @@ class ServerConfig{
   static String getAllCommunicationRequests = "admin/communications/";
   static String getACommunicationRequest = "admin/communications/";
   static String acceptCommunicationRequests ="admin/communications/acceptRequest/";
+
   //Complaints----------
   static String getComplaints = "admin/complaints/";
   static String deleteComplaint = "admin/complaints/delete/";
+
+  //Transactions
+  static String getTransactions="admin/Transaction";
+  static String AddATransaction="admin/Transaction";
+  static String UpdateATransaction="admin/Transaction/update/";
+  static String DeleteATransaction="admin/Transaction/delete/";
+
+  //TransactionsRequests
+  static String getTransactionsRequests="admin/Transaction/review-requests";
+  //https://grad2222.000webhostapp.com/api/admin/Transaction/3/approve
+  static String ApproveTransactionsRequests0="admin/Transaction/";
+  static String ApproveTransactionsRequests1="/approve";
+  static String getATransactionsRequest="admin/Transaction/review-requests/";
+
+  //TransactionsRequests
+  static String getApprovedTransactions="admin/Transaction/showAccepted";
 
   //Reports
   static String getRreports="admin/reports/";

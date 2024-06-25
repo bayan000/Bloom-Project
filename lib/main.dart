@@ -6,6 +6,8 @@ import 'package:admin/controllers/articles_controller.dart';
 import 'package:admin/controllers/comreqController.dart';
 import 'package:admin/controllers/investor_controller.dart';
 import 'package:admin/controllers/login_controller.dart';
+import 'package:admin/controllers/transactionsController.dart';
+import 'package:admin/controllers/transactionsRequestsController.dart';
 import 'package:admin/controllers/workerInfoController.dart';
 import 'package:admin/controllers/workersController.dart';
 import 'package:admin/screens/Login/login_screen.dart';
@@ -37,6 +39,8 @@ void main() async{
         ChangeNotifierProvider(create: (_) =>ComplaintsController()),
         ChangeNotifierProvider(create: (_) =>ReportsController()),
         ChangeNotifierProvider(create: (_) =>ComReqController()),
+        ChangeNotifierProvider(create: (_) =>TransactionsController()),
+        ChangeNotifierProvider(create: (_) =>TransactionsRequestsController()),
       ],
         child: MyApp(),)
   );

@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -7,12 +8,12 @@ import '../../../../constants.dart';
 class TransactionInfoCard extends StatelessWidget {
 
   const TransactionInfoCard({
-    Key? key, required this.name, required this.price, required this.id, required this.discount,
+    Key? key, required this.name, required this.price, required this.id, required this.discount, required this.details,
 
   }) : super(key: key);
 
-  final String name;
-  final int price,id;
+  final String name,details, price;
+  final int id;
   final String discount;
 
 
@@ -28,6 +29,7 @@ class TransactionInfoCard extends StatelessWidget {
         ),
       ),
       child: Row(
+
         children: [
 
 
@@ -35,7 +37,7 @@ class TransactionInfoCard extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
 
                   Text(
@@ -44,18 +46,20 @@ class TransactionInfoCard extends StatelessWidget {
                     overflow: TextOverflow.ellipsis,
                     style:TextStyle(color: white,
                       fontFamily: 'font1',
-                      fontSize: 24,
+                      fontSize: 22,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                 // SizedBox(height: defaultPadding),
+                  SizedBox(height: defaultPadding),
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+
                     children: [
                       Text(
                         "الكلفة ",
                         style:TextStyle(color: white,
                           fontFamily: 'font1',
-                          fontSize: 24,
+                          fontSize: 22,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -64,7 +68,7 @@ class TransactionInfoCard extends StatelessWidget {
                         "$price",
                         style:TextStyle(color: white,
                           fontFamily: 'font1',
-                          fontSize: 24,
+                          fontSize: 22,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -74,12 +78,13 @@ class TransactionInfoCard extends StatelessWidget {
 
                   SizedBox(height: defaultPadding),
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
                         "الحسم",
                         style:TextStyle(color: white,
                           fontFamily: 'font1',
-                          fontSize: 24,
+                          fontSize: 22,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -88,13 +93,39 @@ class TransactionInfoCard extends StatelessWidget {
                         "$discount",
                         style:TextStyle(color: white,
                           fontFamily: 'font1',
-                          fontSize: 24,
+                          fontSize: 22,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
 
                     ],
                   ),
+                  SizedBox(height: defaultPadding),
+                  Column(
+
+                    children: [
+                      Text(
+                        "تفاصيل المعاملة",
+                        style:TextStyle(color: textColor,
+                          fontFamily: 'font1',
+                          fontSize: 22,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        softWrap: true,
+                      ),
+                      SizedBox(width: defaultPadding),
+                      Text(
+                        "$details",
+                        style:TextStyle(color: white,
+                            fontFamily: 'font1',
+                            fontSize: 22
+                        ),
+                        softWrap: true,
+                      ),
+
+                    ],
+                  ),
+
 
                 ],
               ),

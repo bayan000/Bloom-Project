@@ -29,6 +29,8 @@ class LoginService {
     final Map<String, dynamic> body = {'email': email, 'password':password};
 
       final response = await http.post(Uri.parse(url), body: jsonEncode(body),headers: {
+        "Access-Control-Allow-Origin": "*",
+
         'content-Type':'application/json',
       });
       if (response.statusCode == 200) {

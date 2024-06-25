@@ -64,7 +64,7 @@ class ArticlesList extends StatelessWidget {
                           "المقالات",
                           style: TextStyle(color: textColor,
                             fontFamily: 'font1',
-                            fontSize: 28,
+                            fontSize: 26,
                             fontWeight: FontWeight.bold,
                           ),
                         ),

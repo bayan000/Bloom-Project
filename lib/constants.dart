@@ -18,49 +18,54 @@ const Color secondaryColor = Color(0xFF92A78E);//buttonColorOpa;
 const Color bgColor = Color(0xFF556F44);//Color(0xFF212332);
 TextStyle communTextStyle20textColor=TextStyle(color: textColor,
   fontFamily: 'font1',
-  fontSize: 20,
+  fontSize: 18,
   fontWeight: FontWeight.bold,
 );
 TextStyle communTextStyle24textColor=TextStyle(color: textColor,
   fontFamily: 'font1',
-  fontSize: 24,
+  fontSize: 22,
   fontWeight: FontWeight.bold,
 );
 TextStyle communTextStyle28textColor=TextStyle(color: textColor,
   fontFamily: 'font1',
-  fontSize: 28,
+  fontSize: 26,
   fontWeight: FontWeight.bold,
 );
 TextStyle communTextStyle34textColor=TextStyle(color: textColor,
   fontFamily: 'font1',
-  fontSize: 34,
+  fontSize: 32,
   fontWeight: FontWeight.bold,
 );
 
 TextStyle communTextStyle20white=TextStyle(color: white,
   fontFamily: 'font1',
-  fontSize: 20,
+  fontSize: 18,
   fontWeight: FontWeight.bold,
 );
 TextStyle communTextStyle24white=TextStyle(color: white,
   fontFamily: 'font1',
-  fontSize: 24,
+  fontSize: 22,
   fontWeight: FontWeight.bold,
 );
 TextStyle communTextStyle28white=TextStyle(color: white,
   fontFamily: 'font1',
-  fontSize: 28,
+  fontSize: 24,
   fontWeight: FontWeight.bold,
 );
 TextStyle communTextStyle34white=TextStyle(color: white,
   fontFamily: 'font1',
-  fontSize: 34,
+  fontSize: 32,
   fontWeight: FontWeight.bold,
 );
 TextStyle communTextStyle24black=TextStyle(color: black,
   fontFamily: 'font1',
-  fontSize: 24,
+  fontSize: 20,
   fontWeight: FontWeight.bold,
+
+);
+TextStyle communTextStyle14black=TextStyle(color: black,
+  fontFamily: 'font1',
+  fontSize: 14,
 );
 String formatDateString(String dateTimeString) {
   final DateTime dateTime = DateTime.parse(dateTimeString);

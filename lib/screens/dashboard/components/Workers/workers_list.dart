@@ -54,7 +54,7 @@ class WorkersList extends StatelessWidget {
                     "قائمة المستخدمين",
                     style: TextStyle(color: textColor,
                       fontFamily: 'font1',
-                      fontSize: 28,
+                      fontSize: 26,
                       fontWeight: FontWeight.bold,
                     ),
                   ),

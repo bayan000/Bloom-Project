@@ -64,10 +64,10 @@ flutter:
   fonts:
     - family: font1
       fonts:
-        - asset: assets/fonts/Arslan.ttf
+        - asset: assets/fonts/AAA.ttf
     - family: font2
       fonts:
-        - asset: assets/fonts/AAA.ttf
+        - asset: assets/fonts/Arslan.ttf
     - family: font3
       fonts:
         - asset: assets/fonts/OO.ttf

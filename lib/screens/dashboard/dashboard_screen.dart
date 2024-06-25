@@ -13,6 +13,8 @@ import 'package:admin/screens/dashboard/components/Reports/report_details.dart';
 import 'package:admin/screens/dashboard/components/Reports/reports_list.dart';
 import 'package:admin/screens/dashboard/components/Transactions/transaction_details.dart';
 import 'package:admin/screens/dashboard/components/Transactions/transactions_list.dart';
+import 'package:admin/screens/dashboard/components/TransactionsRequests/ApprovedTransactionsList.dart';
+import 'package:admin/screens/dashboard/components/TransactionsRequests/TransactionRequestList.dart';
 import 'package:admin/screens/dashboard/components/Workers/worker_details.dart';
 import 'package:admin/screens/dashboard/components/Workers/workers_list.dart';
 import 'package:admin/screens/dashboard/components/test_widget.dart';
@@ -23,6 +25,7 @@ import 'package:provider/provider.dart';
 import '../../constants.dart';
 import '../../controllers/MenuAppController.dart';
 import 'components/SearchList.dart';
+import 'components/TransactionsRequests/TransactionRequestDetails.dart';
 import 'components/header.dart';
 
 import 'components/projects_list.dart';
@@ -307,7 +310,7 @@ class DashboardScreen extends StatelessWidget {
                 );
               }
               //if mAC.screenIndex==9 then we're searching'
-              else{
+              else if(mAC==9){
                 return Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -319,22 +322,74 @@ class DashboardScreen extends StatelessWidget {
                             SearchProjectsList(),
                             if (Responsive.isMobile(context))
                               SizedBox(height: defaultPadding),
-                            if (Responsive.isMobile(context))
-                              ProjectDetails(),
+                          //  if (Responsive.isMobile(context))
+                             // ProjectDetails(),
                           ],
                         )
                     ),
                     if (!Responsive.isMobile(context))
                       SizedBox(width: defaultPadding),
                     // On Mobile means if the screen is less than 850 we don't want to show it
-                    if (!Responsive.isMobile(context))
+                  /*  if (!Responsive.isMobile(context))
                       Expanded(
                         flex: 2,
                         child: ProjectDetails(),
+                      ),*/
+                  ],
+                );
+              }
+              //if mAC.screenIndex==10 then we're viewing transactionsRequests'
+               else if(mAC.screenIndex==10){
+                return Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(
+                        flex: 5,
+                        child:  Column(
+                          children: [
+                            SizedBox(height: defaultPadding),
+                            TransactionsRequestsList(),
+                            if (Responsive.isMobile(context))
+                              SizedBox(height: defaultPadding),
+                            if (Responsive.isMobile(context))
+                            TransactionRequestDetails(),
+                          ],
+                        )
+                    ),
+                    if (!Responsive.isMobile(context))
+                      SizedBox(width: defaultPadding),
+                    // On Mobile means if the screen is less than 850 we don't want to show it
+                      if (!Responsive.isMobile(context))
+                      Expanded(
+                        flex: 2,
+                        child: TransactionRequestDetails(),
                       ),
                   ],
                 );
               }
+              //if mAC.screenIndex==11 then we're viewing Approved transactionsRequests'
+              else {
+                return Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(
+                        flex: 5,
+                        child:  Column(
+                          children: [
+                            SizedBox(height: defaultPadding),
+                            ApprovedTransactionsList(),
+                            if (Responsive.isMobile(context))
+                              SizedBox(height: defaultPadding),
+
+                          ],
+                        )
+                    ),
+                    if (!Responsive.isMobile(context))
+                      SizedBox(width: defaultPadding),
+                  ],
+                );
+              }
+
             })
           ],
         ),

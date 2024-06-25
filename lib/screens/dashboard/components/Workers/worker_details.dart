@@ -53,7 +53,7 @@ class WorkerDetails1 extends StatelessWidget {
                               "التفاصيل",
                               style:TextStyle(color: white,
                                 fontFamily: 'font1',
-                                fontSize: 24,
+                                fontSize: 22,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),

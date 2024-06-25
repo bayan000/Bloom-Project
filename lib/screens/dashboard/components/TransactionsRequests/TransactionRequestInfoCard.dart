@@ -1,18 +1,20 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../constants.dart';
 
 
-class communicationRequestInfoCard extends StatelessWidget {
-  const communicationRequestInfoCard({
-    Key? key, required this.created_at, required this.investor_name, required this.project_name, required this.status, this.id, this.inv_email, this.inv_phone,
+class TransactionRequestInfoCard extends StatelessWidget {
 
+  const TransactionRequestInfoCard({
+    Key? key, required this.name, required this.price, required this.id, required this.discount, required this.details, required this.status, required this.projectId,
 
   }) : super(key: key);
 
-  final String? created_at,investor_name,project_name,inv_email,inv_phone;
-  final int? status,id;
+  final String name,details, price,status;
+  final int id,projectId;
+  final String discount;
 
 
   @override
@@ -27,6 +29,7 @@ class communicationRequestInfoCard extends StatelessWidget {
         ),
       ),
       child: Row(
+
         children: [
 
 
@@ -36,11 +39,25 @@ class communicationRequestInfoCard extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Column(
+
+                  Text(
+                    name,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style:TextStyle(color: white,
+                      fontFamily: 'font1',
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  SizedBox(height: defaultPadding),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+
                     children: [
                       Text(
-                        "اسم المستثمر ",
-                        style:TextStyle(color: textColor,
+                        "الكلفة ",
+                        style:TextStyle(color: white,
                           fontFamily: 'font1',
                           fontSize: 22,
                           fontWeight: FontWeight.bold,
@@ -48,21 +65,24 @@ class communicationRequestInfoCard extends StatelessWidget {
                       ),
                       SizedBox(width: defaultPadding),
                       Text(
-                        investor_name!,
+                        "$price",
                         style:TextStyle(color: white,
                           fontFamily: 'font1',
                           fontSize: 22,
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
+
                     ],
                   ),
 
                   SizedBox(height: defaultPadding),
-                  Column(
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        "الإيميل ",
-                        style:TextStyle(color: textColor,
+                        "الحسم",
+                        style:TextStyle(color: white,
                           fontFamily: 'font1',
                           fontSize: 22,
                           fontWeight: FontWeight.bold,
@@ -70,80 +90,65 @@ class communicationRequestInfoCard extends StatelessWidget {
                       ),
                       SizedBox(width: defaultPadding),
                       Text(
-                        inv_email!,
+                        "$discount",
                         style:TextStyle(color: white,
-                          fontFamily: 'font1',
-                          fontSize: 22,
-                        ),
-                      ),
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      Text(
-                        "رقم الهاتف ",
-                        style:TextStyle(color: textColor,
                           fontFamily: 'font1',
                           fontSize: 22,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      SizedBox(width: defaultPadding),
-                      Text(
-                        inv_phone!,
-                        style:TextStyle(color: white,
-                          fontFamily: 'font1',
-                          fontSize: 22
-                        ),
-                      ),
-                    ],
-                  ),
 
+                    ],
+                  ),
+                  SizedBox(height: defaultPadding),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "الحالة",
+                        style:TextStyle(color: white,
+                          fontFamily: 'font1',
+                          fontSize: 22,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      SizedBox(width: defaultPadding),
+                      Text(
+                        "$status",
+                        style:TextStyle(color: white,
+                          fontFamily: 'font1',
+                          fontSize: 22,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+
+                    ],
+                  ),
                   SizedBox(height: defaultPadding),
                   Column(
+
                     children: [
                       Text(
-                        "اسم المشروع ",
+                        "تفاصيل المعاملة",
                         style:TextStyle(color: textColor,
                           fontFamily: 'font1',
                           fontSize: 22,
                           fontWeight: FontWeight.bold,
                         ),
+                        softWrap: true,
                       ),
                       SizedBox(width: defaultPadding),
                       Text(
-                        "$project_name",
+                        "$details",
                         style:TextStyle(color: white,
-                          fontFamily: 'font1',
-                          fontSize: 22
+                            fontFamily: 'font1',
+                            fontSize: 22
                         ),
-                      ),
-                    ],
-                  ),
-
-                  SizedBox(height: defaultPadding),
-                  Column(
-                    children: [
-                      Text(
-                        "تاريخ الطلب ",
-                        style:TextStyle(color: textColor,
-                          fontFamily: 'font1',
-                          fontSize: 22,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      SizedBox(width: defaultPadding),
-                      Text(
-                        "$created_at",
-                        style:TextStyle(color: white,
-                          fontFamily: 'font1',
-                          fontSize: 22
-                        ),
+                        softWrap: true,
                       ),
 
                     ],
                   ),
-
                 ],
               ),
             ),

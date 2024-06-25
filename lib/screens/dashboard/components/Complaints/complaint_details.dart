@@ -45,12 +45,7 @@ class ComplaintDetails extends StatelessWidget {
                     child: Text(
                       "تفاصيل الشكوى",
                       overflow: TextOverflow.ellipsis,
-                      style:TextStyle(color: white,
-                        fontFamily: 'font1',
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-
-                      ),
+                      style:communTextStyle24white
                     ),
                   ),
                 ),

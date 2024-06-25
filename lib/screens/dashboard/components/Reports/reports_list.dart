@@ -93,56 +93,6 @@ class ReportsList extends StatelessWidget {
     );
   }
 }
-/*DataRow ArticleDataRow(Article article,BuildContext context) {
-  Size size =MediaQuery.of(context).size;
-  ArticlesController articlesController=ArticlesController();
-  return DataRow(
-    cells: [
-      DataCell(
-        Consumer<ArticlesController>(
-        builder: (context,ac,child) {
-          return InkWell( // Wrap DataCell with InkWell
-          onTap: (){
-          ac.curr_article(article);
-          print(article.id.toString()+"article iddddddddd");
-          print(formatDateString(ac.article0.updatedAt.toString()));
-          },
-            child: Row(
-              children: [
-
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
-                  child: Text(article.name!,style: communTextStyle24black,),
-                ),
-              ],
-            ),
-          );
-        }
-      ),
-      ),
-      DataCell(SizedBox(width: size.width*0.34,)
-      ),
-      DataCell(
-        Consumer<MenuAppController>(
-            builder: (context,mc,child) {
-              return IconButton(
-                  icon: Icon(Icons.delete, color: white),
-                  onPressed: () async {
-                    //print(project.id);
-                    EasyLoading.show(status: 'Loading....');
-                    final r = await articlesController.deleteArticle(article.id);
-                    if (r == 200)
-                      EasyLoading.showSuccess("Done");
-                    else
-                      EasyLoading.showError('Something must have gone wrong');
-                    mc.UpdateScreenIndex(1);
-                  });
-            }
-        ),)
-
-    ],
-  );
-}*/
 DataRow reportDataRow(Report r) {
   ReportsController reportsController=ReportsController();
   return DataRow(

@@ -49,7 +49,7 @@ class communicationRequestDetails extends StatelessWidget {
                             "تفاصيل الطلب",
                             style:TextStyle(color: white,
                               fontFamily: 'font1',
-                              fontSize: 24,
+                              fontSize: 22,
                               fontWeight: FontWeight.bold,
                             ),
                           ),

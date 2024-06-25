@@ -26,7 +26,7 @@ class CommunicationRequestsController extends ChangeNotifier{
     final name= await OneProjectServices.fetchProjectName(ServerConfig.url+ServerConfig.getAProject+id.toString());
     return name;
   }
-  //----------------------------
+  //acceptCommunicationRequest----------------------------
     Future<int> acceptCommunicationRequest(var id) async{
     status= await CommunicationRequestsService.AcceptCommunicationRequest(ServerConfig.url+ServerConfig.acceptCommunicationRequests+id.toString());
     return status;

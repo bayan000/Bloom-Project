@@ -1,4 +1,5 @@
 
+import 'package:admin/controllers/transactionsController.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_svg/svg.dart';
@@ -54,7 +55,7 @@ class ProjectsList extends StatelessWidget {
                             "قائمة المشاريع",
                             style: TextStyle(color: textColor,
                               fontFamily: 'font1',
-                              fontSize: 28,
+                              fontSize: 26,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -87,7 +88,7 @@ class ProjectsList extends StatelessWidget {
                               ],
                               rows: List.generate(
                                   snapshot.data?.length ??0,
-                                      (index) => projectDataRow(snapshot.data![index])
+                                      (index) => projectDataRow(snapshot.data![index],context)
                               ),
                             ),
                           ),
@@ -98,56 +99,137 @@ class ProjectsList extends StatelessWidget {
                   });})
     );
   }
-}
+  DataRow projectDataRow(Project project,BuildContext context) {
+    ProjectsController projectsController=ProjectsController();
+    return DataRow(
+      cells: [
+        DataCell(
+          GestureDetector(
+            child: Row(
+              children: [
 
-DataRow projectDataRow(Project project) {
-  ProjectsController projectsController=ProjectsController();
-  return DataRow(
-    cells: [
-      DataCell(
-        GestureDetector(
-          child: Row(
-            children: [
-
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
-                child: Container(
-                    width: 250,
-                    child: Text(project.name!,style: communTextStyle24black,overflow: TextOverflow.ellipsis,textDirection: TextDirection.rtl,)),
-              ),
-            ],
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
+                  child: Container(
+                      width: 250,
+                      child: Text(project.name!,style: communTextStyle24black,overflow: TextOverflow.ellipsis,textDirection: TextDirection.rtl,)),
+                ),
+              ],
+            ),
           ),
         ),
-      ),
-      DataCell(Text(project.location!,style: communTextStyle24black,overflow: TextOverflow.ellipsis,)),
-      DataCell(Text(project.amount!.toString(),style: communTextStyle24black,overflow: TextOverflow.ellipsis,)),
-      DataCell(project.investmentStatus==1?
-          Text("مُستَثمر",style: communTextStyle24black,overflow: TextOverflow.ellipsis,):
-      Text("غير مُستَثمر",style: communTextStyle24black,overflow: TextOverflow.ellipsis,)
-      ),
+        DataCell(Text(project.location!,style: communTextStyle24black,overflow: TextOverflow.ellipsis,)),
+        DataCell(Text(project.amount!.toString(),style: communTextStyle24black,overflow: TextOverflow.ellipsis,)),
+        DataCell(project.investmentStatus==1?
+        Text("مُستَثمر",style: communTextStyle24black,overflow: TextOverflow.ellipsis,):
+        Text("غير مُستَثمر",style: communTextStyle24black,overflow: TextOverflow.ellipsis,)
+        ),
 
 
-      DataCell(
-        Consumer<MenuAppController>(
-            builder: (context,mc,child) {
-          return IconButton(
-          icon: Icon(Icons.delete, color: white),
-          onPressed: () async {
-            print(project.id);
-            EasyLoading.show(status: 'Loading....');
-            final r = await projectsController.deleteProject(project.id);
-            if (r == 200)
-              EasyLoading.showSuccess("Done");
-            else
-              EasyLoading.showError('Something must have gone wrong');
-            mc.UpdateScreenIndex(0);
-          });
-        }
-      ),),
-      DataCell(
-        IconButton(
-            icon: Icon(Icons.add, color: textColor,weight: 40,),
-            onPressed: (){}),)
-    ],
-  );
+        DataCell(
+          Consumer<MenuAppController>(
+              builder: (context,mc,child) {
+                return IconButton(
+                    icon: Icon(Icons.delete, color: white),
+                    onPressed: () async {
+                      print(project.id);
+                      EasyLoading.show(status: 'Loading....');
+                      final r = await projectsController.deleteProject(project.id);
+                      if (r == 200) {
+                        EasyLoading.showSuccess("Done");
+                        mc.UpdateScreenIndex(0);
+                      } else
+                        EasyLoading.showError('Something must have gone wrong');
+                    });
+              }
+          ),),
+        DataCell(
+          IconButton(
+              icon: Icon(Icons.add, color: textColor,weight: 40,),
+              onPressed: (){_showTextInputDialog(context,project.id);}),)
+      ],
+    );
 }
+
+void _showTextInputDialog(BuildContext context,id) {
+  final _titleController = TextEditingController(); // Title input
+  final PriceController = TextEditingController();
+  final DiscountController = TextEditingController();
+  final DescriptionController = TextEditingController();
+  TransactionsController transactionsController = TransactionsController();
+  showDialog(
+    context: context,
+    builder: (context) {
+      return AlertDialog(
+        title: Text(
+          'معاملة جديدة',
+          style: communTextStyle20textColor,
+          textDirection: TextDirection.rtl,
+        ),
+        content: Column(
+          mainAxisSize: MainAxisSize.min, // Avoid excessive scrolling
+          children: [
+            TextField(
+              textAlign: TextAlign.end,
+              controller: _titleController, // Title input
+              decoration: InputDecoration(hintText: 'أدخل اسم المعاملة'),
+            ),
+            TextField(
+              textAlign: TextAlign.end,
+              controller: PriceController, // Long text input
+              decoration: InputDecoration(hintText: 'أدخل سعر المعاملة'),
+            ),
+            TextField(
+              textAlign: TextAlign.end,
+              controller: DiscountController, // Long text input
+              decoration: InputDecoration(hintText: 'أدخل الحسم على المعاملة'),
+            ),
+            TextField(
+              textAlign: TextAlign.end,
+              controller: DescriptionController, // Long text input
+              decoration: InputDecoration(hintText: 'أدخل وصف المعاملة'),
+            ),
+            Row(
+              children: [
+                TextButton(
+                  onPressed: () => Navigator.pop(context),
+                  child: Text(
+                    'إلغاء',
+                    style: communTextStyle20textColor,
+                    textDirection: TextDirection.rtl,
+                  ),
+                ),
+                TextButton(
+                  onPressed: () async {
+                    if (_titleController.text == null ||
+                        PriceController.text == null ||
+                        DiscountController.text == null ||
+                        DescriptionController.text == null) {
+                      EasyLoading.showError("Please Fill all Required Field");
+                    }
+                    else {
+                      EasyLoading.show(status: 'Loading....');
+                      await transactionsController.addTransaction(
+                          _titleController.text, id, int.parse(PriceController.text),
+                          DiscountController.text, DescriptionController.text);
+                      if (transactionsController.status == 201)
+                        EasyLoading.showSuccess('تم حفظ المعاملة الجديدة');
+                      else
+                        EasyLoading.showError('Something went wrong');
+                      Navigator.pop(context);
+                    }
+                  },
+                  child: Text(
+                    'تأكيد',
+                    style: communTextStyle20textColor,
+                    textDirection: TextDirection.rtl,
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+      );
+    },
+  );
+}}

@@ -1,15 +1,15 @@
-class Transactions {
-  List<Transaction>? transaction;
+class ApprovedTransactions {
+  List<AnApprovedTransaction>? data;
   String? message;
   int? status;
 
-  Transactions({this.transaction, this.message, this.status});
+  ApprovedTransactions({this.data, this.message, this.status});
 
-  Transactions.fromJson(Map<String, dynamic> json) {
+  ApprovedTransactions.fromJson(Map<String, dynamic> json) {
     if (json['data'] != null) {
-      transaction = <Transaction>[];
+      data = <AnApprovedTransaction>[];
       json['data'].forEach((v) {
-        transaction!.add(new Transaction.fromJson(v));
+        data!.add(new AnApprovedTransaction.fromJson(v));
       });
     }
     message = json['message'];
@@ -18,8 +18,8 @@ class Transactions {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.transaction != null) {
-      data['data'] = this.transaction!.map((v) => v.toJson()).toList();
+    if (this.data != null) {
+      data['data'] = this.data!.map((v) => v.toJson()).toList();
     }
     data['message'] = this.message;
     data['status'] = this.status;
@@ -27,9 +27,10 @@ class Transactions {
   }
 }
 
-class Transaction {
+class AnApprovedTransaction {
   int? id;
   String? name;
+  String? ProjectName;
   String? description;
   String? price;
   String? discount;
@@ -39,9 +40,10 @@ class Transaction {
   String? createdAt;
   String? updatedAt;
 
-  Transaction(
+  AnApprovedTransaction(
       {this.id,
         this.name,
+        this.ProjectName,
         this.description,
         this.price,
         this.discount,
@@ -51,7 +53,7 @@ class Transaction {
         this.createdAt,
         this.updatedAt});
 
-  Transaction.fromJson(Map<String, dynamic> json) {
+  AnApprovedTransaction.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
     description = json['description'];
