@@ -1,7 +1,9 @@
 import 'package:admin/Config/server_config.dart';
 import 'package:admin/Services/projects_services.dart';
+import 'package:admin/models/ProjectDetails.dart';
 import 'package:flutter/material.dart';
 
+import '../models/TransactionsForEachProject.dart';
 import '../models/project_list.dart';
 
 class ProjectsController extends ChangeNotifier{
@@ -10,11 +12,30 @@ class ProjectsController extends ChangeNotifier{
   List<Project> projectListSearched=[];
   int status=0;
   var SearchValue,selectedFilter;
+  ProjectDetailsWithCanvases projectDetails=ProjectDetailsWithCanvases();
+  Project project=Project();
+  TransactionsForEachProject transactionsForEachProject=TransactionsForEachProject();
+  int pressed=0;
+
+
 
   //fetchProjects------------------------------------------
   Future<List<Project>> fetchProjects() async{
     projects=await ProjectsService.getProjects(ServerConfig.getAllProjects);
     return await ProjectsService.getProjects(ServerConfig.getAllProjects);
+  }
+
+  //fetchTransactionsForEachProject------------------------------------------
+  Future<TransactionsForEachProject> fetchTransactionsForEachProject(id) async{
+    transactionsForEachProject=await ProjectsService.fetchProjectTransactions(ServerConfig.url+ServerConfig.getAProjectTransactions+id.toString());
+    return transactionsForEachProject;
+  }
+
+
+  //fetchProjectDetails------------------------------------------------------------------------------------
+  Future<ProjectDetailsWithCanvases> fetchProjectDetails(id) async{
+    final projectDetails0=(await ProjectsService.fetchAProjectDetails(ServerConfig.url+ServerConfig.getAProject+id.toString()))!;
+    return projectDetails0;
   }
   //fetchUnacceptedProjects------------------------------------------
 
@@ -57,5 +78,11 @@ class ProjectsController extends ChangeNotifier{
     this.selectedFilter=value;
     notifyListeners();
     return value;
+  }
+  //curr_project------------------------------------------
+  curr_project(Project project){
+    this.project=project;
+    notifyListeners();
+    return project;
   }
 }

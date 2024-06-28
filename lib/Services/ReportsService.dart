@@ -33,6 +33,32 @@ class ReportsService{
       }
     }
 
+    //********************* Fetching Project Reports *********************************//
+    static Future<List<Report>> fetchProjectReports(String url) async {
+      final response = await http.get(Uri.parse(url),headers: {
+        'Authorization':'Bearer  ${GetStorage().read('token')}',
+        'content-Type':'application/json',
+      });
+
+      if (response.statusCode == 200) {
+        final decodedData = jsonDecode(response.body) as Map<String, dynamic>;
+        if (decodedData['status'] == 200) {
+          final dataList = decodedData['data'] as List<dynamic>;
+          final reports = dataList.map((data) => Report.fromJson(data)).toList();
+          CommunicationRequestsController communicationRequestsController=CommunicationRequestsController();
+          for(int i=0; i<reports.length; i++){
+            final name=await communicationRequestsController.getProjectName(reports[i].projectId);
+            reports[i].projectName=name;
+          }
+          return reports;
+        } else {
+          throw Exception('Failed to fetch reports: ${response.statusCode}');
+        }
+      } else {
+        throw Exception('Failed to fetch reports: ${response.statusCode}');
+      }
+    }
+
     //********************* Fetching A Report *********************************//
 
     static Future<Report> getReportInformation(String url) async {
@@ -58,6 +84,7 @@ class ReportsService{
         throw Exception('Failed to fetch reports: ${response.statusCode}');
       }
     }
+
 
 }
 

@@ -1,5 +1,10 @@
+import 'package:admin/screens/dashboard/components/Transactions/transaction_info_card.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:admin/models/transaction.dart';
+
+import 'controllers/transactionsController.dart';
+
 
 
 const defaultPadding = 16.0;
@@ -71,3 +76,23 @@ String formatDateString(String dateTimeString) {
   final DateTime dateTime = DateTime.parse(dateTimeString);
   return DateFormat('yyyy-MM-dd').format(dateTime);
 }
+Widget MyContainer(double? width,Color color, String text, String title,style)=>FittedBox(
+  fit: BoxFit.fitWidth,
+  child: Container(
+    padding: EdgeInsets.all(defaultPadding),
+    width: width,
+    decoration: BoxDecoration(
+      color: color
+      ,
+      borderRadius: const BorderRadius.all(Radius.circular(10)),
+    ),
+    child: Column(
+      children: [
+        Text(title,style: style,maxLines:null),
+        SizedBox(height: defaultPadding,),
+        Text(text,style: style,maxLines:null,),
+      ],
+    ),
+  ),
+);
+//

@@ -1,28 +1,48 @@
-class Transactions {
-  List<Transaction>? transaction;
-  String? message;
-  int? status;
+class TransactionsForEachProject {
+  String? status;
+  List<Tran>? trans;
 
-  Transactions({this.transaction, this.message, this.status});
+  TransactionsForEachProject({this.status, this.trans});
 
-  Transactions.fromJson(Map<String, dynamic> json) {
+  TransactionsForEachProject.fromJson(Map<String, dynamic> json) {
+    status = json['status'];
     if (json['data'] != null) {
-      transaction = <Transaction>[];
+      trans = <Tran>[];
       json['data'].forEach((v) {
-        transaction!.add(new Transaction.fromJson(v));
+        trans!.add(new Tran.fromJson(v));
       });
     }
-    message = json['message'];
-    status = json['status'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['status'] = this.status;
+    if (this.trans != null) {
+      data['data'] = this.trans!.map((v) => v.toJson()).toList();
+    }
+    return data;
+  }
+}
+
+class Tran {
+  Transaction? transaction;
+  Null? receipt;
+
+  Tran({this.transaction, this.receipt});
+
+  Tran.fromJson(Map<String, dynamic> json) {
+    transaction = json['transaction'] != null
+        ? new Transaction.fromJson(json['transaction'])
+        : null;
+    receipt = json['receipt'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     if (this.transaction != null) {
-      data['data'] = this.transaction!.map((v) => v.toJson()).toList();
+      data['transaction'] = this.transaction!.toJson();
     }
-    data['message'] = this.message;
-    data['status'] = this.status;
+    data['receipt'] = this.receipt;
     return data;
   }
 }
@@ -30,7 +50,7 @@ class Transactions {
 class Transaction {
   int? id;
   String? name;
-  String? ProjectName;
+  String? pName;
   String? description;
   String? price;
   String? discount;
@@ -43,7 +63,7 @@ class Transaction {
   Transaction(
       {this.id,
         this.name,
-        this.ProjectName,
+        this.pName,
         this.description,
         this.price,
         this.discount,

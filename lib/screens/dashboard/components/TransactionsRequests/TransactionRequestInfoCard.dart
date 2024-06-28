@@ -8,11 +8,11 @@ import '../../../../constants.dart';
 class TransactionRequestInfoCard extends StatelessWidget {
 
   const TransactionRequestInfoCard({
-    Key? key, required this.name, required this.price, required this.id, required this.discount, required this.details, required this.status, required this.projectId,
+    Key? key, required this.name, required this.price, required this.id, required this.discount, required this.details, required this.status, required this.projectId, required this.pName,
 
   }) : super(key: key);
 
-  final String name,details, price,status;
+  final String name,details, price,status,pName;
   final int id,projectId;
   final String discount;
 
@@ -50,6 +50,32 @@ class TransactionRequestInfoCard extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
+                  SizedBox(height: defaultPadding),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+
+                    children: [
+                      Text(
+                        "اسم المشروع ",
+                        style:TextStyle(color: white,
+                          fontFamily: 'font1',
+                          fontSize: 22,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      SizedBox(width: defaultPadding),
+                      Text(
+                        "$pName",
+                        style:TextStyle(color: white,
+                          fontFamily: 'font1',
+                          fontSize: 22,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+
+                    ],
+                  ),
+
                   SizedBox(height: defaultPadding),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,

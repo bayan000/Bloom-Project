@@ -74,7 +74,6 @@ class Project {
   int? id;
   String? name;
   String? description;
-  String? feasibilityStudy;
   int? amount;
   String? location;
   int? investmentStatus;
@@ -84,12 +83,12 @@ class Project {
   int? typeId;
   String? createdAt;
   String? updatedAt;
+  User? user;
 
   Project(
       {this.id,
         this.name,
         this.description,
-        this.feasibilityStudy,
         this.amount,
         this.location,
         this.investmentStatus,
@@ -98,13 +97,13 @@ class Project {
         this.userId,
         this.typeId,
         this.createdAt,
-        this.updatedAt});
+        this.updatedAt,
+        this.user});
 
   Project.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
     description = json['description'];
-    feasibilityStudy = json['feasibility_study'];
     amount = json['amount'];
     location = json['location'];
     investmentStatus = json['investment_status'];
@@ -114,6 +113,7 @@ class Project {
     typeId = json['type_id'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
+    user = json['user'] != null ? new User.fromJson(json['user']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -121,7 +121,6 @@ class Project {
     data['id'] = this.id;
     data['name'] = this.name;
     data['description'] = this.description;
-    data['feasibility_study'] = this.feasibilityStudy;
     data['amount'] = this.amount;
     data['location'] = this.location;
     data['investment_status'] = this.investmentStatus;
@@ -129,6 +128,86 @@ class Project {
     data['investor_id'] = this.investorId;
     data['user_id'] = this.userId;
     data['type_id'] = this.typeId;
+    data['created_at'] = this.createdAt;
+    data['updated_at'] = this.updatedAt;
+    if (this.user != null) {
+      data['user'] = this.user!.toJson();
+    }
+    return data;
+  }
+}
+
+class User {
+  int? id;
+  String? firstName;
+  String? lastName;
+  String? userType;
+  String? email;
+  int? verified;
+  String? otp;
+  String? deviceToken;
+  String? phone;
+  String? location;
+  String? iDCard;
+  String? personalPhoto;
+  String? propertyDeed;
+  String? cleanRecord;
+  String? createdAt;
+  String? updatedAt;
+
+  User(
+      {this.id,
+        this.firstName,
+        this.lastName,
+        this.userType,
+        this.email,
+        this.verified,
+        this.otp,
+        this.deviceToken,
+        this.phone,
+        this.location,
+        this.iDCard,
+        this.personalPhoto,
+        this.propertyDeed,
+        this.cleanRecord,
+        this.createdAt,
+        this.updatedAt});
+
+  User.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    firstName = json['first_name'];
+    lastName = json['last_name'];
+    userType = json['user_type'];
+    email = json['email'];
+    verified = json['verified'];
+    otp = json['otp'];
+    deviceToken = json['device_token'];
+    phone = json['phone'];
+    location = json['location'];
+    iDCard = json['iD_card'];
+    personalPhoto = json['personal_photo'];
+    propertyDeed = json['property_deed'];
+    cleanRecord = json['clean_record'];
+    createdAt = json['created_at'];
+    updatedAt = json['updated_at'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['first_name'] = this.firstName;
+    data['last_name'] = this.lastName;
+    data['user_type'] = this.userType;
+    data['email'] = this.email;
+    data['verified'] = this.verified;
+    data['otp'] = this.otp;
+    data['device_token'] = this.deviceToken;
+    data['phone'] = this.phone;
+    data['location'] = this.location;
+    data['iD_card'] = this.iDCard;
+    data['personal_photo'] = this.personalPhoto;
+    data['property_deed'] = this.propertyDeed;
+    data['clean_record'] = this.cleanRecord;
     data['created_at'] = this.createdAt;
     data['updated_at'] = this.updatedAt;
     return data;

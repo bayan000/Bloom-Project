@@ -61,10 +61,7 @@ class communicationRequestDetails extends StatelessWidget {
                     ),
                   );
                 }
-                /*if(snapshot.hasError)
-                {
-                  return Center(child: Text('',style: TextStyle(fontSize: 20),),);
-                }*/
+
                 else{
                   return Container(
                     padding: EdgeInsets.all(defaultPadding),
@@ -106,6 +103,9 @@ class communicationRequestDetails extends StatelessWidget {
                           id: snapshot.data!.communication!.id,
                           inv_email: snapshot.data!.communication!.investor!.email ,
                           inv_phone:  snapshot.data!.communication!.investor!.phone,
+                          wName: snapshot.data!.communication!.project!.user!.firstName!+" "+snapshot.data!.communication!.project!.user!.lastName!,
+                          wEmail:snapshot.data!.communication!.project!.user!.email ,
+                          wPhone:snapshot.data!.communication!.project!.user!.phone ,
 
                         ),
                       ],

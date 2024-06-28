@@ -11,6 +11,7 @@ import 'package:get_storage/get_storage.dart';
 
 import 'package:http/http.dart' as http;
 
+import '../controllers/CommunicationRequestsController.dart';
 import '../models/transaction.dart';
 
 
@@ -74,6 +75,7 @@ class TransactionsService{
   //********************* Fetching A Transaction *********************************//
 
   static Future<Transaction> fetchTransaction(String url, int transactionId) async {
+
     final response = await http.get(Uri.parse('$url/$transactionId'),headers: {
       'Authorization':'Bearer  ${GetStorage().read('token')}',
       'Accept':'application/json',
@@ -81,8 +83,10 @@ class TransactionsService{
 
     if (response.statusCode == 200) {
       final json = jsonDecode(response.body);
-
-        return Transaction.fromJson(json['data']);
+      CommunicationRequestsController communicationRequestsController=CommunicationRequestsController();
+      var t=Transaction.fromJson(json['data']);
+      t.ProjectName=await communicationRequestsController.getProjectName(t.projectId);
+        return t;
 
     } else {
       throw Exception('Failed to fetch transactions: ${response.statusCode}');

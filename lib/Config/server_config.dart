@@ -1,6 +1,8 @@
 class ServerConfig{
   //flutter run -d chrome --web-browser-flag "--disable-web-security"
+
   static String url = "https://grad2222.000webhostapp.com/api/";
+  //static String url = "https://noor-demo-store.webmyidea.com/api/";
   /***********************************************************/
   //Authorization----
   static String logIn = "admin/login";
@@ -15,6 +17,8 @@ class ServerConfig{
   static String DeleteAProject = "projects/delete/";
   static String SearchForAProjectByName = "projects/Name/";
   static String SearchForAProjectByAmount = "projects/Amount/";
+  static String getAProjectTransactions = "Transaction/";
+
 
   //Articles---------
   static String getAllArticles = "Article";
@@ -54,6 +58,11 @@ class ServerConfig{
 
   //TransactionsRequests
   static String getApprovedTransactions="admin/Transaction/showAccepted";
+
+  //Statistic
+  static String monthly_statistics="monthly-statistics";
+  static String project_statistics="project-statistics";
+
 
   //Reports
   static String getRreports="admin/reports/";

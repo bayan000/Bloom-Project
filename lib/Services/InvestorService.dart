@@ -40,8 +40,10 @@ class InvestorService{
     if (statusCode == 200) {
       final json = jsonDecode(body) as Map<String, dynamic>;
       AnInvestor inv =AnInvestor.fromJson(json);
-      final fullName=inv.investorInfo!.investor!.firstName!+" "+inv.investorInfo!.investor!.lastName!;
-      print(fullName);
+      var fullName=inv.investorInfo!.investor!.firstName!+" "+inv.investorInfo!.investor!.lastName!;
+      print(fullName+"is the investor");
+      if (fullName==null)
+        fullName="No Investor";
       return fullName;
     } else {      print(response.body);
 

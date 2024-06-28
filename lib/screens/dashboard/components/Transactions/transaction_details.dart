@@ -63,7 +63,7 @@ class TransactionDetails extends StatelessWidget {
                   );
                 }
                 else
-                return Container(
+              return Container(
                 padding: EdgeInsets.all(defaultPadding),
 
                 decoration: BoxDecoration(
@@ -94,7 +94,8 @@ class TransactionDetails extends StatelessWidget {
                       ),
                     ),
                     SizedBox(height: defaultPadding*0.5),
-                    TransactionInfoCard(name: snapshot!.data!.name!, price: snapshot!.data!.price!, id: snapshot!.data!.projectId!, discount: snapshot!.data!.discount!,details: snapshot!.data!.description!,
+                    TransactionInfoCard(
+                      pName:snapshot!.data!.ProjectName! ,name: snapshot!.data!.name!, price: snapshot!.data!.price!, id: snapshot!.data!.projectId!, discount: snapshot!.data!.discount!,details: snapshot!.data!.description!,
 
                     ),
                   ],

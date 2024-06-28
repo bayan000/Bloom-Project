@@ -10,9 +10,14 @@ class ReportsController extends ChangeNotifier{
   Report report0=Report();
  // int status=0;
 
-  //fetchArticles------------------------------------------
+  //fetchReports------------------------------------------
   Future<List<Report>> fetchReports() async{
     reports=(await ReportsService.getReports(ServerConfig.url+ServerConfig.getRreports))!;
+    return reports;
+  }
+  //fetchReports------------------------------------------
+  Future<List<Report>> fetchProjectReports(id) async{
+    reports=(await ReportsService.fetchProjectReports(ServerConfig.url+ServerConfig.getAProjectRreports+id.toString()))!;
     return reports;
   }
   //curr_report------------------------------------------

@@ -121,7 +121,7 @@ class TransactionRequestDetails extends StatelessWidget {
                               ),
                             ),
                             SizedBox(height: defaultPadding*0.5),
-                            TransactionRequestInfoCard(name: snapshot.data!.data!.transaction!.name!, price: snapshot.data!.data!.transaction!.price!, id: snapshot.data!.data!.transaction!.id!, discount: snapshot.data!.data!.transaction!.discount!, details: snapshot.data!.data!.transaction!.description!, status: snapshot.data!.data!.transaction!.status!, projectId: snapshot.data!.data!.transaction!.projectId!)
+                            TransactionRequestInfoCard(pName:snapshot.data!.data!.transaction!.ProjectName!,name: snapshot.data!.data!.transaction!.name!, price: snapshot.data!.data!.transaction!.price!, id: snapshot.data!.data!.transaction!.id!, discount: snapshot.data!.data!.transaction!.discount!, details: snapshot.data!.data!.transaction!.description!, status: snapshot.data!.data!.transaction!.status!, projectId: snapshot.data!.data!.transaction!.projectId!)
 
                           ],
                         ),

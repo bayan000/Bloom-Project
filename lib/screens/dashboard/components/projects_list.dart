@@ -104,18 +104,32 @@ class ProjectsList extends StatelessWidget {
     return DataRow(
       cells: [
         DataCell(
-          GestureDetector(
-            child: Row(
-              children: [
+          Consumer<ProjectsController>(
+              builder: (context,pc,child) {
+              return Consumer<MenuAppController>(
+                  builder: (context,mc,child) {
+                  return InkWell(
+                    onTap: (){
+                      pc.pressed=1;
+                      pc.curr_project(project);
+                      mc.UpdateScreenIndex(12);
 
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
-                  child: Container(
-                      width: 250,
-                      child: Text(project.name!,style: communTextStyle24black,overflow: TextOverflow.ellipsis,textDirection: TextDirection.rtl,)),
-                ),
-              ],
-            ),
+                    },
+                    child: Row(
+                      children: [
+
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
+                          child: Container(
+                              width: 250,
+                              child: Text(project.name!,style: communTextStyle24black,overflow: TextOverflow.ellipsis,textDirection: TextDirection.rtl,)),
+                        ),
+                      ],
+                    ),
+                  );
+                }
+              );
+            }
           ),
         ),
         DataCell(Text(project.location!,style: communTextStyle24black,overflow: TextOverflow.ellipsis,)),

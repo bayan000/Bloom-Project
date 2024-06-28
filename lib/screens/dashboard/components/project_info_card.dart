@@ -1,26 +1,27 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../constants.dart';
 
 class ProjectInfoCard extends StatelessWidget {
-  const ProjectInfoCard({
+   ProjectInfoCard({
     Key? key,
     required this.description,
     //required this.description,
-    required this.feasibilityStudy,
-    required this.cost,
-    required this.location
+    required this.amount,
+    required this.location, required this.name, required this.investment_status, required this.invName, required this.wName,
+     required this.invId, required this.wId
   }) : super(key: key);
-
-  final String description;
-  final int cost;//in the API it's amount
-  final String feasibilityStudy;
-  final String location;
+   String? description,name,investment_status,invName,wName
+   ;
+   int amount,invId,wId;
+   String? location;
 
 
   @override
   Widget build(BuildContext context) {
+
     return Container(
       margin: EdgeInsets.only(top: defaultPadding),
       padding: EdgeInsets.all(defaultPadding),
@@ -31,6 +32,8 @@ class ProjectInfoCard extends StatelessWidget {
         ),
       ),
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+
         children: [
 
 
@@ -38,43 +41,104 @@ class ProjectInfoCard extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
+                  Column(
+                    children: [
+                      Text(
+                        "مشروع $name ",
+                        maxLines: 9,
+                        overflow: TextOverflow.ellipsis,
+                        style:TextStyle(color: textColor,
+                          fontFamily: 'font1',
+                          fontSize: 22,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: defaultPadding),
+                  Row(
+mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "الحالة: $investment_status ",
+                        style:TextStyle(color: white,
+                          fontFamily: 'font1',
+                          fontSize: 22,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      SizedBox(width: defaultPadding),
 
+
+                    ],
+                  ),
+                  SizedBox(height: defaultPadding),
+                  description!=null?
                   Text(
-                    description,
+                    description!,
+                    maxLines: null,
+                    //overflow: TextOverflow.ellipsis,
+                    style:TextStyle(color: white,
+                      fontFamily: 'font1',
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ):
+                  Text(
+                    "لا يوجد وصف",
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style:TextStyle(color: white,
                       fontFamily: 'font1',
-                      fontSize: 24,
+                      fontSize: 22,
                       fontWeight: FontWeight.bold,
                     ),
+                  ),
+                  SizedBox(height: defaultPadding),
+                  Text(
+                    "المستثمر: $invName ",
+                    style:TextStyle(color: white,
+                      fontFamily: 'font1',
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    softWrap: true,
+                  ),
+                  SizedBox(height: defaultPadding),
+                  Text(
+                    "صاحب العمل: $wName ",
+                    style:TextStyle(color: white,
+                      fontFamily: 'font1',
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    softWrap: true,
                   ),
                   SizedBox(height: defaultPadding),
                   Row(
                     children: [
                       Text(
-                        "الكلفة ",
+                        "الكلفة  ",
                         style:TextStyle(color: white,
                           fontFamily: 'font1',
-                          fontSize: 24,
+                          fontSize: 22,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
                       SizedBox(width: defaultPadding),
                       Text(
-                        "$cost",
+                        "$amount",
                         style:TextStyle(color: white,
                           fontFamily: 'font1',
-                          fontSize: 24,
+                          fontSize: 22,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
 
                     ],
                   ),
-
                   SizedBox(height: defaultPadding),
                   Row(
                   children: [
@@ -82,45 +146,31 @@ class ProjectInfoCard extends StatelessWidget {
                     "الموقع ",
                     style:TextStyle(color: white,
                       fontFamily: 'font1',
-                      fontSize: 24,
+                      fontSize: 22,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                     SizedBox(width: defaultPadding),
+                    location!=null?
                     Text(
                       "$location",
                       style:TextStyle(color: white,
                         fontFamily: 'font1',
-                        fontSize: 24,
+                        fontSize: 22,
                         fontWeight: FontWeight.bold,
                       ),
-                    ),
+                    ):Text(
+                      "لم يحدد الموقع",
+                      style:TextStyle(color: white,
+                        fontFamily: 'font1',
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
+                      ))
+
 
                   ],
                 ),
-                  SizedBox(height: defaultPadding),
-                  Row(
-                    children: [
-                      Text(
-                        "دراسة الجدوى ",
-                        style:TextStyle(color: white,
-                          fontFamily: 'font1',
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      SizedBox(width: defaultPadding),
-                      Text(
-                        "$feasibilityStudy",
-                        style:TextStyle(color: white,
-                          fontFamily: 'font1',
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
 
-                    ],
-                  )
                 ],
               ),
             ),

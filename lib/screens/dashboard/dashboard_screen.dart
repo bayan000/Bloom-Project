@@ -1,6 +1,7 @@
 import 'package:admin/responsive.dart';
 import 'package:admin/screens/dashboard/components/Articles/article_details.dart';
 import 'package:admin/screens/dashboard/components/Articles/articles_list.dart';
+import 'package:admin/screens/dashboard/components/Canvas.dart';
 import 'package:admin/screens/dashboard/components/Communication_Requests/communication_request_details.dart';
 import 'package:admin/screens/dashboard/components/Communication_Requests/communication_requests_list.dart';
 import 'package:admin/screens/dashboard/components/Complaints/complaint_details.dart';
@@ -25,6 +26,8 @@ import 'package:provider/provider.dart';
 import '../../constants.dart';
 import '../../controllers/MenuAppController.dart';
 import 'components/SearchList.dart';
+import 'components/Statistics/chart.dart';
+import 'components/Transactions/transactions_details_list.dart';
 import 'components/TransactionsRequests/TransactionRequestDetails.dart';
 import 'components/header.dart';
 
@@ -66,11 +69,21 @@ class DashboardScreen extends StatelessWidget {
                 if (!Responsive.isMobile(context))
                   SizedBox(width: defaultPadding),
                 // On Mobile means if the screen is less than 850 we don't want to show it
-                /*if (!Responsive.isMobile(context))
+                if (!Responsive.isMobile(context))
                   Expanded(
                     flex: 2,
-                    child: ProjectDetails(),
-                  ),*/
+                    child: Column(
+                      children: [
+                        Text("أصحاب العمل",style: TextStyle(color: white,fontFamily: 'font1',
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,)),
+                        Text("المستثمرين",style: TextStyle(color: Color(0xFFFFCF26),fontFamily: 'font1',
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,),),
+                        Monthly_statistics(),
+                      ],
+                    ),
+                  ),
               ],
             );
               } else  if (mAC.screenIndex==1)
@@ -321,20 +334,13 @@ class DashboardScreen extends StatelessWidget {
                             SizedBox(height: defaultPadding),
                             SearchProjectsList(),
                             if (Responsive.isMobile(context))
-                              SizedBox(height: defaultPadding),
-                          //  if (Responsive.isMobile(context))
-                             // ProjectDetails(),
+                              SizedBox(height: defaultPadding), //  if (Responsive.isMobile(context))
                           ],
                         )
                     ),
                     if (!Responsive.isMobile(context))
                       SizedBox(width: defaultPadding),
-                    // On Mobile means if the screen is less than 850 we don't want to show it
-                  /*  if (!Responsive.isMobile(context))
-                      Expanded(
-                        flex: 2,
-                        child: ProjectDetails(),
-                      ),*/
+
                   ],
                 );
               }
@@ -367,8 +373,8 @@ class DashboardScreen extends StatelessWidget {
                   ],
                 );
               }
-              //if mAC.screenIndex==11 then we're viewing Approved transactionsRequests'
-              else {
+              //if mAC.screenIndex==11 then we're viewing Approved transactionsRequests
+              else if(mAC.screenIndex==11 ) {
                 return Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -389,7 +395,41 @@ class DashboardScreen extends StatelessWidget {
                   ],
                 );
               }
+              //if mAC.screenIndex==12 then we're viewing a project
+               else   {
+                return Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(
+                        flex: 5,
+                        child:  Column(
+                          children: [
+                            SizedBox(height: defaultPadding),
+                            Canvas(),
+                            if (Responsive.isMobile(context))
+                              SizedBox(height: defaultPadding),
+                             if (Responsive.isMobile(context))
+                              ProjectDetails(),
+                          ],
+                        )
+                    ),
+                    if (!Responsive.isMobile(context))
+                      SizedBox(width: defaultPadding),
+                    // On Mobile means if the screen is less than 850 we don't want to show it
+                    if (!Responsive.isMobile(context))
+                  Expanded(
+                    flex: 2,
+                    child: Column(
+                      children: [
+                        ProjectDetails(),
 
+                      ],
+                    ),
+                  ),
+                  ],
+                );
+              }
+//Canvas
             })
           ],
         ),

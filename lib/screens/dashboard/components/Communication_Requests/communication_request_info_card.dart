@@ -6,12 +6,12 @@ import '../../../../constants.dart';
 
 class communicationRequestInfoCard extends StatelessWidget {
   const communicationRequestInfoCard({
-    Key? key, required this.created_at, required this.investor_name, required this.project_name, required this.status, this.id, this.inv_email, this.inv_phone,
+    Key? key, required this.created_at, required this.investor_name, required this.project_name, required this.status, this.id, this.inv_email, this.inv_phone, this.wName, this.wEmail, this.wPhone,
 
 
   }) : super(key: key);
 
-  final String? created_at,investor_name,project_name,inv_email,inv_phone;
+  final String? created_at,investor_name,project_name,inv_email,inv_phone,wName,wEmail,wPhone;
   final int? status,id;
 
 
@@ -36,6 +36,27 @@ class communicationRequestInfoCard extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
+                  Column(
+                    children: [
+                      Text(
+                        "اسم المشروع ",
+                        style:TextStyle(color: textColor,
+                          fontFamily: 'font1',
+                          fontSize: 22,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      SizedBox(width: defaultPadding),
+                      Text(
+                        "$project_name",
+                        style:TextStyle(color: white,
+                            fontFamily: 'font1',
+                            fontSize: 22
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: defaultPadding),
                   Column(
                     children: [
                       Text(
@@ -103,7 +124,7 @@ class communicationRequestInfoCard extends StatelessWidget {
                   Column(
                     children: [
                       Text(
-                        "اسم المشروع ",
+                        "اسم صاحب العمل",
                         style:TextStyle(color: textColor,
                           fontFamily: 'font1',
                           fontSize: 22,
@@ -112,10 +133,52 @@ class communicationRequestInfoCard extends StatelessWidget {
                       ),
                       SizedBox(width: defaultPadding),
                       Text(
-                        "$project_name",
+                        wName!,
                         style:TextStyle(color: white,
                           fontFamily: 'font1',
-                          fontSize: 22
+                          fontSize: 22,
+                        ),
+                      ),
+                    ],
+                  ),
+
+                  SizedBox(height: defaultPadding),
+                  Column(
+                    children: [
+                      Text(
+                        "الإيميل ",
+                        style:TextStyle(color: textColor,
+                          fontFamily: 'font1',
+                          fontSize: 22,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      SizedBox(width: defaultPadding),
+                      Text(
+                        wEmail!,
+                        style:TextStyle(color: white,
+                          fontFamily: 'font1',
+                          fontSize: 22,
+                        ),
+                      ),
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      Text(
+                        "رقم الهاتف ",
+                        style:TextStyle(color: textColor,
+                          fontFamily: 'font1',
+                          fontSize: 22,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      SizedBox(width: defaultPadding),
+                      Text(
+                        wPhone!,
+                        style:TextStyle(color: white,
+                            fontFamily: 'font1',
+                            fontSize: 22
                         ),
                       ),
                     ],

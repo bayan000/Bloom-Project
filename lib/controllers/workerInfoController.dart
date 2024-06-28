@@ -1,4 +1,5 @@
 
+import 'package:admin/Services/ServiceForOneWorkerInProject.dart';
 import 'package:flutter/material.dart';
 
 import '../Config/server_config.dart';
@@ -17,6 +18,19 @@ class WorkerInfoController extends ChangeNotifier {
     notifyListeners(); // Notify UI about the change
     return response;
 
+  }
+  //fetchWorkerName--------------------------------
+  Future<String> fetchWorkerName(var id) async{
+    var name=await ServiceForOneWorkerInAProject.fetchWorkerName(ServerConfig.url + ServerConfig.getAWorker+ id.toString());
+
+    if (name==null)
+      {
+        name="No User";
+        print(name+" user name");
+      }
+    print(name+" user name");
+
+    return name;
   }
 //currWorker----------------------------------
   curr_Worker(WorkerDetails worker){
