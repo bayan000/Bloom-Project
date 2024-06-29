@@ -28,6 +28,7 @@ class Data {
   String? description;
   String? invName;
   String? wName;
+  String? pType;
   int? amount;
   String? location;
   int? investmentStatus;
@@ -43,6 +44,7 @@ class Data {
       {this.id,
         this.invName,
         this.wName,
+        this.pType,
         this.name,
         this.description,
         this.amount,

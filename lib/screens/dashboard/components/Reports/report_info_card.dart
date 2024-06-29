@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../constants.dart';
+import '../../../../controllers/MenuAppController.dart';
+import '../../../../controllers/ProjectsController.dart';
+import '../../../../models/project_list.dart';
 
 
 class ReportInfoCard extends StatelessWidget {
@@ -75,13 +79,28 @@ class ReportInfoCard extends StatelessWidget {
                         softWrap: true,
                       ),
                       SizedBox(width: defaultPadding),
-                      Text(
-                        "$projectName",
-                        style:TextStyle(color: white,
-                          fontFamily: 'font1',
-                          fontSize: 22,
-                        ),
-                        softWrap: true,
+                      Consumer<MenuAppController>(
+                          builder: (context,mc,child) {
+                          return Consumer<ProjectsController>(
+                              builder: (context,pc,child) {
+                              return InkWell(
+                                onTap: (){
+                                  pc.pressed=1;
+                                  pc.curr_project(Project(id: projectId));
+                                  mc.UpdateScreenIndex(0);
+                                },
+                                child: Text(
+                                  "$projectName",
+                                  style:TextStyle(color: white,
+                                    fontFamily: 'font1',
+                                    fontSize: 22,
+                                  ),
+                                  softWrap: true,
+                                ),
+                              );
+                            }
+                          );
+                        }
                       ),
 
                     ],

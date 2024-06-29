@@ -1,3 +1,4 @@
+import 'package:admin/models/Statistics.dart';
 import 'package:admin/responsive.dart';
 import 'package:admin/screens/dashboard/components/Articles/article_details.dart';
 import 'package:admin/screens/dashboard/components/Articles/articles_list.dart';
@@ -12,6 +13,8 @@ import 'package:admin/screens/dashboard/components/Publishing_Requests/requests_
 import 'package:admin/screens/dashboard/components/Publishing_Requests/requests_list.dart';
 import 'package:admin/screens/dashboard/components/Reports/report_details.dart';
 import 'package:admin/screens/dashboard/components/Reports/reports_list.dart';
+import 'package:admin/screens/dashboard/components/Statistics/monthlyChart.dart';
+import 'package:admin/screens/dashboard/components/Statistics/reports_chart.dart';
 import 'package:admin/screens/dashboard/components/Transactions/transaction_details.dart';
 import 'package:admin/screens/dashboard/components/Transactions/transactions_list.dart';
 import 'package:admin/screens/dashboard/components/TransactionsRequests/ApprovedTransactionsList.dart';
@@ -26,7 +29,7 @@ import 'package:provider/provider.dart';
 import '../../constants.dart';
 import '../../controllers/MenuAppController.dart';
 import 'components/SearchList.dart';
-import 'components/Statistics/chart.dart';
+import 'components/Statistics/projectsChart.dart';
 import 'components/Transactions/transactions_details_list.dart';
 import 'components/TransactionsRequests/TransactionRequestDetails.dart';
 import 'components/header.dart';
@@ -51,41 +54,37 @@ class DashboardScreen extends StatelessWidget {
             builder: (context,mAC,child) {
               if (mAC.screenIndex==0) {
                 return Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(
-                  flex: 5,
-                  child:  Column(
-                        children: [
-                          SizedBox(height: defaultPadding),
-                          ProjectsList(),
-                          if (Responsive.isMobile(context))
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(
+                        flex: 5,
+                        child:  Column(
+                          children: [
                             SizedBox(height: defaultPadding),
-                         // if (Responsive.isMobile(context))
-                          //  ProjectDetails(),
-                        ],
-                      )
-                ),
-                if (!Responsive.isMobile(context))
-                  SizedBox(width: defaultPadding),
-                // On Mobile means if the screen is less than 850 we don't want to show it
-                if (!Responsive.isMobile(context))
-                  Expanded(
-                    flex: 2,
-                    child: Column(
-                      children: [
-                        Text("أصحاب العمل",style: TextStyle(color: white,fontFamily: 'font1',
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,)),
-                        Text("المستثمرين",style: TextStyle(color: Color(0xFFFFCF26),fontFamily: 'font1',
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,),),
-                        Monthly_statistics(),
-                      ],
+                            Canvas(),
+                            if (Responsive.isMobile(context))
+                              SizedBox(height: defaultPadding),
+                            if (Responsive.isMobile(context))
+                              ProjectDetails(),
+                          ],
+                        )
                     ),
-                  ),
-              ],
-            );
+                    if (!Responsive.isMobile(context))
+                      SizedBox(width: defaultPadding),
+                    // On Mobile means if the screen is less than 850 we don't want to show it
+                    if (!Responsive.isMobile(context))
+                      Expanded(
+                        flex: 2,
+                        child: Column(
+                          children: [
+                            ProjectDetails(),
+
+                          ],
+                        ),
+                      ),
+                  ],
+                );
+
               } else  if (mAC.screenIndex==1)
               {
                 return Row(
@@ -395,7 +394,7 @@ class DashboardScreen extends StatelessWidget {
                   ],
                 );
               }
-              //if mAC.screenIndex==12 then we're viewing a project
+              //if mAC.screenIndex==12 ~ then we're viewing  projects
                else   {
                 return Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -405,11 +404,11 @@ class DashboardScreen extends StatelessWidget {
                         child:  Column(
                           children: [
                             SizedBox(height: defaultPadding),
-                            Canvas(),
+                            ProjectsList(),
                             if (Responsive.isMobile(context))
                               SizedBox(height: defaultPadding),
-                             if (Responsive.isMobile(context))
-                              ProjectDetails(),
+                            // if (Responsive.isMobile(context))
+                            //  ProjectDetails(),
                           ],
                         )
                     ),
@@ -417,15 +416,46 @@ class DashboardScreen extends StatelessWidget {
                       SizedBox(width: defaultPadding),
                     // On Mobile means if the screen is less than 850 we don't want to show it
                     if (!Responsive.isMobile(context))
-                  Expanded(
-                    flex: 2,
-                    child: Column(
-                      children: [
-                        ProjectDetails(),
+                      Expanded(
+                        flex: 2,
+                        child: Column(
+                          children: [
+                            Text("أصحاب العمل",style: TextStyle(color: white,fontFamily: 'font1',
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,)),
+                            Text("المستثمرين",style: TextStyle(color: Color(0xFFFFCF26),fontFamily: 'font1',
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,),),
+                            MonthlyChart(),
+                            SizedBox(height: defaultPadding,),
+                            Text("المشاريع الممولة",style: TextStyle(color: white,fontFamily: 'font1',
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,),),
+                            Text("كل المشاريع",style: TextStyle(color: Color(0xFFFFCF26),fontFamily: 'font1',
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,)),
+                            ProjectChart(),
+                            SizedBox(height: defaultPadding,),
+                            Text("مجموع الأرباح",style: TextStyle(color: Color(0xFFFFCF26),fontFamily: 'font1',
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,)),
+                            Text("مجموع أرباح صاحب العمل",style: TextStyle(color: secondaryColor,fontFamily: 'font1',
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,)),
+                            Text("مجموع أرباح المستثمر",style: TextStyle(color: buttonColor,fontFamily: 'font1',
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,)),
+                            Text("العائد الكلي",style: TextStyle(color: white,fontFamily: 'font1',
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,)),
+                            ReportChart(),
+                            SizedBox(height: defaultPadding,),
+                            Text('لا يوجد مستخدمين أو مشاريع في بقية الشهور',style: communTextStyle20white,),
 
-                      ],
-                    ),
-                  ),
+
+                          ],
+                        ),
+                      ),
                   ],
                 );
               }

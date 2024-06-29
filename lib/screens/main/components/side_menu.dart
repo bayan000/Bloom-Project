@@ -26,7 +26,7 @@ class SideMenu extends StatelessWidget {
           DrawerListTile(
             title: "المشاريع",
             svgSrc: "assets/icons/menu_store.svg",
-            press: () {mAC.UpdateScreenIndex(0);
+            press: () {mAC.UpdateScreenIndex(12);
             print(mAC.screenIndex);},
           ),
           DrawerListTile(

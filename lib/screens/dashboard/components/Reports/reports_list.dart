@@ -46,6 +46,9 @@ class ReportsList extends StatelessWidget {
       return Center(child: Text('Error !',style: TextStyle(fontSize: 20),),);
       }
       else{
+        if(snapshot.data!.length==0)
+          return Center(child:Text("لا توجد تقارير",style: communTextStyle24white));
+        else
         return Container(
           padding: EdgeInsets.all(defaultPadding),
           decoration: BoxDecoration(

@@ -1,19 +1,23 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../constants.dart';
+import '../../../../controllers/MenuAppController.dart';
+import '../../../../controllers/ProjectsController.dart';
+import '../../../../models/project_list.dart';
 
 
 class TransactionInfoCard extends StatelessWidget {
 
   const TransactionInfoCard({
-    Key? key, required this.name, required this.price, required this.id, required this.discount, required this.details, required this.pName,
+    Key? key, required this.name, required this.price, required this.id, required this.discount, required this.details, required this.pName, required this.pId,
 
   }) : super(key: key);
 
   final String name,details, price,pName;
-  final int id;
+  final int id,pId;
   final String discount;
 
 
@@ -64,13 +68,28 @@ class TransactionInfoCard extends StatelessWidget {
                         ),
                       ),
                       SizedBox(width: defaultPadding),
-                      Text(
-                        "$pName",
-                        style:TextStyle(color: white,
-                          fontFamily: 'font1',
-                          fontSize: 22,
-                          fontWeight: FontWeight.bold,
-                        ),
+                      Consumer<MenuAppController>(
+                          builder: (context,mc,child) {
+                          return Consumer<ProjectsController>(
+                              builder: (context,pc,child) {
+                              return InkWell(
+                                onTap: (){
+                                  pc.pressed=1;
+                                  pc.curr_project(Project(id: pId));
+                                  mc.UpdateScreenIndex(0);
+                                  },
+                                child: Text(
+                                  "$pName",
+                                  style:TextStyle(color: white,
+                                    fontFamily: 'font1',
+                                    fontSize: 22,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              );
+                            }
+                          );
+                        }
                       ),
 
                     ],

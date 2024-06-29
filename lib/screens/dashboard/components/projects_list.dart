@@ -9,6 +9,7 @@ import '../../../constants.dart';
 import '../../../controllers/MenuAppController.dart';
 import '../../../controllers/ProjectsController.dart';
 import '../../../models/project_list.dart';
+import 'Statistics/monthlyChart.dart';
 
 class ProjectsList extends StatelessWidget {
   const ProjectsList({
@@ -51,6 +52,7 @@ class ProjectsList extends StatelessWidget {
                       return Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+
                           Text(
                             "قائمة المشاريع",
                             style: TextStyle(color: textColor,
@@ -78,6 +80,9 @@ class ProjectsList extends StatelessWidget {
                                 DataColumn(
                                   label: Text("حالة الاستثمار", style: communTextStyle24textColor,),
                                 ),
+                                /*DataColumn(
+                                  label: Text("النوع", style: communTextStyle24textColor,),
+                                ),*/
                                 DataColumn(
                                   label: Text("", style: communTextStyle24textColor,),
                                 ),
@@ -112,7 +117,7 @@ class ProjectsList extends StatelessWidget {
                     onTap: (){
                       pc.pressed=1;
                       pc.curr_project(project);
-                      mc.UpdateScreenIndex(12);
+                      mc.UpdateScreenIndex(0);
 
                     },
                     child: Row(
@@ -138,7 +143,9 @@ class ProjectsList extends StatelessWidget {
         Text("مُستَثمر",style: communTextStyle24black,overflow: TextOverflow.ellipsis,):
         Text("غير مُستَثمر",style: communTextStyle24black,overflow: TextOverflow.ellipsis,)
         ),
-
+        /*DataCell(
+        Text(project.pType!,style: communTextStyle24black,overflow: TextOverflow.ellipsis,)
+        ),*/
 
         DataCell(
           Consumer<MenuAppController>(

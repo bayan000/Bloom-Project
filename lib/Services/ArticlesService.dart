@@ -8,6 +8,7 @@ import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:image_picker/image_picker.dart';
 import 'dart:async';
+import '../Config/server_config.dart';
 import '../models/Articles.dart';
 
 
@@ -54,8 +55,51 @@ print(response.body);
     }
   }
 // Add a new article----------------------------------------------
-  static Future<void> AddArticle(String url, String name,String description, imagesPaths) async {
-   /* FormData formData=FormData();
+  static Future<int> AddArticle(String url, String name,String description, image) async {
+    var headers = {
+      'Authorization': 'Bearer ${GetStorage().read('token')}',
+    };
+    var request = http.MultipartRequest(
+      'POST',
+      Uri.parse(ServerConfig.url + ServerConfig.AddAnArticle),
+    );
+
+    request.fields.addAll({
+      'name': name,
+      'description': description,
+    });
+
+    //if (image.value != null && image.value!.lengthSync() > 0) {
+      request.files.add(
+        await http.MultipartFile.fromBytes(
+          'image',
+          Uint8List.fromList(image.readAsBytes),
+          filename: 'images.png',
+        ),
+      );
+   // }
+    request.headers.addAll(headers);
+    http.StreamedResponse response = await request.send();
+    var responseData = await response.stream.bytesToString();
+
+    /*final Map<String, dynamic> body = {'name': name,'description':description,'image':image};
+
+    final response = await http.post(Uri.parse(url), body: jsonEncode(body),headers: {
+      'Authorization':'Bearer  ${GetStorage().read('token')}',
+      'content-Type':'application/json',
+      'enctype':'multipart/form-data',
+    });*/
+    print(responseData);
+
+    if (response.statusCode == 201) {
+
+      return response.statusCode;
+
+    } else {
+      print("Unknown error");
+      return 0;
+    }
+    /* FormData formData=FormData();
     formData.files.add(
       MapEntry('image',await MultipartFile.fromFile(imagesPaths[0]))
     );
@@ -76,7 +120,7 @@ print(response.body);
    });*/
 
 
-
+/*
  var headers={
     'Authorization':'Bearer  ${GetStorage().read('token')}',
     'enctype':'multipart/form-data',
@@ -105,7 +149,7 @@ print(response.stream.bytesToString());
 
 print("cool");
  } else {
-   print("Oh, oh");
+   print("Oh, oh");*/
  }
  /////////////////////////////
 /*
@@ -132,7 +176,7 @@ print("start");
       return 0;
     }
 */
-  }
+
 
 // Delete an article----------------------------------------------
 

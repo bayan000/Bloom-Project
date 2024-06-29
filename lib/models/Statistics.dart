@@ -43,3 +43,36 @@ class ProjectStatistics {
     return data;
   }
 }
+
+class ReportsStatistics {
+  String? month;
+  int? totalNetProfit;
+  int? totalNetProfitEmployer;
+  int? totalNetProfitInvestor;
+  int? totalRevenue;
+
+  ReportsStatistics(
+      {this.month,
+        this.totalNetProfit,
+        this.totalNetProfitEmployer,
+        this.totalNetProfitInvestor,
+        this.totalRevenue});
+
+  ReportsStatistics.fromJson(Map<String, dynamic> json) {
+    month = json['month'];
+    totalNetProfit = json['total_net_profit'];
+    totalNetProfitEmployer = json['total_net_profit_employer'];
+    totalNetProfitInvestor = json['total_net_profit_investor'];
+    totalRevenue = json['total_revenue'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['month'] = this.month;
+    data['total_net_profit'] = this.totalNetProfit;
+    data['total_net_profit_employer'] = this.totalNetProfitEmployer;
+    data['total_net_profit_investor'] = this.totalNetProfitInvestor;
+    data['total_revenue'] = this.totalRevenue;
+    return data;
+  }
+}

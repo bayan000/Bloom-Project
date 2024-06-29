@@ -65,7 +65,7 @@ class ProjectDetails extends StatelessWidget {
                                     ),
                                   ),
                                   SizedBox(height: defaultPadding*0.5),
-                                  CircularProgressIndicator(),
+                                  Center(child: CircularProgressIndicator()),
 
                                 ],
                               ),

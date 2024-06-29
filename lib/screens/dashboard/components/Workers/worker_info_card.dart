@@ -1,8 +1,12 @@
+import 'package:admin/models/project_list.dart';
 import 'package:admin/screens/dashboard/components/Workers/workerModel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../constants.dart';
+import '../../../../controllers/MenuAppController.dart';
+import '../../../../controllers/ProjectsController.dart';
 
 
 class WorkerInfoCard extends StatelessWidget {
@@ -135,15 +139,30 @@ Column RowsOfProjects(List<Projects>? projects) {
       // Loop with error handling
       for (final project in projects!) ...[
         Center(
-          child: Text(
-            project.name.toString(), // Handle missing name
-            style: TextStyle(
-              color: white,
-              fontFamily: 'font1',
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-            ),
-            overflow: TextOverflow.ellipsis,
+          child: Consumer<MenuAppController>(
+              builder: (context,mc,child) {
+              return Consumer<ProjectsController>(
+                  builder: (context,pc,child) {
+                  return InkWell(
+                    onTap: (){
+                      pc.pressed=1;
+                      pc.curr_project(Project(id: project.id));
+                      mc.UpdateScreenIndex(0);
+                    },
+                    child: Text(
+                      project.name.toString(), // Handle missing name
+                      style: TextStyle(
+                        color: white,
+                        fontFamily: 'font1',
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  );
+                }
+              );
+            }
           ),
         ),
         SizedBox(width: defaultPadding * 2.5),

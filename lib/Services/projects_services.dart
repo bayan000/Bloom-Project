@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:admin/Config/server_config.dart';
+import 'package:admin/controllers/ProjectsController.dart';
 import 'package:admin/controllers/aninvestorController.dart';
 import 'package:admin/controllers/workerInfoController.dart';
 import 'package:get_storage/get_storage.dart';
@@ -15,6 +16,7 @@ class ProjectsService{
   //********************* Fetching Projects *********************************//
 
   static Future<List<Project>> getProjects(String url) async {
+    ProjectsController projectsController=ProjectsController();
     final response = await http.get(Uri.parse(ServerConfig.url+url),headers: {
       'Authorization':'Bearer  ${GetStorage().read('token')}',
       'content-Type':'application/json',
@@ -25,8 +27,19 @@ class ProjectsService{
       final jsonBody = json.decode(response.body) as Map<String, dynamic>;
       final projectsData = jsonBody['data'] as List<dynamic>;
       final projects = projectsData.map((projectData) => Project.fromJson(projectData)).toList();
+      print("here");
+      print(response.body);
+      /*for(int i=0;i<projects.length;i++)
+        {
+          await projectsController.fetchProjectTypeName(2);
+          print(projects[i].pType!);
+        }*/
+
+      print("here too");
+
       return projects;
     } else {
+      print(response.body);
       throw Exception('Failed to fetch projects');
     }
   }
@@ -56,6 +69,7 @@ class ProjectsService{
   static Future<ProjectDetailsWithCanvases> fetchAProjectDetails(String url) async {
     InvestorController investorController=InvestorController();
     WorkerInfoController workerInfoController=WorkerInfoController();
+    ProjectsController projectsController=ProjectsController();
     final response = await http.get(Uri.parse(url),headers: {
       'Authorization':'Bearer  ${GetStorage().read('token')}',
       'content-Type':'application/json',
@@ -69,6 +83,7 @@ class ProjectsService{
       projectDetailsWithCanvases.data!.invName=invname;
       final wName= await workerInfoController.fetchWorkerName(ProjectDetailsWithCanvases.fromJson(json).data!.userId);
       projectDetailsWithCanvases.data!.wName=wName;
+      //projectDetailsWithCanvases.data!.pType=await projectsController.fetchProjectTypeName(ProjectDetailsWithCanvases.fromJson(json).data!.typeId);
       return projectDetailsWithCanvases;
     } else {
       print("it's okay too");
@@ -165,6 +180,25 @@ class ProjectsService{
       }
     } else {
       throw Exception('Failed to fetch transactions. Status code: ${response.statusCode}');
+    }
+  }
+//********************* fetchProjectTypeName *********************************//
+
+  static Future<String> fetchProjectTypeName(String url) async {
+    final response = await http.get(Uri.parse(url),headers: {
+      'Authorization':'Bearer  ${GetStorage().read('token')}',
+      'content-Type':'application/json',
+    });
+
+    if (response.statusCode == 200) {
+      final json = jsonDecode(response.body) as Map<String, dynamic>;
+      final data = json['data'] as Map<String, dynamic>;
+      print(data['name']);
+      return data['name'] as String;
+    } else {
+      // Handle error scenario (e.g., throw an exception)
+      print(response.body);
+      throw Exception('Failed to fetch project type name. Status code: ${response.statusCode}');
     }
   }
 

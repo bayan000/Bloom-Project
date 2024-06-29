@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 class StatisticsController extends ChangeNotifier{
   List<MonthlyStatistics> monthlyStatistics=[];
   List<ProjectStatistics> projectStatistics=[];
+  List<ReportsStatistics> reportStatistics=[];
 
 
   //fetchMonthlyStatistics------------------------------------------
@@ -19,6 +20,10 @@ class StatisticsController extends ChangeNotifier{
     projectStatistics=(await StatisticsService.fetchProjectStatistics(ServerConfig.url+ServerConfig.project_statistics))!;
     return projectStatistics;
   }
-  
+  //fetchReportsStatistics------------------------------------------
+  Future<List<ReportsStatistics>> fetchReportsStatistics() async{
+    reportStatistics=(await StatisticsService.fetchReportStatistics(ServerConfig.url+ServerConfig.Report_statistics))!;
+    return reportStatistics;
+  }
   
 }

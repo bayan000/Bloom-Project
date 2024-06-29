@@ -30,6 +30,11 @@ class ProjectsController extends ChangeNotifier{
     transactionsForEachProject=await ProjectsService.fetchProjectTransactions(ServerConfig.url+ServerConfig.getAProjectTransactions+id.toString());
     return transactionsForEachProject;
   }
+  //fetchProjectTypeName------------------------------------------
+  Future<String> fetchProjectTypeName(id) async{
+    final type=await ProjectsService.fetchProjectTypeName(ServerConfig.url+ServerConfig.getAProjectType+id.toString());
+    return type;
+  }
 
 
   //fetchProjectDetails------------------------------------------------------------------------------------

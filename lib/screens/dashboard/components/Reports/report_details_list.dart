@@ -37,15 +37,7 @@ class ReportDetailsList extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(20), // Image border
-                          child: SizedBox.fromSize(
-                            size: Size.fromRadius(140), // Image radius
-                            child:
-                            CircularProgressIndicator(),
-                          ),
-                        ),
-                        SizedBox(height: defaultPadding),
+
                         Padding(
                           padding: const EdgeInsets.only(right: 20.0),
                           child: Text(
@@ -58,13 +50,15 @@ class ReportDetailsList extends StatelessWidget {
                           ),
                         ),
                         SizedBox(height: defaultPadding*0.5),
-                        CircularProgressIndicator(),
+                        Center(child: CircularProgressIndicator()),
 
                       ],
                     ),
                   );
                 }
                 else{
+                  if(snapshot.data==null)
+                    return Center(child:Text("لم يتم إضافة تقارير",style: communTextStyle24white));
                   return ColumnOfReports(snapshot.data!);
                 }
               });

@@ -31,6 +31,7 @@ class Project {
   int? id;
   String? name;
   String? description;
+  String? pType;
   String? feasibilityStudy;
   int? amount;
   String? location;
@@ -45,6 +46,7 @@ class Project {
   Project(
       {this.id,
         this.name,
+        this.pType,
         this.description,
         this.feasibilityStudy,
         this.amount,
@@ -86,6 +88,54 @@ class Project {
     data['investor_id'] = this.investorId;
     data['user_id'] = this.userId;
     data['type_id'] = this.typeId;
+    data['created_at'] = this.createdAt;
+    data['updated_at'] = this.updatedAt;
+    return data;
+  }
+}
+class ProjectType {
+  Data? data;
+  String? message;
+  int? status;
+
+  ProjectType({this.data, this.message, this.status});
+
+  ProjectType.fromJson(Map<String, dynamic> json) {
+    data = json['data'] != null ? new Data.fromJson(json['data']) : null;
+    message = json['message'];
+    status = json['status'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    if (this.data != null) {
+      data['data'] = this.data!.toJson();
+    }
+    data['message'] = this.message;
+    data['status'] = this.status;
+    return data;
+  }
+}
+
+class Data {
+  int? id;
+  String? name;
+  String? createdAt;
+  String? updatedAt;
+
+  Data({this.id, this.name, this.createdAt, this.updatedAt});
+
+  Data.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    name = json['name'];
+    createdAt = json['created_at'];
+    updatedAt = json['updated_at'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['name'] = this.name;
     data['created_at'] = this.createdAt;
     data['updated_at'] = this.updatedAt;
     return data;

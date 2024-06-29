@@ -38,4 +38,21 @@ class StatisticsService{
     }
   }
 
+  //********************* Fetching Report Statistics *********************************//
+
+  static Future<List<ReportsStatistics>> fetchReportStatistics(String url) async {
+    final response = await http.get(Uri.parse(url),headers: {
+      'Authorization':'Bearer  ${GetStorage().read('token')}',
+      'content-Type':'application/json',
+    });
+
+    if (response.statusCode == 200) {
+      final data = jsonDecode(response.body) as List<dynamic>;
+      return data.map((item) => ReportsStatistics.fromJson(item)).toList();
+    } else {
+      throw Exception('Failed to fetch report statistics: ${response.statusCode}');
+    }
+  }
+
+
 }

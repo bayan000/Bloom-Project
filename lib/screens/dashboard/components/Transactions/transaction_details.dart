@@ -95,6 +95,7 @@ class TransactionDetails extends StatelessWidget {
                     ),
                     SizedBox(height: defaultPadding*0.5),
                     TransactionInfoCard(
+                      pId:snapshot!.data!.projectId! ,
                       pName:snapshot!.data!.ProjectName! ,name: snapshot!.data!.name!, price: snapshot!.data!.price!, id: snapshot!.data!.projectId!, discount: snapshot!.data!.discount!,details: snapshot!.data!.description!,
 
                     ),

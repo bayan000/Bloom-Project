@@ -10,6 +10,8 @@ class ServerConfig{
 
   //Projects---------'
   static String getAllUnacceptedProjects = "admin/projects";
+  //https://noor-demo-store.webmyidea.com/api/admin/projects
+  //static String getAllProjects = "projects/";
   static String getAllProjects = "projects/";
   static String getAProject = "projects/";
   static String AddNewProjectType = "admin/Type";
@@ -18,6 +20,7 @@ class ServerConfig{
   static String SearchForAProjectByName = "projects/Name/";
   static String SearchForAProjectByAmount = "projects/Amount/";
   static String getAProjectTransactions = "Transaction/";
+  static String getAProjectType = "Type/";
 
 
   //Articles---------
@@ -62,6 +65,7 @@ class ServerConfig{
   //Statistic
   static String monthly_statistics="monthly-statistics";
   static String project_statistics="project-statistics";
+  static String Report_statistics="Report-statistics";
 
 
   //Reports

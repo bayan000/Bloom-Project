@@ -36,15 +36,6 @@ class TransactionDetailsList extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(20), // Image border
-                child: SizedBox.fromSize(
-                  size: Size.fromRadius(140), // Image radius
-                  child:
-                  CircularProgressIndicator(),
-                ),
-              ),
-              SizedBox(height: defaultPadding),
               Padding(
                 padding: const EdgeInsets.only(right: 20.0),
                 child: Text(
@@ -57,13 +48,16 @@ class TransactionDetailsList extends StatelessWidget {
                 ),
               ),
               SizedBox(height: defaultPadding*0.5),
-              CircularProgressIndicator(),
+              Center(child: CircularProgressIndicator()),
 
             ],
           ),
         );
       }
       else{
+        if(snapshot.data!.trans==null)
+          return Center(child:Text("لا توجد معاملات",style: communTextStyle24white));
+        else
         return ColumnOfTransactions(snapshot.data!.trans!);
       }
     });
@@ -75,14 +69,6 @@ class TransactionDetailsList extends StatelessWidget {
   Column ColumnOfTransactions(List<Tran> trans) {
     return Column(
       children: [
-        /*ClipRRect(
-          borderRadius: BorderRadius.circular(20), // Image border
-          child: SizedBox.fromSize(
-            size: Size.fromRadius(140), // Image radius
-            child: Image.network('https://thumbs.dreamstime.com/b/purchase-order-po-document-paper-work-procurement-process-vector-57721124.jpg',
-                fit: BoxFit.cover),
-          ),
-        ),*/
         SizedBox(height: defaultPadding),
         Padding(
           padding: const EdgeInsets.only(right: 20.0),
@@ -122,6 +108,7 @@ class TransactionDetailsList extends StatelessWidget {
                 //
                 SizedBox(height: defaultPadding*0.5),
                 TransactionInfoCard(
+                  pId: trans[i].transaction!.projectId!,
                   pName:trans[i].transaction!.pName!
                   ,name:trans[i].transaction!.name!,
                   price:trans[i].transaction!.price!,
