@@ -96,7 +96,9 @@ class communicationRequestDetails extends StatelessWidget {
                           ),
                         ),
                         SizedBox(height: defaultPadding*0.5),
-                        communicationRequestInfoCard(created_at: formatDateString(snapshot.data!.communication!.createdAt!),
+                        communicationRequestInfoCard(
+                          pId: snapshot.data!.communication!.projectId,
+                          created_at: formatDateString(snapshot.data!.communication!.createdAt!),
                           investor_name: snapshot.data!.communication!.investor!.firstName!+ " "+ snapshot.data!.communication!.investor!.lastName!,
                           project_name: snapshot.data!.communication!.project!.name!,
                           status: snapshot.data!.communication!.status,

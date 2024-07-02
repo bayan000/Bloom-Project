@@ -47,6 +47,7 @@ class TransactionsService{
       return response.statusCode;
 
     } else {
+      print(response.body);
       print("Unknown error");
       return 0;
     }

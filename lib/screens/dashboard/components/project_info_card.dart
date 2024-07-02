@@ -117,10 +117,11 @@ mainAxisAlignment: MainAxisAlignment.center,
                     softWrap: true,
                   ),
                   SizedBox(height: defaultPadding),
-                  Row(
+                  Column(
                     children: [
                       Text(
                         "الكلفة  ",
+
                         style:TextStyle(color: white,
                           fontFamily: 'font1',
                           fontSize: 22,
@@ -130,6 +131,8 @@ mainAxisAlignment: MainAxisAlignment.center,
                       SizedBox(width: defaultPadding),
                       Text(
                         "$amount",
+                        maxLines: null,
+                        overflow: TextOverflow.ellipsis,
                         style:TextStyle(color: white,
                           fontFamily: 'font1',
                           fontSize: 22,
@@ -140,10 +143,12 @@ mainAxisAlignment: MainAxisAlignment.center,
                     ],
                   ),
                   SizedBox(height: defaultPadding),
-                  Row(
+                  Column(
                   children: [
                     Text(
                     "الموقع ",
+                      maxLines: null,
+                      overflow: TextOverflow.ellipsis,
                     style:TextStyle(color: white,
                       fontFamily: 'font1',
                       fontSize: 22,

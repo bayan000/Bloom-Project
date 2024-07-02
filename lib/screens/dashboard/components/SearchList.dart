@@ -163,7 +163,6 @@ class SearchProjectsList extends StatelessWidget {
     );
   }
 }
-/**/
 DataRow projectDataRow(Project project) {
   ProjectsController projectsController=ProjectsController();
   return DataRow(

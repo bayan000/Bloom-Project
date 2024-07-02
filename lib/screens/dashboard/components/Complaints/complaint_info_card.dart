@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../constants.dart';
+import '../../../../controllers/MenuAppController.dart';
+import '../../../../controllers/ProjectsController.dart';
+import '../../../../models/project_list.dart';
 
 
 class ComplaintInfoCard extends StatelessWidget {
@@ -52,11 +56,13 @@ class ComplaintInfoCard extends StatelessWidget {
                           ),
                           SizedBox(width: defaultPadding*0.5),
                           Text(
-                            "$nameOfProject",
-                            style:TextStyle(color: white,
-                              fontFamily: 'font1',
-                              fontSize: 22,
-                            ),
+                                                    "$nameOfProject",
+                                                    maxLines: null,
+                                                    overflow: TextOverflow.ellipsis,
+                                                    style:TextStyle(color: white,
+                                                      fontFamily: 'font1',
+                                                      fontSize: 22,
+                                                    ),
                           ),
                         ],
                       ),

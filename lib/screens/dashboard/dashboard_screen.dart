@@ -53,6 +53,8 @@ class DashboardScreen extends StatelessWidget {
             Consumer<MenuAppController>(
             builder: (context,mAC,child) {
               if (mAC.screenIndex==0) {
+                print("hey it is 0");
+
                 return Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -322,7 +324,8 @@ class DashboardScreen extends StatelessWidget {
                 );
               }
               //if mAC.screenIndex==9 then we're searching'
-              else if(mAC==9){
+              else if(mAC.screenIndex==9){
+                print("hey it is 9");
                 return Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -331,6 +334,7 @@ class DashboardScreen extends StatelessWidget {
                         child:  Column(
                           children: [
                             SizedBox(height: defaultPadding),
+                            //Text('Search'),
                             SearchProjectsList(),
                             if (Responsive.isMobile(context))
                               SizedBox(height: defaultPadding), //  if (Responsive.isMobile(context))
@@ -338,6 +342,7 @@ class DashboardScreen extends StatelessWidget {
                         )
                     ),
                     if (!Responsive.isMobile(context))
+                      //SearchProjectsList(),
                       SizedBox(width: defaultPadding),
 
                   ],
@@ -450,7 +455,7 @@ class DashboardScreen extends StatelessWidget {
                               fontWeight: FontWeight.bold,)),
                             ReportChart(),
                             SizedBox(height: defaultPadding,),
-                            Text('لا يوجد مستخدمين أو مشاريع في بقية الشهور',style: communTextStyle20white,),
+                            Text('لا يوجد مستخدمين أو مشاريع في بقية الأشهر',style: communTextStyle20white,),
 
 
                           ],

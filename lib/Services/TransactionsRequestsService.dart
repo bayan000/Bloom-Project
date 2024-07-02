@@ -47,8 +47,10 @@ class TransactionsRequestsService{
       print("it's okay");
       final json = jsonDecode(response.body) as Map<String, dynamic>;
       final name=await communicationRequestsController.getProjectName(ViewTranRequest.fromJson(json).data!.transaction!.projectId);
-      ViewTranRequest.fromJson(json).data!.transaction!.ProjectName=name;
-      return ViewTranRequest.fromJson(json);
+      ViewTranRequest v=ViewTranRequest.fromJson(json);
+      v.data!.transaction!.ProjectName=name;
+
+      return v;
     } else {
       print("it's okay too");
       throw Exception('Failed to fetch request: ${response.statusCode}');

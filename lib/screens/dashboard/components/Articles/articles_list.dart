@@ -358,65 +358,72 @@ class _ArticlesListState extends State<ArticlesList> {
               }
               else{
 
-                return Stack(
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "المقالات",
-                          style: TextStyle(color: textColor,
-                            fontFamily: 'font1',
-                            fontSize: 26,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        SizedBox(
-                          width: double.infinity,
-                          child: DataTable(
-                            columnSpacing: defaultPadding,
-                            // minWidth: 600,
-                            columns: [
-                              DataColumn(
-                                label: Text("عنوان المقالة", style: communTextStyle24textColor,),
-
-                              ),
-                              DataColumn(
-                                label: Text("",),
-
-                              ),DataColumn(
-                                label: Text("",),
-
-                              ),
-
-                            ],
-                            rows: List.generate(
-                                snapshot.data?.length ??0,
-                                    (index) =>ArticleDataRow(snapshot.data![index],context)
+                return SingleChildScrollView(
+                  physics: NeverScrollableScrollPhysics(),
+                  child: Stack(
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "المقالات",
+                            style: TextStyle(color: textColor,
+                              fontFamily: 'font1',
+                              fontSize: 26,
+                              fontWeight: FontWeight.bold,
                             ),
                           ),
-                        ),
-                      ],
-                    ),
-                    //
-                    Padding(
-                        padding:  EdgeInsets.only(right:size.width*0.48
-                        ),
-                        child: ElevatedButton(
-                            onPressed: () {
-                              _showTextInputDialog(context);
-                            },
-                            child: const Icon(Icons.add),
-                            style: ButtonStyle(
-                              //elevation: MaterialStateProperty.all(40),
-                              shape: MaterialStateProperty.all(const CircleBorder()),
-                              padding: MaterialStateProperty.all(const EdgeInsets.all(20)),
-                              foregroundColor: MaterialStateProperty.all(white),
-                              backgroundColor: MaterialStateProperty.all(textColor), // <-- Button color
-                              overlayColor: MaterialStateProperty.resolveWith<Color?>((states) {
-                                if (states.contains(MaterialState.pressed)) return white; // <-- Splash color
-                              }),)))
-                  ],
+                          SizedBox(
+                            width: double.infinity,
+                            child: DataTable(
+                              columnSpacing: defaultPadding,
+                              // minWidth: 600,
+                              columns: [
+                                DataColumn(
+                                  label: Text("عنوان المقالة", style: communTextStyle24textColor,),
+
+                                ),
+                                DataColumn(
+                                  label: Text("",),
+
+                                ),DataColumn(
+                                  label: Text("",),
+
+                                ),
+
+                              ],
+                              rows: List.generate(
+                                  snapshot.data?.length ??0,
+                                      (index) =>ArticleDataRow(snapshot.data![index],context)
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      //
+                      Padding(
+                          padding:  EdgeInsets.only(right:size.width*0.48
+                          ),
+                          child: Consumer<MenuAppController>(
+                              builder: (context, mc, child) {
+                              return ElevatedButton(
+                                  onPressed: () {
+                                    _showTextInputDialog(context,() => mc.UpdateScreenIndex(1));
+                                  },
+                                  child: const Icon(Icons.add),
+                                  style: ButtonStyle(
+                                    //elevation: MaterialStateProperty.all(40),
+                                    shape: MaterialStateProperty.all(const CircleBorder()),
+                                    padding: MaterialStateProperty.all(const EdgeInsets.all(20)),
+                                    foregroundColor: MaterialStateProperty.all(white),
+                                    backgroundColor: MaterialStateProperty.all(textColor), // <-- Button color
+                                    overlayColor: MaterialStateProperty.resolveWith<Color?>((states) {
+                                      if (states.contains(MaterialState.pressed)) return white; // <-- Splash color
+                                    }),));
+                            }
+                          ))
+                    ],
+                  ),
                 );
               }
             }
@@ -451,7 +458,7 @@ DataRow ArticleDataRow(Article article,BuildContext context) {
             }
         ),
       ),
-      DataCell(SizedBox(width: size.width*0.27,)
+      DataCell(SizedBox(width: size.width*0.15,)
       ),
       DataCell(
         Consumer<MenuAppController>(
@@ -475,7 +482,7 @@ DataRow ArticleDataRow(Article article,BuildContext context) {
   );
 }
 //_showTextInputDialog-----------------------------------------
-void _showTextInputDialog(BuildContext context) {
+void _showTextInputDialog(BuildContext context,Function updateIndexCallback) {
   ArticlesController articlesController=ArticlesController();
   var selectedImageInBytes;
   var selectFile;
@@ -503,79 +510,94 @@ void _showTextInputDialog(BuildContext context) {
   showDialog(
     context: context,
     builder: (context) {
-      return AlertDialog(
-        title: Text(
-          'عنوان المقالة الجديدة',
-          style: communTextStyle20textColor,
-          textDirection: TextDirection.rtl,
-        ),
-        content: Column(
-          mainAxisSize: MainAxisSize.min, // Avoid excessive scrolling
-          children: [
-            TextField(
-              textAlign: TextAlign.end,
-              controller: _titleController, // Title input
-              decoration: InputDecoration(hintText: 'أدخل عنوان المقالة'),
-            ),
-            TextField(
-              textAlign: TextAlign.end,
-              controller: _longTextController, // Long text input
-              maxLines: null, // Allow for multiple lines
-              decoration: InputDecoration(hintText: 'أدخل نص المقالة كاملاً'),
-            ),
-            Row(
-              children: [
-                TextButton(
-                  onPressed: () async {
-                    articlesController.pickPic("photo");
+      return SingleChildScrollView(
+        physics: NeverScrollableScrollPhysics(),
+        child: AlertDialog(
+          title: Text(
+            'عنوان المقالة الجديدة',
+            style: communTextStyle20textColor,
+            textDirection: TextDirection.rtl,
+          ),
+          content: Column(
+            mainAxisSize: MainAxisSize.min, // Avoid excessive scrolling
+            children: [
+              TextField(
+                textAlign: TextAlign.end,
+                controller: _titleController, // Title input
+                decoration: InputDecoration(hintText: 'أدخل عنوان المقالة'),
+              ),
+              SingleChildScrollView(
+                physics: NeverScrollableScrollPhysics(),
+                child: TextField(
+                  textAlign: TextAlign.end,
+                  controller: _longTextController, // Long text input
+                  maxLines: null, // Allow for multiple lines
+                  decoration: InputDecoration(hintText: 'أدخل نص المقالة كاملاً'),
+                ),
+              ),
+              Row(
+                children: [
+                  TextButton(
+                    onPressed: () async {
+                      articlesController.pickPic("photo");
 
-                  },
-                  child: Text(
-                    'إضافة صورة',
-                    style: communTextStyle20textColor,
-                    textDirection: TextDirection.rtl,
+                    },
+                    child: Text(
+                      'إضافة صورة',
+                      style: communTextStyle20textColor,
+                      textDirection: TextDirection.rtl,
+                    ),
                   ),
-                ),
-                Spacer(), // Add space between buttons
-                TextButton(
-                  onPressed: () => Navigator.pop(context),
-                  child: Text(
-                    'إلغاء',
-                    style: communTextStyle20textColor,
-                    textDirection: TextDirection.rtl,
+                  Spacer(), // Add space between buttons
+                  TextButton(
+                    onPressed: () => Navigator.pop(context),
+                    child: Text(
+                      'إلغاء',
+                      style: communTextStyle20textColor,
+                      textDirection: TextDirection.rtl,
+                    ),
                   ),
-                ),
-                Consumer<ArticlesController>(
-                  builder: (context,ac,child) {
-                    return TextButton(
-                      onPressed: () async{
-                        ac.UpdateDescription(_longTextController.text);
-                        ac.UpdateName(_titleController.text);
-                        if(_titleController.text==null||_longTextController.text==null){
-                          EasyLoading.showError("Please Fill all Required Field");
-                        }
-                        else{
-                          EasyLoading.show(status: 'Loading....');
-                          final state=await articlesController.uploadArticle(ac.name,ac.description) ;//ac.addArticle(_titleController.text, _longTextController.text, bytes);
-                          if(state==201)
-                            EasyLoading.showSuccess('تم حفظ نوع المقالة الجديدة');
-                          else
-                            EasyLoading.showError('Something went wrong');
-                          Navigator.pop(context);
+                  Consumer<MenuAppController>(
+                      builder: (context,mc,child) {
+                      return Consumer<ArticlesController>(
+                          builder: (context,ac,child) {
+                          return TextButton(
+                            onPressed: () async{
+                              ac.UpdateDescription(_longTextController.text);
+                              ac.UpdateName(_titleController.text);
+                              if(_titleController.text==null||_longTextController.text==null){
+                                EasyLoading.showError("Please Fill all Required Field");
+                              }
+                              else{
+                                EasyLoading.show(status: 'Loading....');
+                                final state=await articlesController.uploadArticle(ac.name,ac.description) ;//ac.addArticle(_titleController.text, _longTextController.text, bytes);
+                                if(state==201) {
+                                  EasyLoading.showSuccess('تم حفظ المقالة الجديدة');
+                                  //Navigator.pop(context);
 
+                                } else
+                                  EasyLoading.showError('Something went wrong');
+                                //Navigator.pop(context);
+                                Navigator.pop(context);
+                                updateIndexCallback();
+
+
+                              }
+                            },
+                            child: Text(
+                              'تأكيد',
+                              style: communTextStyle20textColor,
+                              textDirection: TextDirection.rtl,
+                            ),
+                          );
                         }
-                      },
-                      child: Text(
-                        'تأكيد',
-                        style: communTextStyle20textColor,
-                        textDirection: TextDirection.rtl,
-                      ),
-                    );
-                  }
-                ),
-              ],
-            ),
-          ],
+                      );
+                    }
+                  ),
+                ],
+              ),
+            ],
+          ),
         ),
       );
     },

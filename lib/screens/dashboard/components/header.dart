@@ -222,49 +222,55 @@ class _SearchFieldState extends State<SearchField> {
                     borderSide: BorderSide.none,
                     borderRadius: const BorderRadius.all(Radius.circular(10)),
                   ),
-                  suffixIcon: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      DropdownButton<String>(
-                        value: _selectedFilter,
-                        icon: Icon(Icons.arrow_drop_down),
-                        iconSize: 24,
-                        elevation: 16,
-                        style: communTextStyle20white, // Assuming this is your text style
-                        underline: Container(
-                          height: 2,
-                          color: Colors.transparent,
-                        ),
-                        onChanged: (String? newValue) {
-                          setState(() {
-                            _selectedFilter = newValue!;
-                          });
-                          pc.Update_selectedFilter(_selectedFilter);
-                          pc.UpdateSearchValue(newValue); // Update search value in controller
-                        }, items: _filters.map<DropdownMenuItem<String>>((String value) {
-                        return DropdownMenuItem<String>(
-                          value: value,
-                          child: Text(value),
-                        );
-                      }).toList(),
-                          dropdownColor: textColor,
-                      ),
-                      Consumer<MenuAppController>(
-                        builder: (context,mAC,child) {
-                          return IconButton(
-                            icon: Icon(Icons.search),
-                            onPressed: () {
-                              final searchTerm = _searchController.text;
-                              if(pc.selectedFilter==null)pc.Update_selectedFilter("عن طريق الاسم");
-                              print("Search: ${pc.selectedFilter} - $searchTerm");
+                  suffixIcon: Consumer<MenuAppController>(
+                      builder: (context,mAC,child) {
+                      return Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          DropdownButton<String>(
+                            value: _selectedFilter,
+                            icon: Icon(Icons.arrow_drop_down),
+                            iconSize: 24,
+                            elevation: 16,
+                            style: communTextStyle20white, // Assuming this is your text style
+                            underline: Container(
+                              height: 2,
+                              color: Colors.transparent,
+                            ),
+                            onChanged: (String? newValue) {
+                              setState(() {
+                                _selectedFilter = newValue!;
+                              });
                               pc.Update_selectedFilter(_selectedFilter);
-                              pc.UpdateSearchValue(searchTerm);
+                              pc.UpdateSearchValue(newValue);
                               mAC.UpdateScreenIndex(9);
-                            }, // Call separate onSearch function
-                          );
-                        }
-                      ),
-                    ],
+// Update search value in controller
+                            }, items: _filters.map<DropdownMenuItem<String>>((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(value),
+                            );
+                          }).toList(),
+                              dropdownColor: textColor,
+                          ),
+                          Consumer<MenuAppController>(
+                            builder: (context,mAC,child) {
+                              return IconButton(
+                                icon: Icon(Icons.search),
+                                onPressed: () {
+                                  final searchTerm = _searchController.text;
+                                  if(pc.selectedFilter==null)pc.Update_selectedFilter("عن طريق الاسم");
+                                  print("Search: ${pc.selectedFilter} - $searchTerm");
+                                  pc.Update_selectedFilter(_selectedFilter);
+                                  pc.UpdateSearchValue(searchTerm);
+                                  mAC.UpdateScreenIndex(9);
+                                  }, // Call separate onSearch function
+                              );
+                            }
+                          ),
+                        ],
+                      );
+                    }
                   ),
                 ),
               );

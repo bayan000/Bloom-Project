@@ -71,8 +71,8 @@ List complaint_list_item = [
 class complaintModelForFullInfo {
   String? projectName;
   String? investorName;
-  int? id;
+  int? id,pId;
   String? updatedAt,createdAt,description;
 
 
-  complaintModelForFullInfo({this.description,this.projectName,this.investorName,this.id,this.updatedAt,this.createdAt});}
+  complaintModelForFullInfo({this.pId,this.description,this.projectName,this.investorName,this.id,this.updatedAt,this.createdAt});}

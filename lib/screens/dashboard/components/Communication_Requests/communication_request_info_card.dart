@@ -1,18 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/provider.dart';
 
 import '../../../../constants.dart';
+import '../../../../controllers/MenuAppController.dart';
+import '../../../../controllers/ProjectsController.dart';
+import '../../../../models/project_list.dart';
 
 
 class communicationRequestInfoCard extends StatelessWidget {
   const communicationRequestInfoCard({
-    Key? key, required this.created_at, required this.investor_name, required this.project_name, required this.status, this.id, this.inv_email, this.inv_phone, this.wName, this.wEmail, this.wPhone,
+    Key? key,
+    required this.created_at,
+    required this.pId,
+    required this.investor_name, required this.project_name, required this.status, this.id, this.inv_email, this.inv_phone, this.wName, this.wEmail, this.wPhone,
 
 
   }) : super(key: key);
 
   final String? created_at,investor_name,project_name,inv_email,inv_phone,wName,wEmail,wPhone;
-  final int? status,id;
+  final int? status,id,pId;
 
 
   @override
@@ -47,12 +54,27 @@ class communicationRequestInfoCard extends StatelessWidget {
                         ),
                       ),
                       SizedBox(width: defaultPadding),
-                      Text(
-                        "$project_name",
-                        style:TextStyle(color: white,
-                            fontFamily: 'font1',
-                            fontSize: 22
-                        ),
+                      Consumer<MenuAppController>(
+                          builder: (context,mc,child) {
+                          return Consumer<ProjectsController>(
+                              builder: (context,pc,child) {
+                              return InkWell(
+                                onTap: (){
+                                  pc.pressed=1;
+                                  pc.curr_project(Project(id: pId));
+                                  mc.UpdateScreenIndex(0);
+                                },
+                                child: Text(
+                                  "$project_name",
+                                  style:TextStyle(color: white,
+                                      fontFamily: 'font1',
+                                      fontSize: 22
+                                  ),
+                                ),
+                              );
+                            }
+                          );
+                        }
                       ),
                     ],
                   ),

@@ -46,7 +46,7 @@ class TransactionInfoCard extends StatelessWidget {
 
                   Text(
                     name,
-                    maxLines: 1,
+                    maxLines: null,
                     overflow: TextOverflow.ellipsis,
                     style:TextStyle(color: white,
                       fontFamily: 'font1',
@@ -80,6 +80,8 @@ class TransactionInfoCard extends StatelessWidget {
                                   },
                                 child: Text(
                                   "$pName",
+                                  maxLines: null,
+                                  overflow: TextOverflow.ellipsis,
                                   style:TextStyle(color: white,
                                     fontFamily: 'font1',
                                     fontSize: 22,
@@ -111,6 +113,8 @@ class TransactionInfoCard extends StatelessWidget {
                       SizedBox(width: defaultPadding),
                       Text(
                         "$price",
+                        maxLines: null,
+                        overflow: TextOverflow.ellipsis,
                         style:TextStyle(color: white,
                           fontFamily: 'font1',
                           fontSize: 22,

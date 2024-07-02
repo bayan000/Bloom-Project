@@ -14,6 +14,7 @@ class MenuAppController extends ChangeNotifier {
   UpdateScreenIndex(var index){
     this.screenIndex=index;
     notifyListeners();
+    print("Screen INDEX IS "+index.toString()+ " NOW");
     return index;
   }
 }
