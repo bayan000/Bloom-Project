@@ -1,4 +1,4 @@
-/*
+
 
 import 'dart:convert';
 import 'package:get_storage/get_storage.dart';
@@ -12,18 +12,20 @@ class ComplaintsService {
   static var project;
   static var Investor;
   static var id;
-  //
+
   static Future<List<complaintModelForFullInfo>> fetchComplaints(String url) async {
     CommunicationRequestsController communicationRequestsController=CommunicationRequestsController();
     InvestorController investorController=InvestorController();
     List<complaintModelForFullInfo> comlist=[];
-
-    final response = await http.get(Uri.parse("https://noor-demo-store.webmyidea.com/api/admin/complaints/"), headers: {
-      'Authorization': 'Bearer ${GetStorage().read('token')}',
+    //print("hi"+ " ${GetStorage().read('token')}");
+    final response = await http.get(Uri.parse(url), headers: {
+      'Authorization':'Bearer  ${GetStorage().read('token')}',
+      'Content-Type':'application/json',
       'Accept':'application/json',
     });
 
     if (response.statusCode == 200) {
+      print("thanks God");
       final json = jsonDecode(response.body) as Map<String, dynamic>;
       final complaints = Complaints.fromJson(json);
       print(complaints.complaint![0].description);
@@ -37,10 +39,31 @@ class ComplaintsService {
       }
       return comlist;
     } else {
-      print(response.body);
+      print(response.reasonPhrase);
       throw Exception('Failed to fetch complaints: ${response.statusCode}');
     }
   }
+  /*static Future<List<complaintModelForFullInfo>> fetchComplaints(String url) async {
+    CommunicationRequestsController communicationRequestsController=CommunicationRequestsController();
+    var headers = {
+      'Accept': 'application/json',
+      'Authorization': 'Bearer  ${GetStorage().read('token')}'
+    };
+    var request = http.Request('GET', Uri.parse('https://noor-demo-store.webmyidea.com/api/admin/complaints/'));
+
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      print(await response.stream.bytesToString());
+    }
+    else {
+      print(response.reasonPhrase);
+    }
+    List<complaintModelForFullInfo> coms=[];
+return coms;
+  }*/
 
 //********************* Deleting Complaint *********************************//
 
@@ -66,10 +89,9 @@ class ComplaintsService {
   }
 
 }
-*/
+
 /*
 
-*/
 import 'dart:convert';
 import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart' as http;
@@ -89,11 +111,12 @@ class ComplaintsService {
     List<complaintModelForFullInfo> comlist=[];
 
     final response = await http.get(Uri.parse(url), headers: {
-      'Authorization': 'Bearer ${GetStorage().read('token')}',
+      'Authorization': 'Bearer  ${GetStorage().read('token')}',
       'Accept': 'application/json',
     });
 
     if (response.statusCode == 200) {
+      print("here we are");
       final json = jsonDecode(response.body) as Map<String, dynamic>;
       final complaints = Complaints.fromJson(json);
       print(complaints.complaint![0].description);
@@ -107,6 +130,8 @@ class ComplaintsService {
       }
       return comlist;
     } else {
+      print(response.reasonPhrase);
+
       throw Exception('Failed to fetch complaints: ${response.statusCode}');
     }
   }
@@ -135,3 +160,4 @@ class ComplaintsService {
   }
 
 }
+*/

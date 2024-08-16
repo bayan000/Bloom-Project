@@ -8,7 +8,6 @@ import 'controllers/transactionsController.dart';
 
 
 const defaultPadding = 16.0;
-
 const Color white = Colors.white;
 const Color black = Colors.black;
 const Color red = Colors.red;
@@ -19,6 +18,7 @@ const Color textColor = Color(0xFF556F44);
 Color fieldColor = Color(0xFFE8E8E8);
 Color cardColor = Color(0xFFF3F3F3);
 const Color primaryColor = Color(0xFF659B5E);//Color(0xFF2697FF);
+Color iconColor = Color(0xFF9BA6BB);
 const Color secondaryColor = Color(0xFF92A78E);//buttonColorOpa;
 const Color bgColor = Color(0xFF556F44);//Color(0xFF212332);
 TextStyle communTextStyle20textColor=TextStyle(color: textColor,
@@ -41,7 +41,6 @@ TextStyle communTextStyle34textColor=TextStyle(color: textColor,
   fontSize: 32,
   fontWeight: FontWeight.bold,
 );
-
 TextStyle communTextStyle20white=TextStyle(color: white,
   fontFamily: 'font1',
   fontSize: 18,
@@ -82,8 +81,7 @@ Widget MyContainer(double? width,Color color, String text, String title,style)=>
     padding: EdgeInsets.all(defaultPadding),
     width: width,
     decoration: BoxDecoration(
-      color: color
-      ,
+      color: color,
       borderRadius: const BorderRadius.all(Radius.circular(10)),
     ),
     child: Column(

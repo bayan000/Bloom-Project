@@ -12,6 +12,7 @@ import 'package:admin/controllers/transactionsRequestsController.dart';
 import 'package:admin/controllers/workerInfoController.dart';
 import 'package:admin/controllers/workersController.dart';
 import 'package:admin/screens/Login/login_screen.dart';
+import 'package:admin/screens/dashboard/components/Chat/test.dart';
 import 'package:admin/screens/dashboard/components/test_widget.dart';
 import 'package:admin/screens/main/main_screen.dart';
 import 'package:flutter/material.dart';
@@ -68,7 +69,7 @@ class MyApp extends StatelessWidget {
           child: new Directionality(textDirection: TextDirection.rtl,
               child:GetStorage().hasData('token') ? //TestWidget():
               MainScreen() :
-              LoginPage()// MainScreen()
+              LoginPage()//
           )//MainScreen(),
       ),
     );

@@ -145,8 +145,8 @@ class ProjectsController extends ChangeNotifier{
   //fetchUnacceptedProjects------------------------------------------
 
   Future<List<Project>> fetchAllUnacceptedProjects() async{
-    projects=await ProjectsService.getProjects(ServerConfig.getAllUnacceptedProjects);
-    return await ProjectsService.getProjects(ServerConfig.getAllUnacceptedProjects);
+    projects=await ProjectsService.getUnacceptedProjects(ServerConfig.getAllUnacceptedProjects);
+    return await ProjectsService.getUnacceptedProjects(ServerConfig.getAllUnacceptedProjects);
   }
   //AddType------------------------------------------
   Future<int> addProjectType(name) async{

@@ -298,6 +298,7 @@ void _showTextInputDialog(BuildContext context) {
 
 import 'dart:convert';
 import 'dart:io';
+import 'dart:math';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
@@ -450,8 +451,7 @@ DataRow ArticleDataRow(Article article,BuildContext context) {
                   children: [
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
-                      child: Text(article.name!,style: communTextStyle24black,overflow: TextOverflow.ellipsis,),
-                    ),
+                      child: WordLimitedText(text: article.name!, maxWords: 5,),)
                   ],
                 ),
               );
@@ -491,21 +491,6 @@ void _showTextInputDialog(BuildContext context,Function updateIndexCallback) {
   var picPath;
   var picker;
   var bytes;
-  // Function to handle image selection (replace with your implementation)
-  /*Future<Uint8List?> _pickImage() async {
-
-    picker = ImagePicker();
-    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
-    if (pickedFile != null) {
-      final imageFile = File(pickedFile.path);
-        bytes = await imageFile.readAsBytes();
-      return bytes;
-    } else {
-      return null; // Handle the case where no image is selected
-    }
-
-    //}
-  }*/
 
   showDialog(
     context: context,
@@ -603,4 +588,26 @@ void _showTextInputDialog(BuildContext context,Function updateIndexCallback) {
     },
   );
 
+}
+class WordLimitedText extends StatelessWidget {
+  final String text;
+  final int maxWords;
+
+  const WordLimitedText({super.key, required this.text, required this.maxWords});
+
+  String truncateText(String text, int maxWords) {
+    final words = text.split(' ');
+    return words.take(min(maxWords, words.length)).join(' ');
+
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    var truncatedText = truncateText(text , maxWords);
+    final words = truncatedText.split(' ');
+    if (words.length>=maxWords)
+      truncatedText=truncatedText+"...";
+    print(truncatedText);
+    return Text(truncatedText,style: communTextStyle24black,overflow: TextOverflow.fade,maxLines: 1,);
+  }
 }

@@ -3,6 +3,7 @@ import 'package:admin/responsive.dart';
 import 'package:admin/screens/dashboard/components/Articles/article_details.dart';
 import 'package:admin/screens/dashboard/components/Articles/articles_list.dart';
 import 'package:admin/screens/dashboard/components/Canvas.dart';
+import 'package:admin/screens/dashboard/components/Chat/chat_body.dart';
 import 'package:admin/screens/dashboard/components/Communication_Requests/communication_request_details.dart';
 import 'package:admin/screens/dashboard/components/Communication_Requests/communication_requests_list.dart';
 import 'package:admin/screens/dashboard/components/Complaints/complaint_details.dart';
@@ -48,7 +49,15 @@ class DashboardScreen extends StatelessWidget {
         child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            Header(),
+          Consumer<MenuAppController>(
+          builder: (context,mAC,child){
+
+            if (mAC.screenIndex==12)
+              return SizedBox(height: defaultPadding,);
+            else return Header();
+
+          }
+            ),
             SizedBox(height: defaultPadding),
             Consumer<MenuAppController>(
             builder: (context,mAC,child) {
@@ -87,7 +96,9 @@ class DashboardScreen extends StatelessWidget {
                   ],
                 );
 
-              } else  if (mAC.screenIndex==1)
+              }
+
+              else  if (mAC.screenIndex==1)
               {
                 return Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -399,8 +410,18 @@ class DashboardScreen extends StatelessWidget {
                   ],
                 );
               }
-              //if mAC.screenIndex==12 ~ then we're viewing  projects
-               else   {
+              // then we're chatting
+
+              else if(mAC.screenIndex==12)   {
+                return Column(
+                  children: [
+                    ChatBody(),
+                  ],
+                );
+              }
+              //if mAC.screenIndex==13 ~ then we're viewing  projects
+
+              else{
                 return Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -455,7 +476,7 @@ class DashboardScreen extends StatelessWidget {
                               fontWeight: FontWeight.bold,)),
                             ReportChart(),
                             SizedBox(height: defaultPadding,),
-                            Text('لا يوجد مستخدمين أو مشاريع في بقية الأشهر',style: communTextStyle20white,),
+                           // Text('لا يوجد مستخدمين أو مشاريع في بقية الأشهر',style: communTextStyle20white,),
 
 
                           ],
@@ -463,8 +484,11 @@ class DashboardScreen extends StatelessWidget {
                       ),
                   ],
                 );
+
               }
+
 //Canvas
+
             })
           ],
         ),

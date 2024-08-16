@@ -6,14 +6,14 @@ import 'package:flutter/material.dart';
 import '../Config/server_config.dart';
 
 class WorkersController extends ChangeNotifier {
-  List<Worker> investors=[];
+  List<Worker> workers=[];
   Worker? selectedWorker;// To store the fetched investor
   Worker currWorker=Worker();
 //fetchInvestors--------------------------------
   Future<List<Worker>> fetchWorkers() async{
-    investors=await WorkersService.fetchWorkers(ServerConfig.url+ServerConfig.getAllWorkers);//fetchInvestors(ServerConfig.url+ServerConfig.getAllInvestors);
+    workers=await WorkersService.fetchWorkers(ServerConfig.url+ServerConfig.getAllWorkers);
 
-    return investors;
+    return workers;
   }
 
   curr_Worker(Worker worker){

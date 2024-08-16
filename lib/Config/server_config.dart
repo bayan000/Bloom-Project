@@ -1,8 +1,8 @@
 class ServerConfig{
   //flutter run -d chrome --web-browser-flag "--disable-web-security"
 
-  static String url = "https://grad2222.000webhostapp.com/api/";
-  //static String url = "https://noor-demo-store.webmyidea.com/api/";
+  //static String url = "https://grad2222.000webhostapp.com/api/";
+  static String url = "https://noor-demo-store.webmyidea.com/api/";
   /***********************************************************/
   //Authorization----
   static String logIn = "admin/login";
@@ -10,8 +10,6 @@ class ServerConfig{
 
   //Projects---------'
   static String getAllUnacceptedProjects = "admin/projects";
-  //https://noor-demo-store.webmyidea.com/api/admin/projects
-  //static String getAllProjects = "projects/";
   static String getAllProjects = "projects/";
   static String getAProject = "projects/";
   static String AddNewProjectType = "admin/Type";
@@ -38,12 +36,12 @@ class ServerConfig{
   static String getAWorker = "admin/users/showForAdmin/";
 
   //CommunicationRequests----------
-  static String getAllCommunicationRequests = "admin/communications/";
+  static String getAllCommunicationRequests = "admin/communications";
   static String getACommunicationRequest = "admin/communications/";
   static String acceptCommunicationRequests ="admin/communications/acceptRequest/";
 
   //Complaints----------
-  static String getComplaints = "admin/complaints/";
+  static String getComplaints = "admin/complaints";
   static String deleteComplaint = "admin/complaints/delete/";
 
   //Transactions
@@ -73,57 +71,12 @@ class ServerConfig{
   //https://grad2222.000webhostapp.com/api/admin/reports/1/1
   static String getARreport="admin/reports/";
   static String getAProjectRreports="reports/";// /id
-/*{
-    "data": [
-        {
-            "id": 1,
-            "report_title": "dcdddd",
-            "achieved_goals_summary": "kkkkkkk",
-            "unachieved_goals_summary": "iiiii",
-            "investor_amount": "99999.00",
-            "total_revenue": "9.00",
-            "total_costs": "9898.00",
-            "net_profit": "989.00",
-            "net_profit_employer": "98989.00",
-            "net_profit_investor": "9090.00",
-            "received_materials": "jhjhj",
-            "material_price": "656.00",
-            "total_sales": "878.00",
-            "overall_net_profit": "89.00",
-            "maintenance_amount": "545.00",
-            "wages_and_transactions_amount": "8989.00",
-            "main_recommendations": "تتتتتتتتتتتتتت",
-            "project_id": 1,
-            "user_id": 1,
-            "created_at": "2024-05-20T09:53:03.000000Z",
-            "updated_at": "2024-05-20T09:53:03.000000Z"
-        },
-        {
-            "id": 2,
-            "report_title": "dcdddd",
-            "achieved_goals_summary": "kkkkkkk",
-            "unachieved_goals_summary": "iiiii",
-            "investor_amount": "99999.00",
-            "total_revenue": "9.00",
-            "total_costs": "9898.00",
-            "net_profit": "989.00",
-            "net_profit_employer": "98989.00",
-            "net_profit_investor": "9090.00",
-            "received_materials": "jhjhj",
-            "material_price": "656.00",
-            "total_sales": "878.00",
-            "overall_net_profit": "89.00",
-            "maintenance_amount": "545.00",
-            "wages_and_transactions_amount": "8989.00",
-            "main_recommendations": "تتتتتتتتتتتتتت",
-            "project_id": 1,
-            "user_id": 1,
-            "created_at": "2024-05-20T09:54:21.000000Z",
-            "updated_at": "2024-05-20T09:54:21.000000Z"
-        }
-    ],
-    "message": "OK",
-    "status": 200
-}*/
+
+
+  //chat
+  static String getUsersWithUnseenMessages= "admin/users-with-unseen-messages";
+  static String getInvestorsWithUnseenMessages= "admin/investors-with-unseen-messages";
+  static String getIndex= "admin/indexAdmin";
+  static String sendMessage= "admin/sendMessage";
 
 }

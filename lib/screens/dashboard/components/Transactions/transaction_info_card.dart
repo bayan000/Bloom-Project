@@ -55,7 +55,7 @@ class TransactionInfoCard extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: defaultPadding),
-                  Row(
+                  Column(
                     mainAxisAlignment: MainAxisAlignment.center,
 
                     children: [

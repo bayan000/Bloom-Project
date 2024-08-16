@@ -13,70 +13,7 @@ import 'package:http/http.dart' as http;
 
 
 class ProjectsService{
-  //********************* Fetching Projects *********************************//
 
-  static Future<List<Project>> getProjects(String url1) async {
-    ProjectsController projectsController=ProjectsController();
-    final response = await http.get(Uri.parse(ServerConfig.url+"admin/projects"),headers: {
-      'Authorization':'Bearer  ${GetStorage().read('token')}',
-      'content-Type':'application/json',
-    });
-
-    if (response.statusCode == 200) {
-      print("hey hey hey");
-      final jsonBody = json.decode(response.body) as Map<String, dynamic>;
-      final projectsData = jsonBody['data'] as List<dynamic>;
-      final projects = projectsData.map((projectData) => Project.fromJson(projectData)).toList();
-      print("here");
-      print(response.body);
-      /*for(int i=0;i<projects.length;i++)
-        {
-          await projectsController.fetchProjectTypeName(2);
-          print(projects[i].pType!);
-        }*/
-
-      print("here too");
-
-      return projects;
-    } else {
-      //print(response.body);
-      print(response.reasonPhrase);
-
-      print(response.statusCode.toString() +" fetching projects");
-      throw Exception('Failed to fetch projects');
-    }
-  }
-  static Future<List<Project>> getUnacceptedProjects(String url1) async {
-    ProjectsController projectsController=ProjectsController();
-    final response = await http.get(Uri.parse(ServerConfig.url+"admin/projects"),headers: {
-      'Authorization':'Bearer  ${GetStorage().read('token')}',
-      'content-Type':'application/json',
-    });
-
-    if (response.statusCode == 200) {
-      print("hey hey hey");
-      final jsonBody = json.decode(response.body) as Map<String, dynamic>;
-      final projectsData = jsonBody['data'] as List<dynamic>;
-      final projects = projectsData.map((projectData) => Project.fromJson(projectData)).toList();
-      print("here");
-      print(response.body);
-      /*for(int i=0;i<projects.length;i++)
-        {
-          await projectsController.fetchProjectTypeName(2);
-          print(projects[i].pType!);
-        }*/
-
-      print("here too");
-
-      return projects;
-    } else {
-      //print(response.body);
-      print(response.reasonPhrase);
-
-      print(response.statusCode.toString() +" fetching projects");
-      throw Exception('Failed to fetch projects');
-    }
-  }
 
 //********************* Adding Project Type *********************************//
   static Future<int> AddProjectType(String url, String name) async {
@@ -254,13 +191,68 @@ import '../models/TransactionsForEachProject.dart';
 import '../models/project_list.dart';
 import 'package:http/http.dart' as http;
 
+/*  static Future<List<Project>> getProjects(String url1) async {
 
+    ProjectsController projectsController=ProjectsController();
+    final response = await http.get(Uri.parse(ServerConfig.url+"projects/"),headers: {
+      'Authorization':'Bearer  ${GetStorage().read('token')}',
+      'Accept':'application/json',
+'Content-type':'application/json',
+//'Host':'<calculated when request is sent>',
+});
+
+if (response.statusCode == 200) {
+print("hey hey hey");
+final jsonBody = json.decode(response.body) as Map<String, dynamic>;
+final projectsData = jsonBody['data'] as List<dynamic>;
+final projects = projectsData.map((projectData) => Project.fromJson(projectData)).toList();
+print("here");
+print(response.body);
+/*for(int i=0;i<projects.length;i++)
+        {
+          await projectsController.fetchProjectTypeName(2);
+          print(projects[i].pType!);
+        }*/
+
+print("here too");
+return projects;
+} else {
+//print(response.body);
+print(response.reasonPhrase);
+print(response.statusCode.toString() +" fetching projects");
+throw Exception('Failed to fetch projects');
+}
+}
+*/
 class ProjectsService{
   //********************* Fetching Projects *********************************//
-
-  static Future<List<Project>> getProjects(String url) async {
+  static Future<List<Project>> getProjects(String url1) async {
     ProjectsController projectsController=ProjectsController();
-    final response = await http.get(Uri.parse(ServerConfig.url+url),headers: {
+    final response = await http.get(Uri.parse(ServerConfig.url+"projects"),headers: {
+      'Authorization':'Bearer  ${GetStorage().read('token')}',
+      'content-Type':'application/json',
+    });
+
+    if (response.statusCode == 200) {
+      //print("hi"+ " ${GetStorage().read('token')}");
+
+      final jsonBody = json.decode(response.body) as Map<String, dynamic>;
+      final projectsData = jsonBody['data'] as List<dynamic>;
+      final projects = projectsData.map((projectData) => Project.fromJson(projectData)).toList();
+
+      return projects;
+    } else {
+      print(response.reasonPhrase);
+
+      print(response.statusCode.toString() +" fetching projects");
+      throw Exception('Failed to fetch projects');
+    }
+  }
+
+
+  static Future<List<Project>> getUnacceptedProjects(String url1) async {
+    ProjectsController projectsController=ProjectsController();
+    final response = await http.get(Uri.parse(ServerConfig.url+"admin/projects"),headers: {
       'Authorization':'Bearer  ${GetStorage().read('token')}',
       'content-Type':'application/json',
     });
@@ -282,7 +274,10 @@ class ProjectsService{
 
       return projects;
     } else {
-      print(response.body);
+      //print(response.body);
+      print(response.reasonPhrase);
+
+      print(response.statusCode.toString() +" fetching projects");
       throw Exception('Failed to fetch projects');
     }
   }
@@ -339,7 +334,6 @@ class ProjectsService{
 
     final response = await http.get(Uri.parse(url),headers: {
       'Authorization':'Bearer  ${GetStorage().read('token')}',
-//'content-Type':'application/json',
       'Accept':'application/json',
     });
     print(response.body);

@@ -1,4 +1,4 @@
-/*
+
 import 'package:admin/controllers/MenuAppController.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -138,8 +138,8 @@ DataRow projectDataRow(Project project) {
       )
     ],
   );
-}*/
-
+}
+/*
 import 'package:admin/controllers/MenuAppController.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -276,4 +276,4 @@ DataRow projectDataRow(Project project) {
       )
     ],
   );
-}
+}*/

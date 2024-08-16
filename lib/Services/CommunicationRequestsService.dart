@@ -94,12 +94,15 @@ class CommunicationRequestsService {
   //********************* Fetching CommunicationRequests *********************************//
   static Future<List<CommunicationRequestModelForFullInfo>> fetchCommunicationRequests(
       String url) async {
+    print("let us start");
+
     CommunicationRequestsController communicationRequestsController=CommunicationRequestsController();
     InvestorController investorController=InvestorController();
     List<CommunicationRequestModelForFullInfo> comlist=[];
-    final response = await http.get(Uri.parse(url), headers: {
-      'Authorization': 'Bearer ${GetStorage().read('token')}',
-      'Accept': 'application/json',
+    final response = await http.get(Uri.parse('https://noor-demo-store.webmyidea.com/api/admin/communications'), headers: {
+      'Authorization':'Bearer  ${GetStorage().read('token')}',
+      'Content-Type':'application/json',
+      'Accept':'application/json',
     });
     final statusCode = response.statusCode;
     final body = await response.body;
@@ -120,11 +123,14 @@ class CommunicationRequestsService {
       }
       return comlist;
     } else {
-      print(response.body);
+      print(response.reasonPhrase);
+      print(statusCode);
+
       throw Exception('Failed to fetch communication requests: $statusCode');
     }
 
   }
+
 
   //********************* Accept CommunicationRequest *********************************//
 
@@ -134,7 +140,6 @@ class CommunicationRequestsService {
       'Authorization':'Bearer  ${GetStorage().read('token')}',
       'Accept':'application/json',
     });
-    print(response.body);
 
     if (response.statusCode == 200) {
 

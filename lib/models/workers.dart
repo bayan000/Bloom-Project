@@ -35,6 +35,7 @@ class Worker {
   String? email;
   int? verified;
   String? otp;
+  String? deviceToken;
   String? phone;
   String? location;
   String? iDCard;
@@ -52,6 +53,7 @@ class Worker {
         this.email,
         this.verified,
         this.otp,
+        this.deviceToken,
         this.phone,
         this.location,
         this.iDCard,
@@ -69,6 +71,7 @@ class Worker {
     email = json['email'];
     verified = json['verified'];
     otp = json['otp'];
+    deviceToken = json['device_token'];
     phone = json['phone'];
     location = json['location'];
     iDCard = json['iD_card'];
@@ -88,6 +91,7 @@ class Worker {
     data['email'] = this.email;
     data['verified'] = this.verified;
     data['otp'] = this.otp;
+    data['device_token'] = this.deviceToken;
     data['phone'] = this.phone;
     data['location'] = this.location;
     data['iD_card'] = this.iDCard;
@@ -99,26 +103,3 @@ class Worker {
     return data;
   }
 }
-class user2{
-  final String? first_name,otp,last_name,user_type,email,property_deed,clean_record,location,iD_card,personal_photo,created_at,updated_at,phone;
-  int verified;
-  user2({this.property_deed, this.clean_record,
-    this.created_at,this.updated_at,
-    this.location,this.phone,this.first_name,this.email,this.last_name,
-    this.iD_card,required this.otp,this.personal_photo,this.user_type,required this.verified
-  });
-}
-List user2_list_item = [
-  user2(
-    verified: 1,
-    otp: "0000",
-    location: "دمشق",
-    phone: "0987654321",
-    first_name: "فلان",
-    last_name: "الفلاني",
-    email: "user@gmail.com",
-    personal_photo: "photo",
-    user_type: "investor",
-
-  ),
-];

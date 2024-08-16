@@ -8,6 +8,7 @@ import '../../../../constants.dart';
 import '../../../../controllers/MenuAppController.dart';
 import '../../../../models/Articles.dart';
 import '../../../../models/complaints.dart';
+import '../Articles/articles_list.dart';
 
 class ComplaintsList extends StatelessWidget {
   const ComplaintsList({
@@ -114,13 +115,9 @@ ComplaintsController complaintsController=ComplaintsController();
                 children: [
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
-                    child: Text(complaint.description!,
-                      style: communTextStyle24black,
-                      overflow: TextOverflow.ellipsis,),
-                  ),
+                    child: WordLimitedText(text:complaint.description!, maxWords: 5,),)
                 ],
-              ),
-            );
+              ),            );
           }
         ),
       ),

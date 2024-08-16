@@ -107,11 +107,13 @@ import '../models/report.dart';
 class ReportsService{
   //********************* Fetching Reports *********************************//
   static Future<List<Report>> getReports(String url) async {
-    final response = await http.get(Uri.parse(url),headers: {
+    final response = await http.get(Uri.parse('https://noor-demo-store.webmyidea.com/api/admin/reports'),headers: {
       'Authorization':'Bearer  ${GetStorage().read('token')}',
-      'content-Type':'application/json',
+      'Content-Type':'application/json',
+      'Accept':'application/json',
     });
     if (response.statusCode == 200) {
+      print("reports 200");
       final jsonBody = json.decode(response.body) as Map<String, dynamic>;
       final ReortsData = jsonBody['data'] as List<dynamic>;
       final reports = ReortsData.map((projectData) => Report.fromJson(projectData)).toList();
@@ -122,6 +124,7 @@ class ReportsService{
       }
       return reports;
     } else {
+      print("The reason: "+ response.reasonPhrase.toString());
       throw Exception('Failed to fetch reports: ${response.statusCode}');
     }
   }

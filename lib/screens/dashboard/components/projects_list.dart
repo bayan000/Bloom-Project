@@ -1,4 +1,4 @@
-/*
+
 import 'package:admin/controllers/transactionsController.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -161,7 +161,7 @@ class ProjectsList extends StatelessWidget {
                       final r = await projectsController.deleteProject(project.id);
                       if (r == 200) {
                         EasyLoading.showSuccess("Done");
-                        mc.UpdateScreenIndex(0);
+                        mc.UpdateScreenIndex(13);
                       } else
                         EasyLoading.showError('Something must have gone wrong');
                     });
@@ -256,7 +256,7 @@ void _showTextInputDialog(BuildContext context,id) {
       );
     },
   );
-}}*/
+}}/*
 
 import 'package:admin/controllers/transactionsController.dart';
 import 'package:flutter/material.dart';
@@ -512,4 +512,4 @@ class ProjectsList extends StatelessWidget {
         );
       },
     );
-  }}
+  }}*/
