@@ -1,17 +1,61 @@
 
+import 'dart:async';
+
 import 'package:admin/screens/dashboard/components/Chat/chat_body.dart';
 import 'package:admin/screens/dashboard/components/Chat/custom_divider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:pusher_channels_flutter/pusher_channels_flutter.dart';
 
 import '../../../../constants.dart';
+import '../../../../controllers/messagesController.dart';
+import '../../../../models/messagesIndex.dart';
 
-class MessageBox extends StatelessWidget {
+class MessageBox extends StatefulWidget {
+  final String id;
+
+  const MessageBox({required this.id});
+
+  @override
+  State<MessageBox> createState() => _MessageBoxState();
+}
+
+class _MessageBoxState extends State<MessageBox> {
+  MessagesController messagesController = MessagesController();
+  Timer? _timer;
+  int _buildCount = 0;// To track build count
+  String id="2";
+  @override
+  void initState() {
+    super.initState();
+    print('hi from initState');
+    _startTimer();
+  }
+
+  void _startTimer() {
+    print("refreshing");
+    _timer = Timer.periodic(const Duration(seconds: 5), (_) {
+      print('timer ticked');
+      setState(() {});
+    });
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
+    _buildCount++;
+    print('built: $_buildCount');
     Size size =MediaQuery.of(context).size;
-
-    return Container(
-
+    if(messagesController.uesRtype==null)
+    {
+      messagesController.UpdateIndexOfUser(2.toString(),"user",DateTime.now(),10.toString());
+    }
+      return Container(
       padding: EdgeInsets.all(25),
       child: Row(
         children: [
@@ -44,113 +88,113 @@ class MessageBox extends StatelessWidget {
                       Text(
                         "يمكنك التواصل والتعاون مع أصحاب العمل والمستثمرين بسهولة\n"
                             "ناقش المشاريع..\n"
-                            "ولا تنس أننا موجودون دائماً لتقديم الدعم.\n",
+                            "ولا تنسَ أننا موجودون دائماً لتقديم الدعم.\n",
                         style: communTextStyle20white
 
                       ),
                       SizedBox(height: 20),
-                      Container(
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            CircleAvatar(),
-                            SizedBox(width: 10),
-                            Column(
-                              mainAxisSize:  MainAxisSize.min,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Flexible(
-                                    flex: 1,
-                                    fit: FlexFit.loose,
-                                    child: _buildMessage("رائع سنحظى بالكثير من الربح")),
-                                Flexible(flex: 1,
-                                    fit: FlexFit.loose,child: _buildMessage(" اطلعت على ال business canvas")),
-                                Flexible(flex: 1,
-                                    fit: FlexFit.loose,child: _buildMessage("بالتوفيق")),
-                              ],
-                            )
-                          ],
-                        ),
+                      FutureBuilder<List<Message>?>(
+                        future: messagesController.getMessages(id.toString(),messagesController.uesRtype,DateTime.now().toString(),messagesController.limit),
+                        builder: (context, snapshot) {
+
+                          if (snapshot.hasError) {
+                            return Center(child: Text('Error !', style: TextStyle(fontSize: 20)));
+                          }
+
+                          if (snapshot.hasData) {
+                            var messagess = messagesController.messages;
+                            final messages = messagess!.reversed.toList();
+                            final List<Widget> messageWidgets = [];
+                            for (final message in messages) {
+                              if (message.senderType == "admin") {
+                                messageWidgets.add(
+                                  Container(
+                                    child: ListView.builder(
+                                      shrinkWrap: true,
+                                      itemCount: 1,
+                                      itemBuilder: (context, index) {
+                                        return Row(
+                                          crossAxisAlignment: CrossAxisAlignment.end,
+                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          children: [
+                                            SizedBox(width: 10),
+                                            Column(
+                                              mainAxisSize: MainAxisSize.min,
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                Flexible(
+                                                  flex: 1,
+                                                  fit: FlexFit.loose,
+                                                  child: _buildMessage(message.content!,size.width),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                );
+                              } else {
+                                messageWidgets.add(
+                                  Container(
+                                    child: ListView.builder(
+                                      shrinkWrap: true,
+                                      itemCount: 1,
+                                      itemBuilder: (context, index) {
+                                        return Row(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          mainAxisAlignment: MainAxisAlignment.end,
+                                          children: [
+                                            Column(
+                                              mainAxisSize: MainAxisSize.min,
+                                              crossAxisAlignment: CrossAxisAlignment.end,
+                                              children: [
+                                                Flexible(
+                                                  flex: 1,
+                                                  fit: FlexFit.loose,
+                                                  child: _buildMessage(
+                                                    message.content!,size.width,
+                                                    isSend: true,
+                                                  ),
+                                                ),
+                                                SizedBox(width: 10),
+                                              ],
+                                            ),
+                                          ],
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                );
+                              }
+                            }
+
+                            // Ensure at least an empty widget is returned
+                            return messageWidgets.isNotEmpty ? Column(children: messageWidgets) : Container();
+                          } else {
+                            // This shouldn't be reached due to the previous checks, but handle it for safety
+                            return Container();
+                          }
+                        },
                       ),
 
-                      Container(
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Column(
-                              mainAxisSize:  MainAxisSize.min,
-
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: [
-                                 //Text('hi'),
-                                Flexible(
-                                  flex: 1,
-                                  fit: FlexFit.loose,
-                                  child: _buildMessage(
-                                    "شكراً على التعاون",
-                                    isSend: true,
-                                  ),
-                                ),
-                               Flexible(
-                                  flex: 1,
-                                  fit: FlexFit.loose,
-                                  child: _buildMessage(
-                                    "سنلتقي قريباً بإذن الله",
-                                    isSend: true,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            SizedBox(width: 10),
-                            CircleAvatar(),
-                          ],
-                        ),
-                      ),
                     ],
                   ),
                   SizedBox(height: defaultPadding,),
-                  //from here
-                  Container(
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: TextFormField(
-
-                            decoration: InputDecoration(
-                              filled: true, // This enables the filled property
-                              fillColor: Colors.grey[350],
-                              hintText: "Write message..",
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                            ),
-                          ),
-                        ),
-                        IconButton(
-                          icon: Icon(
-                            Icons.send_rounded,
-                            color: white,
-                          ),
-                          onPressed: () {},
-                        ),
-                      ],
-                    ),
-                  )
 
                 ],
               ),
             ),
           ),
-          CustomDivider(),
-          SizedBox(width: defaultPadding,),
+
 
         ],
       ),
     );
   }
 
-  Container _buildMessage(String message, {bool isSend = false}) {
+  Container _buildMessage(String message,double width, {bool isSend = false}) {
     return Container(
       margin: EdgeInsets.only(bottom: 10),
       decoration: BoxDecoration(
@@ -161,10 +205,12 @@ class MessageBox extends StatelessWidget {
         horizontal: 20,
         vertical: 15,
       ),
-      child: Text(
-        message,
-        style: TextStyle(color: isSend ? textColor : null, fontFamily: 'font1',fontSize: 18,fontWeight: FontWeight.bold),
+      child: ConstrainedBox(
+        constraints: BoxConstraints(maxWidth: width*0.3), // Adjust maxWidth as needed
+        child: Text(
+          message,
+          style: TextStyle(color: isSend ? textColor : null, fontFamily: 'font1', fontSize: 18, fontWeight: FontWeight.bold),
+        ),
       ),
     );
-  }
-}
+  }}

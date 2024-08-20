@@ -95,10 +95,7 @@ class TransactionRequestDetails extends StatelessWidget {
                                     else{
                                       return Image.network(
                                         snapshot.data!.data!.receipt!,
-                                        fit: BoxFit.cover,
-                                        errorBuilder: (context, error, stackTrace) {
-                                          return Text('Error loading image'); // Handle network errors
-                                        },
+                                        fit: BoxFit.fill,
                                       );
                                     }
 

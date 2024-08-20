@@ -78,7 +78,7 @@ class Message {
 }
 class ChatModel {
   String content;
-  int receiver_id;
+  String receiver_id;
   String receiver_type;
 
   ChatModel({

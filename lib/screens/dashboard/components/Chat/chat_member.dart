@@ -1,8 +1,11 @@
 
-import 'package:admin/models/investor.dart';
+import 'package:admin/controllers/messagesController.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import '../../../../models/usersWithUnseenMessages.dart';
+/*
 class ChatMember extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -91,51 +94,65 @@ class ChatMember extends StatelessWidget {
       ),
     );
   }
-}
+}*/
 
-class MemberCard extends StatelessWidget {
+class InvestorMemeberCard extends StatefulWidget {
   final Investors inv;
   final bool showJob;
   final Widget? trailing;
-
-  const MemberCard({Key? key, this.showJob = false, required this.inv, required this.trailing}) : super(key: key);
+  const InvestorMemeberCard({Key? key, this.showJob = false, required this.inv, required this.trailing}) : super(key: key);
 
   @override
+  State<InvestorMemeberCard> createState() => _InvestorMemeberCardState();
+}
+
+class _InvestorMemeberCardState extends State<InvestorMemeberCard> {
+  @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+    MessagesController messagesController=MessagesController();
     return Container(
       margin: EdgeInsets.only(bottom: 20),
-      child: ListTile(
-        onTap: () {},
-        title: Padding(
-          padding: const EdgeInsets.only(bottom: 8),
-          child: Text(
-            inv.firstName!+" "+inv.lastName!,
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
+      child: Column(
+        children: [
+          ListTile(
+            onTap: () {
+             messagesController.UpdateIndexOfUser(widget.inv.id,"investor",DateTime.now().toString(),10);
+            },
+            title: Padding(
+              padding: const EdgeInsets.only(bottom: 8),
+              child: Text(
+                widget.inv.firstName!+" "+widget.inv.lastName!,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ),
-          ),
-        ),
-        leading: Container(
-          height: 50,
-          width: 50,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            image: DecorationImage(
-              fit: BoxFit.cover,
-              image: inv.location != null ?NetworkImage(inv.personalPhoto!):NetworkImage("https://cdn.pixabay.com/photo/2022/10/19/01/02/woman-7531315_1280.png"),
+            leading: Container(
+              height: 50,
+              width: 50,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                image: DecorationImage(
+                  fit: BoxFit.cover,
+                  image: widget.inv.personalPhoto != null ?NetworkImage(widget.inv.personalPhoto!):NetworkImage("https://cdn.pixabay.com/photo/2022/10/19/01/02/woman-7531315_1280.png"),
+                ),
+              ),
             ),
+            trailing: widget.inv.unseenMessagesCount! > 0 ? buildUnreadCount(widget.inv.unseenMessagesCount!) : widget.trailing ?? Text(""), // Display unread count if available, otherwise use existing trailing widget
+            subtitle: widget.inv.location != null ? Text(widget.inv.location!) : Text(''),
           ),
-        ),
-        trailing: inv.unseenMessagesCount! > 0 ? buildUnreadCount(inv.unseenMessagesCount!) : trailing ?? Text(""), // Display unread count if available, otherwise use existing trailing widget
-        subtitle: inv.location != null ? Text(inv.location!) : Text(''),
+        ],
       ),
     );
   }
+/*
+*/
 
   Widget buildUnreadCount(int count) {
     return Stack(
       children: [
-        if (trailing != null) trailing!, // Show existing trailing widget if present
+        if (widget.trailing != null) widget.trailing!, // Show existing trailing widget if present
         Positioned(
           top: 0,
           right: 0,
@@ -164,131 +181,91 @@ class MemberCard extends StatelessWidget {
 
 
 
+class UsersMemeberCard extends StatefulWidget {
+  final Users users;
+  final bool showJob;
+  final Widget? trailing;
 
-List<Investors> investors = [
-  Investors(
-    personalPhoto:"",
-    firstName: "سامية",
-    lastName: "محمد",
-    location: "دمشق",
-    unseenMessagesCount: 1
+  const UsersMemeberCard({Key? key, this.showJob = false, required this.users, required this.trailing}) : super(key: key);
 
-  ),
-  Investors(personalPhoto:
-    "https://images.unsplash.com/photo-1599566150163-29194dcaad36?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80",
-    firstName:"يمنى",
-    lastName: "المصري",
-    location: "دمشق",
-      unseenMessagesCount: 0
-  ),
-  Investors(personalPhoto:
-  "https://images.unsplash.com/photo-1607746882042-944635dfe10e?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80",
-    firstName:"سامية",
-    lastName: "محمد",
-    location: "دمشق",
-      unseenMessagesCount: 10
-  ),
-];
-
-class InvestorsWithUnread {
-  bool? status;
-  List<Investors>? investors;
-
-  InvestorsWithUnread({this.status, this.investors});
-
-  InvestorsWithUnread.fromJson(Map<String, dynamic> json) {
-    status = json['status'];
-    if (json['investors'] != null) {
-      investors = <Investors>[];
-      json['investors'].forEach((v) {
-        investors!.add(new Investors.fromJson(v));
-      });
-    }
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['status'] = this.status;
-    if (this.investors != null) {
-      data['investors'] = this.investors!.map((v) => v.toJson()).toList();
-    }
-    return data;
-  }
+  @override
+  State<UsersMemeberCard> createState() => _UsersMemeberCardState();
 }
 
-class Investors {
-  int? id;
-  String? firstName;
-  String? lastName;
-  String? userType;
-  String? email;
-  int? verified;
-  String? password;
-  String? otp;
-  String? deviceToken;
-  String? phone;
-  String? location;
-  String? iDCard;
-  String? personalPhoto;
-  String? createdAt;
-  String? updatedAt;
-  int? unseenMessagesCount;
+class _UsersMemeberCardState extends State<UsersMemeberCard> {
+  @override
+  Widget build(BuildContext context) {
+    //MessagesController messagesController=MessagesController();
+    Size size = MediaQuery.of(context).size;
 
-  Investors(
-      {this.id,
-        this.firstName,
-        this.lastName,
-        this.userType,
-        this.email,
-        this.verified,
-        this.password,
-        this.otp,
-        this.deviceToken,
-        this.phone,
-        this.location,
-        this.iDCard,
-        this.personalPhoto,
-        this.createdAt,
-        this.updatedAt,
-        this.unseenMessagesCount});
-
-  Investors.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    firstName = json['first_name'];
-    lastName = json['last_name'];
-    userType = json['user_type'];
-    email = json['email'];
-    verified = json['verified'];
-    password = json['password'];
-    otp = json['otp'];
-    deviceToken = json['device_token'];
-    phone = json['phone'];
-    location = json['location'];
-    iDCard = json['iD_card'];
-    personalPhoto = json['personal_photo'];
-    createdAt = json['created_at'];
-    updatedAt = json['updated_at'];
-    unseenMessagesCount = json['unseen_messages_count'];
+    return Container(
+      margin: EdgeInsets.only(bottom: 20),
+      child: Column(
+        children: [
+          Consumer<MessagesController>(
+            builder: (context,messagesController,child) {
+              return ListTile(
+                onTap: () {
+                  var id=widget.users.id;
+                  messagesController.UpdateIndexOfUser(id.toString(),"user",DateTime.now().toString(),10.toString());
+                  print(messagesController.uesRtype+"userrrr" + messagesController.useRID +"idddddddd" + messagesController.lastMessageTime +messagesController.limit);
+                },
+                title: Padding(
+                  padding: const EdgeInsets.only(bottom: 8),
+                  child: Text(
+                    widget.users.firstName!+" "+widget.users.lastName!,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                leading: Container(
+                  height: 50,
+                  width: 50,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    image: DecorationImage(
+                      fit: BoxFit.cover,
+                      image: widget.users.personalPhoto != null ?NetworkImage(widget.users.personalPhoto!):NetworkImage("https://cdn.pixabay.com/photo/2022/10/19/01/02/woman-7531315_1280.png"),
+                    ),
+                  ),
+                ),
+                trailing: widget.users.unseenMessagesCount! > 0 ? buildUnreadCount(widget.users.unseenMessagesCount!) : widget.trailing ?? Text(""), // Display unread count if available, otherwise use existing trailing widget
+                subtitle: widget.users.location != null ? Text(widget.users.location!) : Text(''),
+              );
+            }
+          ),
+        ],
+      ),
+    );
   }
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['first_name'] = this.firstName;
-    data['last_name'] = this.lastName;
-    data['user_type'] = this.userType;
-    data['email'] = this.email;
-    data['verified'] = this.verified;
-    data['password'] = this.password;
-    data['otp'] = this.otp;
-    data['device_token'] = this.deviceToken;
-    data['phone'] = this.phone;
-    data['location'] = this.location;
-    data['iD_card'] = this.iDCard;
-    data['personal_photo'] = this.personalPhoto;
-    data['created_at'] = this.createdAt;
-    data['updated_at'] = this.updatedAt;
-    data['unseen_messages_count'] = this.unseenMessagesCount;
-    return data;
+  Widget buildUnreadCount(int count) {
+    return Stack(
+      children: [
+        if (widget.trailing != null) widget.trailing!, // Show existing trailing widget if present
+        Positioned(
+          top: 0,
+          right: 0,
+          child: Container(
+            decoration: BoxDecoration(
+              color: Colors.green,
+              borderRadius: BorderRadius.circular(10.0),
+            ),
+            padding: EdgeInsets.all(5.0),
+            constraints: BoxConstraints(minWidth: 16, minHeight: 16), // Set minimum size
+            child: Text(
+              count.toString(),
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 12.0,
+                fontWeight: FontWeight.bold,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ),
+        ),
+      ],
+    );
   }
 }

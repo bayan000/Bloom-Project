@@ -9,9 +9,18 @@ class MessagesService {
   MessagesService();
   List<Message> model = <Message>[];
 
-  Future<List<Message>> getMessages() async {
+
+
+  Future<List<Message>> getMessages(String receiver_id,String receiver_type,String last_message_time,String limit) async {
+    print("getting messages..");
     var response = await http.post(
       Uri.parse(ServerConfig.url + ServerConfig.getIndex),
+      body: {
+        "receiver_id":receiver_id,
+        "receiver_type":receiver_type,
+        "last_message_time": last_message_time,
+        "limit": limit,
+      },
       headers: {
         'Authorization': 'Bearer ${GetStorage().read('token')}',
         'Accept': 'application/json',
@@ -19,39 +28,16 @@ class MessagesService {
     );
 
     if (response.statusCode == 200) {
+      print("yes yes");
       var data = json.decode(response.body) as Map<String, dynamic>;
       List<dynamic> messages = data['messages'];
+      if (data['messages']!=null) {
+        print("yes yes");
 
+      }
       return messages.map((messageData) => Message.fromJson(messageData)).toList();
     } else {
-      return [];
-    }
-  }
-  // Add the following method to fetch older messages
-  Future<List<Message>> getOlderMessages(String token, DateTime lastMessageDate, int receiver_id,String receiver_type) async {
-    var response = await http.post(
-      Uri.parse(ServerConfig.url + ServerConfig.getIndex),
-      headers: {
-        'Authorization': 'Bearer ${GetStorage().read('token')}',
-        'Accept': 'application/json',
-      },
-      body: {
-        'last_message_date': lastMessageDate.toIso8601String(),  // Pass the date of the last message
-        'receiver_id':2,
-        'receiver_type':"user",
-
-      },
-    );
-    print(response.statusCode);
-    if (response.statusCode == 200) {
-      var r = await json.decode((response.body));
-      Map<String, dynamic> s = r;
-      List<dynamic> messages = s['messages'];
-      for (var i in messages) {
-        model.insert(0, Message.fromJson(i));  // Insert older messages at the beginning
-      }
-      return model;
-    } else {
+      print("no");
       return [];
     }
   }
@@ -60,7 +46,7 @@ class MessagesService {
     var response = await http.post(
       Uri.parse(ServerConfig.url + ServerConfig.sendMessage),
       body: {
-        "receiver_id":model.receiver_id,
+        "receiver_id":model.receiver_id.toString(),
         "receiver_type":model.receiver_type,
         "content": model.content,
       },
@@ -71,6 +57,7 @@ class MessagesService {
     );
 
     if (response.statusCode == 200 || response.statusCode == 201) {
+      print("cool");
       return true;
     } else if (response.statusCode == 404) {
       message = "Something wrong!";
@@ -88,6 +75,7 @@ class MessagesService {
     },);
 
     if (response.statusCode == 200) {
+      print("all good");
       final data = json.decode(response.body);
       return InvestorsWithUnseenMessages.fromJson(data);
     } else {
@@ -102,12 +90,12 @@ class MessagesService {
       'Authorization': 'Bearer ${GetStorage().read('token')}',
       'Accept': 'application/json',
     },);
-
     if (response.statusCode == 200) {
+      print("all good");
       final data = json.decode(response.body);
       return UsersWithUnseenMessages.fromJson(data);
-    } else {
-      // Handle API errors
+    }
+    else {
       print('Error getting investors Messages: ${response.statusCode}');
       return null;
     }

@@ -79,4 +79,10 @@ class ServerConfig{
   static String getIndex= "admin/indexAdmin";
   static String sendMessage= "admin/sendMessage";
 
+
+  //Meeting and appointments
+
+
+//https://noor-demo-store.webmyidea.com/api/admin/Meeting/
+//https://noor-demo-store.webmyidea.com/api/admin/Appointment
 }

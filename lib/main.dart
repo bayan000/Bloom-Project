@@ -7,12 +7,12 @@ import 'package:admin/controllers/articles_controller.dart';
 import 'package:admin/controllers/comreqController.dart';
 import 'package:admin/controllers/investor_controller.dart';
 import 'package:admin/controllers/login_controller.dart';
+import 'package:admin/controllers/messagesController.dart';
 import 'package:admin/controllers/transactionsController.dart';
 import 'package:admin/controllers/transactionsRequestsController.dart';
 import 'package:admin/controllers/workerInfoController.dart';
 import 'package:admin/controllers/workersController.dart';
 import 'package:admin/screens/Login/login_screen.dart';
-import 'package:admin/screens/dashboard/components/Chat/test.dart';
 import 'package:admin/screens/dashboard/components/test_widget.dart';
 import 'package:admin/screens/main/main_screen.dart';
 import 'package:flutter/material.dart';
@@ -44,6 +44,7 @@ void main() async{
         ChangeNotifierProvider(create: (_) =>TransactionsController()),
         ChangeNotifierProvider(create: (_) =>TransactionsRequestsController()),
         ChangeNotifierProvider(create: (_) =>StatisticsController()),
+        ChangeNotifierProvider(create: (_) =>MessagesController()),
       ],
         child: MyApp(),)
   );

@@ -4,6 +4,7 @@ import 'package:admin/controllers/aninvestorController.dart';
 import 'package:admin/models/CommunicationRequests.dart';
 import 'package:flutter/material.dart';
 
+import '../../../Services/messages_service.dart';
 import '../../../controllers/ProjectsController.dart';
 
 class TestWidget extends StatefulWidget {
@@ -19,7 +20,7 @@ class _TestWidgetState extends State<TestWidget> {
   // Define your functions here
   void function1() async{
     print("Function 1 executed!");
-    await projectsController.SearchForProjectsByName("نجار");
+    await MessagesService().getMessages(2.toString(),"user",DateTime.now().toString(),30.toString());//projectsController.SearchForProjectsByName("نجار");
     //await complaintsController.fetchComplaints();
     //await communicationRequestsController.fetchCommunicationRequests();
 
