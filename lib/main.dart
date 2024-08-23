@@ -3,6 +3,7 @@ import 'package:admin/controllers/MenuAppController.dart';
 import 'package:admin/controllers/ProjectsController.dart';
 import 'package:admin/controllers/ReportsController.dart';
 import 'package:admin/controllers/StatisticsController.dart';
+import 'package:admin/controllers/appointments_controller.dart';
 import 'package:admin/controllers/articles_controller.dart';
 import 'package:admin/controllers/comreqController.dart';
 import 'package:admin/controllers/investor_controller.dart';
@@ -45,6 +46,7 @@ void main() async{
         ChangeNotifierProvider(create: (_) =>TransactionsRequestsController()),
         ChangeNotifierProvider(create: (_) =>StatisticsController()),
         ChangeNotifierProvider(create: (_) =>MessagesController()),
+        ChangeNotifierProvider(create: (_) =>AppointmentsController()),
       ],
         child: MyApp(),)
   );

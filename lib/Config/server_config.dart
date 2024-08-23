@@ -8,7 +8,7 @@ class ServerConfig{
   static String logIn = "admin/login";
   static String logOut = "admin/logout";
 
-  //Projects---------'
+  //Projects---------
   static String getAllUnacceptedProjects = "admin/projects";
   static String getAllProjects = "projects/";
   static String getAProject = "projects/";
@@ -81,8 +81,9 @@ class ServerConfig{
 
 
   //Meeting and appointments
+  static String getMyAppointments= "admin/Appointment/";
+
 
 
 //https://noor-demo-store.webmyidea.com/api/admin/Meeting/
-//https://noor-demo-store.webmyidea.com/api/admin/Appointment
 }

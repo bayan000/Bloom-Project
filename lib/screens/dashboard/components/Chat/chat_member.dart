@@ -110,37 +110,43 @@ class _InvestorMemeberCardState extends State<InvestorMemeberCard> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    MessagesController messagesController=MessagesController();
+    //MessagesController messagesController=MessagesController();
     return Container(
       margin: EdgeInsets.only(bottom: 20),
       child: Column(
         children: [
-          ListTile(
-            onTap: () {
-             messagesController.UpdateIndexOfUser(widget.inv.id,"investor",DateTime.now().toString(),10);
-            },
-            title: Padding(
-              padding: const EdgeInsets.only(bottom: 8),
-              child: Text(
-                widget.inv.firstName!+" "+widget.inv.lastName!,
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
+          Consumer<MessagesController>(
+            builder: (context,messagesController,child) {
+              return ListTile(
+                onTap: () {
+                 var id=widget.inv.id;
+                 messagesController.UpdateIndexOfUser(id.toString(),"investor",DateTime.now().toString(),10.toString());
+                 print(messagesController.uesRtype+" investor " + messagesController.useRID +" id " + messagesController.lastMessageTime +messagesController.limit);
+                },
+                title: Padding(
+                  padding: const EdgeInsets.only(bottom: 8),
+                  child: Text(
+                    widget.inv.firstName!+" "+widget.inv.lastName!,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ),
-              ),
-            ),
-            leading: Container(
-              height: 50,
-              width: 50,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                image: DecorationImage(
-                  fit: BoxFit.cover,
-                  image: widget.inv.personalPhoto != null ?NetworkImage(widget.inv.personalPhoto!):NetworkImage("https://cdn.pixabay.com/photo/2022/10/19/01/02/woman-7531315_1280.png"),
+                leading: Container(
+                  height: 50,
+                  width: 50,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
+                    image: DecorationImage(
+                      fit: BoxFit.cover,
+                      image: widget.inv.personalPhoto != null ?NetworkImage(widget.inv.personalPhoto!):NetworkImage("https://cdn.pixabay.com/photo/2022/10/19/01/02/woman-7531315_1280.png"),
+                    ),
+                  ),
                 ),
-              ),
-            ),
-            trailing: widget.inv.unseenMessagesCount! > 0 ? buildUnreadCount(widget.inv.unseenMessagesCount!) : widget.trailing ?? Text(""), // Display unread count if available, otherwise use existing trailing widget
-            subtitle: widget.inv.location != null ? Text(widget.inv.location!) : Text(''),
+                trailing: widget.inv.unseenMessagesCount! > 0 ? buildUnreadCount(widget.inv.unseenMessagesCount!) : widget.trailing ?? Text(""), // Display unread count if available, otherwise use existing trailing widget
+                subtitle: widget.inv.location != null ? Text(widget.inv.location!) : Text(''),
+              );
+            }
           ),
         ],
       ),

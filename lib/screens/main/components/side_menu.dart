@@ -95,6 +95,12 @@ class SideMenu extends StatelessWidget {
             press: () {mAC.UpdateScreenIndex(12);
             print(mAC.screenIndex);},
           ),
+          DrawerListTile(
+            title: "المواعيد",
+            svgSrc: "assets/icons/menu_store.svg",
+            press: () {mAC.UpdateScreenIndex(20);
+            print(mAC.screenIndex);},
+          ),
         ],
       ),
     );});

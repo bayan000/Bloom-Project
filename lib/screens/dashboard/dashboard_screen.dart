@@ -29,6 +29,8 @@ import 'package:provider/provider.dart';
 
 import '../../constants.dart';
 import '../../controllers/MenuAppController.dart';
+import 'components/Appointment/appointments_list.dart';
+import 'components/Appointment/scheduled_appointments.dart';
 import 'components/SearchList.dart';
 import 'components/Statistics/projectsChart.dart';
 import 'components/Transactions/transactions_details_list.dart';
@@ -416,8 +418,41 @@ class DashboardScreen extends StatelessWidget {
                 return Column(
                   children: [
                     ChatBody(),
+
                   ],
                 );
+              }
+              else if(mAC.screenIndex==20){
+                return Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(
+                        flex: 4,//5,
+                        child:  Column(
+                          children: [
+                            SizedBox(height: defaultPadding),
+                            AppointmentsList(),
+                            if (Responsive.isMobile(context))
+                              SizedBox(height: defaultPadding),
+
+                          ],
+                        )
+                    ),
+                    if (!Responsive.isMobile(context))
+                      SizedBox(width: defaultPadding),
+                    // On Mobile means if the screen is less than 850 we don't want to show it
+                    if (!Responsive.isMobile(context))
+                      Expanded(
+                          flex: 3,
+                          child: Column(
+                            children: [
+                              SizedBox(height: defaultPadding,),
+                              ScheduledAppointments(),
+                            ],
+                          ))
+                  ],
+                );
+
               }
               //if mAC.screenIndex==13 ~ then we're viewing  projects
 
@@ -442,7 +477,7 @@ class DashboardScreen extends StatelessWidget {
                       SizedBox(width: defaultPadding),
                     // On Mobile means if the screen is less than 850 we don't want to show it
                     if (!Responsive.isMobile(context))
-                      Expanded(
+                    Expanded(
                         flex: 2,
                         child: Column(
                           children: [

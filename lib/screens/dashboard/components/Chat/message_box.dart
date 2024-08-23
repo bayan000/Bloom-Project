@@ -23,7 +23,7 @@ class MessageBox extends StatefulWidget {
 class _MessageBoxState extends State<MessageBox> {
   MessagesController messagesController = MessagesController();
   Timer? _timer;
-  int _buildCount = 0;// To track build count
+  int _buildCount = 0;
   String id="2";
   @override
   void initState() {
@@ -54,6 +54,7 @@ class _MessageBoxState extends State<MessageBox> {
     if(messagesController.uesRtype==null)
     {
       messagesController.UpdateIndexOfUser(2.toString(),"user",DateTime.now(),10.toString());
+      print("updated index of user");
     }
       return Container(
       padding: EdgeInsets.all(25),
@@ -93,90 +94,100 @@ class _MessageBoxState extends State<MessageBox> {
 
                       ),
                       SizedBox(height: 20),
-                      FutureBuilder<List<Message>?>(
-                        future: messagesController.getMessages(id.toString(),messagesController.uesRtype,DateTime.now().toString(),messagesController.limit),
-                        builder: (context, snapshot) {
-
-                          if (snapshot.hasError) {
-                            return Center(child: Text('Error !', style: TextStyle(fontSize: 20)));
+                      Consumer<MessagesController>(
+                        builder: (context,mc,child) {
+                          if(mc.uesRtype==null)
+                          {
+                            mc.UpdateIndexOfUser(2.toString(),"user",DateTime.now(),10.toString());
+                            print("updated index of user");
                           }
-
-                          if (snapshot.hasData) {
-                            var messagess = messagesController.messages;
-                            final messages = messagess!.reversed.toList();
-                            final List<Widget> messageWidgets = [];
-                            for (final message in messages) {
-                              if (message.senderType == "admin") {
-                                messageWidgets.add(
-                                  Container(
-                                    child: ListView.builder(
-                                      shrinkWrap: true,
-                                      itemCount: 1,
-                                      itemBuilder: (context, index) {
-                                        return Row(
-                                          crossAxisAlignment: CrossAxisAlignment.end,
-                                          mainAxisAlignment: MainAxisAlignment.start,
-                                          children: [
-                                            SizedBox(width: 10),
-                                            Column(
-                                              mainAxisSize: MainAxisSize.min,
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              children: [
-                                                Flexible(
-                                                  flex: 1,
-                                                  fit: FlexFit.loose,
-                                                  child: _buildMessage(message.content!,size.width),
-                                                ),
-                                              ],
-                                            ),
-                                          ],
-                                        );
-                                      },
-                                    ),
-                                  ),
-                                );
-                              } else {
-                                messageWidgets.add(
-                                  Container(
-                                    child: ListView.builder(
-                                      shrinkWrap: true,
-                                      itemCount: 1,
-                                      itemBuilder: (context, index) {
-                                        return Row(
-                                          crossAxisAlignment: CrossAxisAlignment.start,
-                                          mainAxisAlignment: MainAxisAlignment.end,
-                                          children: [
-                                            Column(
-                                              mainAxisSize: MainAxisSize.min,
-                                              crossAxisAlignment: CrossAxisAlignment.end,
-                                              children: [
-                                                Flexible(
-                                                  flex: 1,
-                                                  fit: FlexFit.loose,
-                                                  child: _buildMessage(
-                                                    message.content!,size.width,
-                                                    isSend: true,
-                                                  ),
-                                                ),
-                                                SizedBox(width: 10),
-                                              ],
-                                            ),
-                                          ],
-                                        );
-                                      },
-                                    ),
-                                  ),
-                                );
+                          //
+                          //bloom-c2e5f
+                          //
+                          return FutureBuilder<List<Message>?>(
+                            future: messagesController.getMessages(mc.useRID.toString(),messagesController.uesRtype,DateTime.now().toString(),messagesController.limit),
+                            builder: (context, snapshot) {
+                              print("index of user is "+ mc.useRID);
+                              if (snapshot.hasError) {
+                                return Center(child: Text('Error !', style: TextStyle(fontSize: 20)));
                               }
-                            }
 
-                            // Ensure at least an empty widget is returned
-                            return messageWidgets.isNotEmpty ? Column(children: messageWidgets) : Container();
-                          } else {
-                            // This shouldn't be reached due to the previous checks, but handle it for safety
-                            return Container();
-                          }
-                        },
+                              if (snapshot.hasData) {
+                                var messagess = messagesController.messages;
+                                final messages = messagess!.reversed.toList();
+                                final List<Widget> messageWidgets = [];
+                                for (final message in messages) {
+                                  if (message.senderType == "admin") {
+                                    messageWidgets.add(
+                                      Container(
+                                        child: ListView.builder(
+                                          shrinkWrap: true,
+                                          itemCount: 1,
+                                          itemBuilder: (context, index) {
+                                            return Row(
+                                              crossAxisAlignment: CrossAxisAlignment.end,
+                                              mainAxisAlignment: MainAxisAlignment.start,
+                                              children: [
+                                                SizedBox(width: 10),
+                                                Column(
+                                                  mainAxisSize: MainAxisSize.min,
+                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                                  children: [
+                                                    Flexible(
+                                                      flex: 1,
+                                                      fit: FlexFit.loose,
+                                                      child: _buildMessage(message.content!,size.width),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ],
+                                            );
+                                          },
+                                        ),
+                                      ),
+                                    );
+                                  } else {
+                                    messageWidgets.add(
+                                      Container(
+                                        child: ListView.builder(
+                                          shrinkWrap: true,
+                                          itemCount: 1,
+                                          itemBuilder: (context, index) {
+                                            return Row(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              mainAxisAlignment: MainAxisAlignment.end,
+                                              children: [
+                                                Column(
+                                                  mainAxisSize: MainAxisSize.min,
+                                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                                  children: [
+                                                    Flexible(
+                                                      flex: 1,
+                                                      fit: FlexFit.loose,
+                                                      child: _buildMessage(
+                                                        message.content!,size.width,
+                                                        isSend: true,
+                                                      ),
+                                                    ),
+                                                    SizedBox(width: 10),
+                                                  ],
+                                                ),
+                                              ],
+                                            );
+                                          },
+                                        ),
+                                      ),
+                                    );
+                                  }
+                                }
+                                return messageWidgets.isNotEmpty ? Column(children: messageWidgets) : Container();
+                              } else {
+                                // This shouldn't be reached due to the previous checks, but handle it for safety
+                                return Container();
+                              }
+                            },
+                          );
+                        }
                       ),
 
                     ],

@@ -9,8 +9,6 @@ class MessagesService {
   MessagesService();
   List<Message> model = <Message>[];
 
-
-
   Future<List<Message>> getMessages(String receiver_id,String receiver_type,String last_message_time,String limit) async {
     print("getting messages..");
     var response = await http.post(
@@ -43,6 +41,8 @@ class MessagesService {
   }
   var message;
   Future<bool> sendMessage(ChatModel model) async {
+    print("sending to "+ model.receiver_id + " which is a " + model.receiver_type);
+
     var response = await http.post(
       Uri.parse(ServerConfig.url + ServerConfig.sendMessage),
       body: {

@@ -27,7 +27,6 @@ class _ChatBodyState extends State<ChatBody> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    final MessagesController messagesController = MessagesController();
     TextEditingController _messageController = TextEditingController();
 
 
@@ -68,18 +67,23 @@ class _ChatBodyState extends State<ChatBody> {
                               ),
                             ),
                           ),
-                          IconButton(
-                            icon: Icon(
-                              Icons.send_rounded,
-                              color: white,
-                            ),
-                            onPressed: () async{
-                              if(messagesController.uesRtype==null)
-                              {
-                                messagesController.UpdateIndexOfUser(2.toString(),"user",DateTime.now(),10.toString());
-                              }
-                              print(messagesController.useRID);
-                              await messagesController.sendMessage(ChatModel(content: _messageController.text, receiver_id: messagesController.useRID, receiver_type: messagesController.uesRtype.toString()));},
+                          Consumer<MessagesController>(
+                            builder: (context,messagesController,child) {
+                              return IconButton(
+                                icon: Icon(
+                                  Icons.send_rounded,
+                                  color: white,
+                                ),
+                                onPressed: () async{
+                                  if(messagesController.uesRtype==null)
+                                  {
+                                    messagesController.UpdateIndexOfUser(2.toString(),"user",DateTime.now(),10.toString());
+                                  }
+                                  //print("will send to"+messagesController.useRID);
+                                 await messagesController.sendMessage(ChatModel(content: _messageController.text, receiver_id: messagesController.useRID, receiver_type: messagesController.uesRtype.toString()));
+                                  },
+                              );
+                            }
                           ),
                         ],
                       ),
@@ -89,6 +93,7 @@ class _ChatBodyState extends State<ChatBody> {
                   ],
                 ),
               ),
+              //try to put this on dashboard
               Expanded(
                 flex: 1,
                 child: Container(
@@ -171,8 +176,8 @@ class _MoreDetailsState extends State<MoreDetails> {
               ),),
         FutureBuilder<InvestorsWithUnseenMessages?>(
         future: messagesController.getInvestorsMessages(),
-    builder: (context,snapshot){
-      if(snapshot.connectionState==ConnectionState.waiting)
+        builder: (context,snapshot){
+        if(snapshot.connectionState==ConnectionState.waiting)
           {
             return Container(
               height: size.height,
@@ -185,7 +190,7 @@ class _MoreDetailsState extends State<MoreDetails> {
                       children: [
                         Column(
                           children: List.generate(
-                            10,
+                                 10,
                                 (index) => Container(color: grey,),
                           ),
                         ),
