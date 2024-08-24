@@ -1,7 +1,6 @@
 class ServerConfig{
   //flutter run -d chrome --web-browser-flag "--disable-web-security"
 
-  //static String url = "https://grad2222.000webhostapp.com/api/";
   static String url = "https://noor-demo-store.webmyidea.com/api/";
   /***********************************************************/
   //Authorization----
@@ -82,8 +81,4 @@ class ServerConfig{
 
   //Meeting and appointments
   static String getMyAppointments= "admin/Appointment/";
-
-
-
-//https://noor-demo-store.webmyidea.com/api/admin/Meeting/
 }

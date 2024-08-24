@@ -82,13 +82,7 @@ print(response.body);
     http.StreamedResponse response = await request.send();
     var responseData = await response.stream.bytesToString();
 
-    /*final Map<String, dynamic> body = {'name': name,'description':description,'image':image};
 
-    final response = await http.post(Uri.parse(url), body: jsonEncode(body),headers: {
-      'Authorization':'Bearer  ${GetStorage().read('token')}',
-      'content-Type':'application/json',
-      'enctype':'multipart/form-data',
-    });*/
     print(responseData);
 
     if (response.statusCode == 201) {
@@ -99,83 +93,9 @@ print(response.body);
       print("Unknown error");
       return 0;
     }
-    /* FormData formData=FormData();
-    formData.files.add(
-      MapEntry('image',await MultipartFile.fromFile(imagesPaths[0]))
-    );
-   Dio().post(
-     url,
-   data: formData,
-     options: Options(
-       headers: {
-         'Authorization':'Bearer  ${GetStorage().read('token')}',
-         'enctype':'multipart/form-data',
-         'Connection': 'keep-alive',
-         "Content-Type":"multipart/form-data"
-       },
-       contentType:'multipart/form-data'
-     )
-   ).then((value) => print(value.data)).catchError((error){
-     print(error);
-   });*/
 
 
-/*
- var headers={
-    'Authorization':'Bearer  ${GetStorage().read('token')}',
-    'enctype':'multipart/form-data',
-    'Connection': 'keep-alive',
-    "Content-Type":"multipart/form-data"
-    };
- var request= http.MultipartRequest('Post', Uri.parse(url));
- Uint8List data =await imagesPaths.readAsBytes();
- List<int> list= data.cast();
- request.fields.addAll({
-   'description': description,
-   'name':name
- });
- request.files.add(http.MultipartFile.fromBytes('image', list,filename: 'name.png'));
-
- var response= await request.send();
- response.stream.bytesToString().asStream().listen((event) {
-   print("ho ho ho");
-   //var parsedJson=json.decode(event);
-   print("ho ho ho");
-  // print(parsedJson);
-   print("ho ho ho");
-print(response.stream.bytesToString());
-   print(response.statusCode);
- });  if (response.statusCode == 201) {
-
-print("cool");
- } else {
-   print("Oh, oh");*/
  }
- /////////////////////////////
-/*
-       final bytes = image.readAsBytesSync();
-    final Map<String, dynamic> body = {'name': name,'description':description,
-      'image':bytes
-    };
-print("start");
-    final response = await http.post(Uri.parse(url), body: jsonEncode(body),,
-        encoding: Encoding.getByName("utf-8")
-
-    );
-
-  print('response.body');
-  print(response.body);
-
-    if (response.statusCode == 201) {
-
-      return response.statusCode;
-
-    } else {
-      print("here's a break down");
-      print(response.body);
-      return 0;
-    }
-*/
 
 
 // Delete an article----------------------------------------------

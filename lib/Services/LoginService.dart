@@ -1,15 +1,3 @@
-/*import 'dart:convert';
-import 'package:http/http.dart' as http;
-
-
-
-
-String url = 'https://your-api-endpoint.com/login'; // Replace with your actual URL
-String email = 'user@example.com';
-String password = 'your_password';
-
-
-*/
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';

@@ -28,10 +28,8 @@ class ReportsController extends ChangeNotifier{
   }
   //fetchReport------------------------------------------
   Future<Report> fetchReport(var Pid,var Rid) async{
-  //https://grad2222.000webhostapp.com/api/admin/reports/1/1
     print(Pid.toString());
     print(Rid.toString());
-    //  static String getARreport="admin/reports/";
     report=(await ReportsService.getReportInformation(ServerConfig.url+ServerConfig.getARreport+Pid.toString()+"/"+Rid.toString()))!;
     return report;
   }

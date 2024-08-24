@@ -45,18 +45,9 @@ class MyButton extends StatelessWidget {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(radius),
           ),
-          // يمكنك تعيين قيم للظلال هنا
           elevation: 10, // قيمة التعريف يمكن تعديلها حسب الحاجة
           shadowColor: Colors.black, // لون ا
-          // لظل
-          // boxShadow: [
-          //   BoxShadow(
-          //     color: Colors.black.withOpacity(0.5),
-          //     spreadRadius: 2, // انتشار الظل
-          //     offset: Offset(0, 5), // تحديد الزاوية والاتجاه
-          //     blurRadius: 10, // وضوح الظل
-          //   ),
-          // ],
+
         ),
       ),
     );

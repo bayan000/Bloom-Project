@@ -1,14 +1,4 @@
-/*Expanded(
-                flex: 1,
-                child: Container(
-                  width: size.width * 0.24,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Expanded(child: MoreDetails()),
-                ),
-              ),*/
+
 
 import 'package:admin/controllers/messagesController.dart';
 import 'package:admin/screens/dashboard/components/Chat/chat_member.dart';
